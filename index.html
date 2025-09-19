@@ -1,0 +1,1557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garvit Gupta - AI & Machine Learning Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            /* Enhanced color system with better contrast and harmony */
+            --bg-primary: #0a0b0f;
+            --bg-secondary: #141820;
+            --bg-card: rgba(20, 24, 32, 0.95);
+            --bg-glass: rgba(255, 255, 255, 0.08);
+            --bg-glass-strong: rgba(255, 255, 255, 0.12);
+            
+            /* Improved text colors with better contrast */
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --text-accent: #6366f1;
+            
+            /* Enhanced borders */
+            --border-subtle: rgba(148, 163, 184, 0.15);
+            --border-strong: rgba(148, 163, 184, 0.25);
+            
+            /* Refined gradients with smoother transitions */
+            --gradient-primary: linear-gradient(135deg, #4f46e5 0%, #7c3aed 35%, #c026d3 70%, #e879f9 100%);
+            --gradient-secondary: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 50%, #6366f1 100%);
+            --gradient-accent: linear-gradient(135deg, #f59e0b 0%, #f97316 50%, #ef4444 100%);
+            
+            /* Improved shadows with better depth */
+            --shadow-glow: 0 0 50px rgba(99, 102, 241, 0.25);
+            --shadow-card: 0 20px 40px rgba(0, 0, 0, 0.4);
+            --shadow-card-hover: 0 25px 50px rgba(99, 102, 241, 0.15);
+            
+            /* Additional utility colors */
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --info: #3b82f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Enhanced animated background with better contrast */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(800px circle at 20% 30%, rgba(79, 70, 229, 0.12), transparent),
+                radial-gradient(1000px circle at 80% 70%, rgba(124, 58, 237, 0.08), transparent),
+                radial-gradient(600px circle at 40% 80%, rgba(192, 38, 211, 0.06), transparent),
+                radial-gradient(400px circle at 60% 20%, rgba(14, 165, 233, 0.05), transparent);
+        }
+
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .floating-element {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+            box-shadow: 0 0 8px rgba(99, 102, 241, 0.4);
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0px) rotate(0deg);
+                opacity: 0;
+            }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% {
+                transform: translateY(-100px) translateX(50px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Enhanced glass morphism with better backdrop */
+        .glass-container {
+            background: var(--bg-glass);
+            backdrop-filter: blur(24px) saturate(180%);
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            position: relative;
+        }
+
+        .glass-container::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.03));
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: xor;
+            pointer-events: none;
+        }
+
+        /* Improved navigation with better contrast */
+        .navbar {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            padding: 6px;
+            border-radius: 50px;
+            background: var(--bg-glass-strong);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-strong);
+        }
+
+        .nav-list {
+            display: flex;
+            list-style: none;
+            gap: 4px;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 12px 20px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-primary);
+            transform: scale(0);
+            border-radius: 50px;
+            transition: transform 0.3s ease;
+            z-index: -1;
+        }
+
+        .nav-link:hover::before,
+        .nav-link.active::before {
+            transform: scale(1);
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--text-primary);
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Hero Section with enhanced colors */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 24px;
+            background: var(--bg-glass-strong);
+            border: 1px solid var(--border-strong);
+            color: var(--text-secondary);
+            animation: slideUp 1s ease 0.2s both;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 8rem);
+            font-weight: 900;
+            line-height: 1.1;
+            background: var(--gradient-primary);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 24px;
+            animation: slideUp 1s ease 0.4s both;
+            filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.3));
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 4vw, 2rem);
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            animation: slideUp 1s ease 0.6s both;
+            font-weight: 600;
+        }
+
+        .hero-description {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 40px;
+            animation: slideUp 1s ease 0.8s both;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: slideUp 1s ease 1s both;
+        }
+
+        /* Enhanced magnetic buttons */
+        .magnetic-btn {
+            position: relative;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .magnetic-btn-primary {
+            background: var(--gradient-primary);
+            color: var(--text-primary);
+            box-shadow: 0 8px 32px rgba(99, 102, 241, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .magnetic-btn-secondary {
+            background: var(--bg-glass-strong);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-strong);
+            backdrop-filter: blur(20px);
+        }
+
+        .magnetic-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .magnetic-btn-primary:hover {
+            box-shadow: 0 15px 45px rgba(99, 102, 241, 0.5);
+        }
+
+        .magnetic-btn-secondary:hover {
+            background: var(--bg-glass-strong);
+            border-color: var(--text-accent);
+            color: var(--text-primary);
+        }
+
+        .magnetic-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .magnetic-btn:hover::before {
+            left: 100%;
+        }
+
+        /* Enhanced sections */
+        .section {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            background: var(--gradient-primary);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+            filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.2));
+        }
+
+        .section-subtitle {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Enhanced bento grid */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 80px;
+        }
+
+        .bento-item {
+            padding: 32px;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--border-subtle);
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+        }
+
+        .bento-item:hover {
+            transform: translateY(-8px);
+            border-color: rgba(99, 102, 241, 0.4);
+            box-shadow: var(--shadow-card-hover);
+            background: rgba(20, 24, 32, 0.98);
+        }
+
+        .bento-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .bento-item:hover::before {
+            transform: scaleX(1);
+        }
+
+        .metric-value {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            background: var(--gradient-secondary);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+            margin-bottom: 8px;
+            filter: drop-shadow(0 0 15px rgba(59, 130, 246, 0.3));
+        }
+
+        .metric-label {
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+        }
+
+        /* Enhanced project cards */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 32px;
+        }
+
+        .project-card {
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--border-subtle);
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            position: relative;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(99, 102, 241, 0.4);
+            box-shadow: var(--shadow-card-hover);
+        }
+
+        .project-header {
+            padding: 32px 32px 24px;
+        }
+
+        .project-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .project-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+        }
+
+        .project-category {
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            background: var(--gradient-secondary);
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .project-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .project-description {
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .project-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            padding: 24px 32px;
+            border-top: 1px solid var(--border-subtle);
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .project-stat {
+            text-align: center;
+        }
+
+        .project-stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            background: var(--gradient-secondary);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .project-stat-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .tech-tag {
+            padding: 8px 14px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 500;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .tech-tag:hover {
+            background: var(--gradient-primary);
+            color: white;
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .project-actions {
+            padding: 0 32px 32px;
+            display: flex;
+            gap: 12px;
+        }
+
+        /* Animation improvements */
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Enhanced contact section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .contact-item {
+            padding: 32px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--border-subtle);
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+        }
+
+        .contact-item:hover {
+            transform: translateY(-4px);
+            border-color: rgba(99, 102, 241, 0.4);
+            box-shadow: 0 15px 30px rgba(99, 102, 241, 0.15);
+        }
+
+        .contact-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            margin: 0 auto 16px;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+        }
+
+        .contact-label {
+            font-size: 14px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .contact-value {
+            font-size: 16px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .contact-value a {
+            color: var(--text-accent);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-value a:hover {
+            color: var(--text-primary);
+        }
+
+        /* Enhanced filter buttons */
+        .project-filters {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 32px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 10px 18px;
+            border: 1px solid var(--border-subtle);
+            background: var(--bg-glass);
+            color: var(--text-secondary);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .filter-btn:hover {
+            background: var(--bg-glass-strong);
+            border-color: var(--text-accent);
+            color: var(--text-primary);
+        }
+
+        .filter-btn.active {
+            background: var(--gradient-primary);
+            color: var(--text-primary);
+            border-color: transparent;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Profile card enhancements */
+        .profile-card {
+            padding: 40px;
+            text-align: center;
+            position: sticky;
+            top: 100px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            margin: 0 auto 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+            font-weight: 800;
+            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.3);
+        }
+
+        .about-card {
+            padding: 32px;
+            margin-bottom: 24px;
+            border-radius: 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            transition: all 0.3s ease;
+        }
+
+        .about-card:hover {
+            border-color: var(--border-strong);
+        }
+
+        .expertise-item {
+            background: var(--bg-glass);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid var(--text-accent);
+            transition: all 0.3s ease;
+        }
+
+        .expertise-item:hover {
+            background: var(--bg-glass-strong);
+            transform: translateX(4px);
+        }
+
+        /* Responsive improvements */
+        @media (max-width: 768px) {
+            .navbar {
+                top: 16px;
+                left: 16px;
+                right: 16px;
+                transform: none;
+            }
+
+            .nav-list {
+                justify-content: space-around;
+            }
+
+            .nav-link {
+                padding: 10px 14px;
+                font-size: 14px;
+            }
+
+            .hero-section {
+                padding: 120px 16px 80px;
+            }
+
+            .section {
+                padding: 80px 16px;
+            }
+
+            .bento-grid,
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .magnetic-btn {
+                padding: 14px 28px;
+            }
+
+            .project-header,
+            .project-actions {
+                padding-left: 24px;
+                padding-right: 24px;
+            }
+
+            .project-stats {
+                padding: 20px 24px;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr !important;
+                gap: 24px !important;
+            }
+
+            .profile-card {
+                position: static !important;
+            }
+        }
+
+        /* Additional utility classes */
+        .text-gradient {
+            background: var(--gradient-primary);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .border-gradient {
+            border: 1px solid transparent;
+            background: linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+                        var(--gradient-primary) border-box;
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation"></div>
+    <div class="floating-elements" id="floatingElements"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar glass-container">
+        <ul class="nav-list">
+            <li><a href="#home" class="nav-link active">Home</a></li>
+            <li><a href="#projects" class="nav-link">Projects</a></li>
+            <li><a href="#about" class="nav-link">About</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="hero-badge glass-container">
+                <i class="fas fa-rocket"></i>
+                <span>Available for new opportunities</span>
+            </div>
+            
+            <h1 class="hero-title">Garvit Gupta</h1>
+            
+            <p class="hero-subtitle">AI & Machine Learning Researcher</p>
+            
+            <p class="hero-description">
+                Transforming businesses through cutting-edge AI solutions with 2+ years of experience in machine learning, 
+                deep learning, and MLOps. Contributing to Machine Learning and Mathematics through research and web applications.
+            </p>
+            
+            <div class="hero-cta">
+                <a href="#projects" class="magnetic-btn magnetic-btn-primary">
+                    <i class="fas fa-code"></i>
+                    View Projects
+                </a>
+                <a href="#contact" class="magnetic-btn magnetic-btn-secondary">
+                    <i class="fas fa-envelope"></i>
+                    Get In Touch
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Home Section -->
+    <section id="home" class="section active">
+        <div class="section-header">
+            <h2 class="section-title">Key Metrics</h2>
+            <p class="section-subtitle">Quantified achievements and professional impact</p>
+        </div>
+        
+        <div class="bento-grid">
+            <div class="bento-item fade-in">
+                <div class="metric-value">10+</div>
+                <div class="metric-label">AI Projects Delivered</div>
+            </div>
+            
+            <div class="bento-item fade-in">
+                <div class="metric-value">2+</div>
+                <div class="metric-label">Years Experience</div>
+            </div>
+            
+            <div class="bento-item fade-in">
+                <div class="metric-value">Top 1%</div>
+                <div class="metric-label">Kaggle Ranking</div>
+            </div>
+        </div>
+
+        <div class="section-header">
+            <h2 class="section-title">Featured Projects</h2>
+            <p class="section-subtitle">Showcasing innovative AI solutions that drive business impact</p>
+        </div>
+
+        <div class="projects-grid">
+            <div class="project-card fade-in">
+                <div class="project-header">
+                    <div class="project-meta">
+                        <div class="project-icon">
+                            <i class="fas fa-balance-scale"></i>
+                        </div>
+                        <div class="project-category">AI Fairness</div>
+                    </div>
+                    <h3 class="project-title">Biasness Detection and Mitigation Web App</h3>
+                    <p class="project-description">
+                        State-of-the-art web application that detects bias in user-trained ML models. Users can detect bias 
+                        and download fairer models through 5 creative phases, with complete automation via DagsHub pipelines.
+                    </p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">IBM AIF360</span>
+                        <span class="tech-tag">MLOps</span>
+                        <span class="tech-tag">Streamlit</span>
+                        <span class="tech-tag">Scikit-learn</span>
+                    </div>
+                </div>
+                <div class="project-stats">
+                    <div class="project-stat">
+                        <div class="project-stat-value">5+</div>
+                        <div class="project-stat-label">Techniques</div>
+                    </div>
+                    <div class="project-stat">
+                        <div class="project-stat-value">100%</div>
+                        <div class="project-stat-label">Automated</div>
+                    </div>
+                    <div class="project-stat">
+                        <div class="project-stat-value">AI</div>
+                        <div class="project-stat-label">Powered</div>
+                    </div>
+                </div>
+                <div class="project-actions">
+                    <a href="https://github.com/garvitwork/Bias-Web-App" 
+                       class="magnetic-btn magnetic-btn-primary" 
+                       target="_blank" 
+                       rel="noopener noreferrer">
+                        <i class="fas fa-code"></i>
+                        View Code
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card fade-in">
+                <div class="project-header">
+                    <div class="project-meta">
+                        <div class="project-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="project-category">Business Intelligence</div>
+                    </div>
+                    <h3 class="project-title">Enterprise Income Analytics Dashboard</h3>
+                    <p class="project-description">
+                        Sophisticated enterprise dashboard for employee income analytics and predictions. 
+                        Fully automated using MLOps with advanced UI integration and Hugging Face optimization.
+                    </p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Hugging Face</span>
+                        <span class="tech-tag">Streamlit</span>
+                        <span class="tech-tag">MLOps</span>
+                        <span class="tech-tag">CSS</span>
+                    </div>
+                </div>
+                <div class="project-stats">
+                    <div class="project-stat">
+                        <div class="project-stat-value">91%</div>
+                        <div class="project-stat-label">Accuracy</div>
+                    </div>
+                    <div class="project-stat">
+                        <div class="project-stat-value">100%</div>
+                        <div class="project-stat-label">Automated</div>
+                    </div>
+                    <div class="project-stat">
+                        <div class="project-stat-value">HF</div>
+                        <div class="project-stat-label">Powered</div>
+                    </div>
+                </div>
+                <div class="project-actions">
+                    <a href="https://github.com/garvitwork/Enterprise-Income-Model-Generation-and-Predictive-Dashboard" 
+                       class="magnetic-btn magnetic-btn-primary" 
+                       target="_blank" 
+                       rel="noopener noreferrer">
+                        <i class="fas fa-code"></i>
+                        View Code
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <div class="section-header">
+            <h2 class="section-title">All Projects</h2>
+            <p class="section-subtitle">Complete portfolio of AI and ML solutions</p>
+            
+            <!-- Project Filters -->
+            <div class="project-filters">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="ai-fairness">AI Fairness</button>
+                <button class="filter-btn" data-filter="business-intelligence">Business Intelligence</button>
+                <button class="filter-btn" data-filter="research">Research</button>
+            </div>
+        </div>
+
+        <div class="projects-grid">
+            <!-- Project 1: Bias Detection -->
+            <div class="project-card fade-in" data-category="ai-fairness">
+                <div class="project-header">
+                    <div class="project-meta">
+                        <div class="project-icon">
+                            <i class="fas fa-balance-scale"></i>
+                        </div>
+                        <div class="project-category">AI Fairness</div>
+                    </div>
+                    <h3 class="project-title">Biasness Detection and Mitigation Web App</h3>
+                    <p class="project-description">
+                        Developed a state-of-the-art web application that detects bias in user-trained Machine Learning models trained on user's data. 
+                        User can fully detect the bias and download the fairer model using this web app on his/her data by going through 5 simple though creative phases.
+                        Made it work seamlessly by building data pipeline in DagsHub and automating the web app totally.
+                    </p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">IBM AIF360</span>
+                        <span class="tech-tag">MLOps</span>
+                        <span class="tech-tag">CSS and Streamlit</span>
+                        <span class="tech-tag">Scikit-learn</span>
+                    </div>
+                </div>
+                <div class="project-stats">
+                    <div class="project-stat">
+                        <div class="project-stat-value">5+</div>
+                        <div class="project-stat-label">Techniques</div>
+                    </div>
+                    <div class="project-stat">
+                        <div class="project-stat-value">100%</div>
+                        <div class="project-stat-label">Automated</div>
+                    </div>
+                    <div class="project-stat">
+                        <div class="project-stat-value">AI</div>
+                        <div class="project-stat-label">Powered</div>
+                    </div>
+                </div>
+                <div class="project-actions">
+                    <a href="https://github.com/garvitwork/Bias-Web-App" 
+                       class="magnetic-btn magnetic-btn-primary" 
+                       target="_blank" 
+                       rel="noopener noreferrer">
+                        <i class="fas fa-code"></i>
+                        View Code
+                    </a>
+                </div>
+            </div>
+
+            <!-- Project 2: Income Analytics -->
+            <div class="project-card fade-in" data-category="business-intelligence">
+                <div class="project-header">
+                    <div class="project-meta">
+                        <div class="project-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="project-category">Business Intelligence</div>
+                    </div>
+                    <h3 class="project-title">Enterprise Income Analytics and Prediction Dashboard</h3>
+                    <p class="project-description">
+                        Built a sophisticated Enterprise Dashboard for its employees Income Analytics and Predictions.
+                        Made it fully automated using MLOps by creating Data Pipeline in DagsHub and then deploying it on streamlit.
+                        Made UI advanced and impressive by integrating streamlit with CSS. Used Hugging Face for saving the model and data 
+                        to reduce web app's load for saving data and model repetitively.
+                    </p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Hugging Face</span>
+                        <span class="tech-tag">Streamlit and CSS</span>
+                        <span class="tech-tag">MLOps</span>
+                    </div>
+                </div>
+                <div class="project-stats">
+                    <div class="project-stat">
+                        <div class="project-stat-value">91%</div>
+                        <div class="project-stat-label">Accuracy</div>
+                    </div>
+                    <div class="project-stat">
+                        <div class="project-stat-value">100%</div>
+                        <div class="project-stat-label">Automated</div>
+                    </div>
+                    <div class="project-stat">
+                        <div class="project-stat-value">HF</div>
+                        <div class="project-stat-label">Powered</div>
+                    </div>
+                </div>
+                <div class="project-actions">
+                    <a href="https://github.com/garvitwork/Enterprise-Income-Model-Generation-and-Predictive-Dashboard" 
+                       class="magnetic-btn magnetic-btn-primary" 
+                       target="_blank" 
+                       rel="noopener noreferrer">
+                        <i class="fas fa-code"></i>
+                        View Code
+                    </a>
+                </div>
+            </div>
+
+            <!-- Project 3: Stock Prediction -->
+            <div class="project-card fade-in" data-category="research">
+                <div class="project-header">
+                    <div class="project-meta">
+                        <div class="project-icon">
+                            <i class="fas fa-chart-area"></i>
+                        </div>
+                        <div class="project-category">Research Project</div>
+                    </div>
+                    <h3 class="project-title">Automated Stock Prediction Web App</h3>
+                    <p class="project-description">
+                        Comprehensive stock prediction application addressing gaps in the Indian market. Features include 
+                        financial chatbot, live sentiment analysis of video interviews, customized time-based graphs, 
+                        live news fetching, and ML-powered prediction with technical indicators.
+                    </p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">LLM</span>
+                        <span class="tech-tag">Streamlit</span>
+                        <span class="tech-tag">Research</span>
+                        <span class="tech-tag">Deep Learning</span>
+                    </div>
+                </div>
+                <div class="project-stats">
+                    <div class="project-stat">
+                        <div class="project-stat-value">5+</div>
+                        <div class="project-stat-label">Features</div>
+                    </div>
+                    <div class="project-stat">
+                        <div class="project-stat-value">Live</div>
+                        <div class="project-stat-label">Data</div>
+                    </div>
+                    <div class="project-stat">
+                        <div class="project-stat-value">LLM</div>
+                        <div class="project-stat-label">Powered</div>
+                    </div>
+                </div>
+                <div class="project-actions">
+                    <a href="#" class="magnetic-btn magnetic-btn-secondary" style="opacity: 0.6; cursor: not-allowed;">
+                        <i class="fas fa-clock"></i>
+                        Code Available Soon
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="section-header">
+            <h2 class="section-title">About Me</h2>
+            <p class="section-subtitle">Passionate AI researcher dedicated to creating intelligent solutions</p>
+        </div>
+        
+        <div class="about-content" style="display: grid; grid-template-columns: 1fr 2fr; gap: 40px; align-items: start;">
+            <!-- Profile Card -->
+            <div class="profile-card glass-container">
+                <div class="profile-image">GG</div>
+                
+                <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 8px; color: var(--text-primary);">Garvit Gupta</h3>
+                <p style="color: var(--text-accent); font-weight: 500; margin-bottom: 24px;">AI & Mathematics Researcher</p>
+                
+                <div class="profile-stats" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 1.25rem; font-weight: 700; color: var(--text-accent);">2+</div>
+                        <div style="font-size: 0.8rem; color: var(--text-secondary);">Years</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 1.25rem; font-weight: 700; color: var(--text-accent);">10+</div>
+                        <div style="font-size: 0.8rem; color: var(--text-secondary);">Projects</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 1.25rem; font-weight: 700; color: var(--text-accent);">Top 1%</div>
+                        <div style="font-size: 0.8rem; color: var(--text-secondary);">Kaggle</div>
+                    </div>
+                </div>
+                
+                <div class="skills-summary" style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;">
+                    <span class="skill-badge" style="padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; background: var(--bg-glass); border: 1px solid var(--border-subtle); color: var(--text-secondary);">Python</span>
+                    <span class="skill-badge" style="padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; background: var(--bg-glass); border: 1px solid var(--border-subtle); color: var(--text-secondary);">ML/DL</span>
+                    <span class="skill-badge" style="padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; background: var(--bg-glass); border: 1px solid var(--border-subtle); color: var(--text-secondary);">MLOps</span>
+                    <span class="skill-badge" style="padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; background: var(--bg-glass); border: 1px solid var(--border-subtle); color: var(--text-secondary);">Research</span>
+                </div>
+            </div>
+
+            <!-- About Details -->
+            <div class="about-details">
+                <!-- Journey Card -->
+                <div class="about-card glass-container fade-in">
+                    <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 20px; color: var(--text-primary); display: flex; align-items: center; gap: 12px;">
+                        <i class="fas fa-route" style="color: var(--text-accent);"></i>
+                        My Journey
+                    </h3>
+                    <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 20px;">
+                        My journey with AI started from a love for <strong style="color: var(--text-primary);">mathematics</strong> and problem-solving during my undergrad at Delhi University. 
+                        While exploring numbers and theories, I discovered how they connect with <strong style="color: var(--text-primary);">machine learning</strong> and computer science, 
+                        which pushed me to dive deeper into AI.
+                    </p>
+                    <ul style="list-style: none; padding: 0; color: var(--text-secondary); line-height: 1.6;">
+                        <li style="margin-bottom: 12px; padding-left: 24px; position: relative;">
+                            <i class="fas fa-arrow-right" style="position: absolute; left: 0; color: var(--text-accent); font-size: 0.8rem; top: 6px;"></i>
+                            I've built impactful projects — from an <strong style="color: var(--text-primary);">income prediction app (91%+ accuracy)</strong> to a <strong style="color: var(--text-primary);">bias detection web app</strong> that promotes fairer AI.
+                        </li>
+                        <li style="margin-bottom: 12px; padding-left: 24px; position: relative;">
+                            <i class="fas fa-arrow-right" style="position: absolute; left: 0; color: var(--text-accent); font-size: 0.8rem; top: 6px;"></i>
+                            I presented my research on <strong style="color: var(--text-primary);">AI-driven stock prediction</strong> at an international conference, combining theory with real-world impact.
+                        </li>
+                        <li style="margin-bottom: 12px; padding-left: 24px; position: relative;">
+                            <i class="fas fa-arrow-right" style="position: absolute; left: 0; color: var(--text-accent); font-size: 0.8rem; top: 6px;"></i>
+                            During my internship at <strong style="color: var(--text-primary);">FastHire</strong>, I developed predictive models for hiring and forecasted gold prices, turning ideas into practical solutions.
+                        </li>
+                        <li style="margin-bottom: 12px; padding-left: 24px; position: relative;">
+                            <i class="fas fa-arrow-right" style="position: absolute; left: 0; color: var(--text-accent); font-size: 0.8rem; top: 6px;"></i>
+                            Today I blend <strong style="color: var(--text-primary);">math, research, and hands-on AI engineering</strong>, focusing on systems that are accurate, ethical, scalable, and impactful.
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- What Drives Me Card -->
+                <div class="about-card glass-container fade-in">
+                    <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 20px; color: var(--text-primary); display: flex; align-items: center; gap: 12px;">
+                        <i class="fas fa-heart" style="color: var(--text-accent);"></i>
+                        What Drives Me
+                    </h3>
+                    <ul style="list-style: none; padding: 0; color: var(--text-secondary); line-height: 1.6;">
+                        <li style="margin-bottom: 12px; padding-left: 24px; position: relative;">
+                            <i class="fas fa-arrow-right" style="position: absolute; left: 0; color: var(--text-accent); font-size: 0.8rem; top: 6px;"></i>
+                            <strong style="color: var(--text-primary);">Mathematical clarity:</strong> using math (optimization, linear algebra, statistics) to design robust models and principled solutions.
+                        </li>
+                        <li style="margin-bottom: 12px; padding-left: 24px; position: relative;">
+                            <i class="fas fa-arrow-right" style="position: absolute; left: 0; color: var(--text-accent); font-size: 0.8rem; top: 6px;"></i>
+                            <strong style="color: var(--text-primary);">Fairness-first ML:</strong> researching and engineering bias-mitigation techniques that preserve accuracy while improving equity.
+                        </li>
+                        <li style="margin-bottom: 12px; padding-left: 24px; position: relative;">
+                            <i class="fas fa-arrow-right" style="position: absolute; left: 0; color: var(--text-accent); font-size: 0.8rem; top: 6px;"></i>
+                            <strong style="color: var(--text-primary);">End-to-end impact:</strong> shipping reproducible pipelines and web apps (Streamlit, MLOps tooling) so models actually help users and stakeholders.
+                        </li>
+                        <li style="margin-bottom: 12px; padding-left: 24px; position: relative;">
+                            <i class="fas fa-arrow-right" style="position: absolute; left: 0; color: var(--text-accent); font-size: 0.8rem; top: 6px;"></i>
+                            <strong style="color: var(--text-primary);">Data-driven storytelling:</strong> turning complex analyses into clear insights that decision-makers can act on.
+                        </li>
+                        <li style="margin-bottom: 12px; padding-left: 24px; position: relative;">
+                            <i class="fas fa-arrow-right" style="position: absolute; left: 0; color: var(--text-accent); font-size: 0.8rem; top: 6px;"></i>
+                            <strong style="color: var(--text-primary);">Continuous learning & collaboration:</strong> presenting research, iterating with peers, and integrating tools like DagsHub / MLflow for reproducible work.
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Core Expertise Card -->
+                <div class="about-card glass-container fade-in">
+                    <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 20px; color: var(--text-primary); display: flex; align-items: center; gap: 12px;">
+                        <i class="fas fa-brain" style="color: var(--text-accent);"></i>
+                        Core Expertise
+                    </h3>
+                    <div class="expertise-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+                        <div class="expertise-item">
+                            <strong style="color: var(--text-primary); display: block; margin-bottom: 8px;">Deep Learning</strong>
+                            <span style="color: var(--text-secondary); font-size: 0.9rem;">CNNs, RNNs, Transformers, GANs</span>
+                        </div>
+                        <div class="expertise-item">
+                            <strong style="color: var(--text-primary); display: block; margin-bottom: 8px;">Computer Vision</strong>
+                            <span style="color: var(--text-secondary); font-size: 0.9rem;">Object detection, image segmentation</span>
+                        </div>
+                        <div class="expertise-item">
+                            <strong style="color: var(--text-primary); display: block; margin-bottom: 8px;">NLP</strong>
+                            <span style="color: var(--text-secondary); font-size: 0.9rem;">Sentiment analysis, chatbots, language models</span>
+                        </div>
+                        <div class="expertise-item">
+                            <strong style="color: var(--text-primary); display: block; margin-bottom: 8px;">MLOps</strong>
+                            <span style="color: var(--text-secondary); font-size: 0.9rem;">Model deployment, monitoring, CI/CD</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="section-header">
+            <h2 class="section-title">Let's Connect</h2>
+            <p class="section-subtitle">Ready to collaborate on your next AI project?</p>
+        </div>
+        
+        <div class="contact-grid">
+            <div class="contact-item fade-in">
+                <div class="contact-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div class="contact-label">Email</div>
+                <div class="contact-value">garvitwork25@gmail.com</div>
+            </div>
+            
+            <div class="contact-item fade-in">
+                <div class="contact-icon">
+                    <i class="fab fa-linkedin"></i>
+                </div>
+                <div class="contact-label">LinkedIn</div>
+                <div class="contact-value">
+                    <a href="https://www.linkedin.com/in/garvit-gupta-87875a226/" target="_blank" rel="noopener noreferrer">
+                        Connect with me
+                    </a>
+                </div>
+            </div>
+            
+            <div class="contact-item fade-in">
+                <div class="contact-icon">
+                    <i class="fab fa-github"></i>
+                </div>
+                <div class="contact-label">GitHub</div>
+                <div class="contact-value">
+                    <a href="https://github.com/garvitwork" target="_blank" rel="noopener noreferrer">
+                        View repositories
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Create floating elements
+        function createFloatingElements() {
+            const container = document.getElementById('floatingElements');
+            const count = window.innerWidth < 768 ? 15 : 30;
+            
+            for (let i = 0; i < count; i++) {
+                const element = document.createElement('div');
+                element.className = 'floating-element';
+                element.style.left = Math.random() * 100 + '%';
+                element.style.animationDelay = Math.random() * 15 + 's';
+                element.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                container.appendChild(element);
+            }
+        }
+
+        // Navigation functionality
+        function initNavigation() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.section');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href').substring(1);
+
+                    // Update active nav link
+                    navLinks.forEach(nl => nl.classList.remove('active'));
+                    link.classList.add('active');
+
+                    // Show target section
+                    sections.forEach(section => {
+                        section.classList.remove('active');
+                        if (section.id === targetId) {
+                            section.classList.add('active');
+                        }
+                    });
+                });
+            });
+        }
+
+        // Intersection Observer for animations
+        function initScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // Magnetic button effect
+        function initMagneticButtons() {
+            document.querySelectorAll('.magnetic-btn').forEach(btn => {
+                btn.addEventListener('mouseenter', (e) => {
+                    e.target.style.transform = 'translateY(-3px) scale(1.02)';
+                });
+                
+                btn.addEventListener('mouseleave', (e) => {
+                    e.target.style.transform = 'translateY(0) scale(1)';
+                });
+                
+                btn.addEventListener('mousemove', (e) => {
+                    const rect = e.target.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const deltaX = (x - centerX) / centerX;
+                    const deltaY = (y - centerY) / centerY;
+                    
+                    e.target.style.transform = `translateY(-3px) scale(1.02) rotateX(${deltaY * 5}deg) rotateY(${deltaX * 5}deg)`;
+                });
+            });
+        }
+
+        // Card tilt effect
+        function initCardTilt() {
+            if (window.innerWidth > 768) {
+                document.querySelectorAll('.bento-item, .project-card, .contact-item').forEach(card => {
+                    card.addEventListener('mousemove', (e) => {
+                        const rect = card.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        
+                        const centerX = rect.width / 2;
+                        const centerY = rect.height / 2;
+                        
+                        const rotateX = (y - centerY) / 10;
+                        const rotateY = (centerX - x) / 10;
+                        
+                        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
+                    });
+                    
+                    card.addEventListener('mouseleave', () => {
+                        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)';
+                    });
+                });
+            }
+        }
+
+        // Smooth scrolling for navigation
+        function initSmoothScrolling() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Counter animation
+        function animateCounters() {
+            document.querySelectorAll('.metric-value').forEach(counter => {
+                const target = counter.textContent;
+                const isNumber = !isNaN(target.replace('+', '').replace('%', ''));
+                
+                if (isNumber) {
+                    const finalValue = parseInt(target.replace(/[^0-9]/g, ''));
+                    const suffix = target.replace(/[0-9]/g, '');
+                    let current = 0;
+                    const increment = finalValue / 50;
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= finalValue) {
+                            current = finalValue;
+                            clearInterval(timer);
+                        }
+                        counter.textContent = Math.floor(current) + suffix;
+                    }, 30);
+                }
+            });
+        }
+
+        // Parallax effect
+        function initParallax() {
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const rate = scrolled * -0.5;
+                
+                document.querySelector('.hero-section').style.transform = `translateY(${rate}px)`;
+            });
+        }
+
+        // Theme management (if you want to add dark/light toggle later)
+        function initTheme() {
+            // Set default dark theme
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', () => {
+            createFloatingElements();
+            initNavigation();
+            initProjectFilters();
+            initScrollAnimations();
+            initMagneticButtons();
+            initCardTilt();
+            initSmoothScrolling();
+            initParallax();
+            initTheme();
+            initResponsiveAbout();
+            
+            // Animate counters when they come into view
+            const counterObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounters();
+                        counterObserver.unobserve(entry.target);
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.bento-grid').forEach(grid => {
+                counterObserver.observe(grid);
+            });
+        });
+
+        // Project filtering functionality
+        function initProjectFilters() {
+            document.addEventListener('click', (e) => {
+                if (e.target.classList.contains('filter-btn')) {
+                    const filter = e.target.getAttribute('data-filter');
+                    const filterButtons = document.querySelectorAll('.filter-btn');
+                    const projectCards = document.querySelectorAll('.project-card[data-category]');
+
+                    // Update active filter button
+                    filterButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                        btn.style.background = '';
+                        btn.style.color = '';
+                        btn.style.borderColor = '';
+                        btn.style.boxShadow = '';
+                    });
+                    
+                    e.target.classList.add('active');
+
+                    // Filter projects
+                    projectCards.forEach(card => {
+                        const category = card.getAttribute('data-category');
+                        if (filter === 'all' || category === filter) {
+                            card.style.display = 'block';
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        } else {
+                            card.style.opacity = '0';
+                            card.style.transform = 'translateY(20px)';
+                            setTimeout(() => {
+                                card.style.display = 'none';
+                            }, 300);
+                        }
+                    });
+                }
+            });
+        }
+
+        // Responsive about section
+        function initResponsiveAbout() {
+            function updateAboutLayout() {
+                const aboutContent = document.querySelector('.about-content');
+                if (aboutContent) {
+                    if (window.innerWidth <= 768) {
+                        aboutContent.style.gridTemplateColumns = '1fr';
+                        aboutContent.style.gap = '24px';
+                        
+                        const profileCard = document.querySelector('.profile-card');
+                        if (profileCard) {
+                            profileCard.style.position = 'static';
+                        }
+                    } else {
+                        aboutContent.style.gridTemplateColumns = '1fr 2fr';
+                        aboutContent.style.gap = '40px';
+                        
+                        const profileCard = document.querySelector('.profile-card');
+                        if (profileCard) {
+                            profileCard.style.position = 'sticky';
+                        }
+                    }
+                }
+            }
+
+            updateAboutLayout();
+            window.addEventListener('resize', updateAboutLayout);
+        }
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            // Recreate floating elements on resize
+            document.getElementById('floatingElements').innerHTML = '';
+            createFloatingElements();
+        });
+    </script>
+</body>
+</html>
