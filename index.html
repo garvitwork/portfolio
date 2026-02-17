@@ -454,225 +454,378 @@
             z-index: 1;
         }
 
-        /* Projects Grid */
+        /* Projects — 2-col card grid */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 60px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
         }
 
-        @media (max-width: 900px) {
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
+        /* Project 5 (last, odd) spans full width */
+        .project-card:last-child {
+            grid-column: 1 / -1;
         }
 
         .project-card {
-            background: var(--white);
+            display: flex;
+            flex-direction: column;
             border: 1px solid var(--gray);
-            overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            padding: 40px;
             position: relative;
+            transition: box-shadow 0.35s ease, transform 0.35s ease, border-color 0.35s ease;
+            cursor: default;
+            background: var(--white);
+            overflow: hidden;
         }
 
+        /* Yellow top accent bar that grows on hover */
         .project-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, transparent 0%, var(--yellow) 100%);
-            opacity: 0;
-            transition: opacity 0.5s;
-            z-index: 0;
+            top: 0; left: 0;
+            width: 100%; height: 3px;
+            background: var(--yellow);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
         }
 
-        .project-card:hover::before {
-            opacity: 0.05;
-        }
+        .project-card:hover::before { transform: scaleX(1); }
 
         .project-card:hover {
             border-color: var(--yellow);
-            transform: translateY(-10px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 16px 48px rgba(0,0,0,0.09);
+            transform: translateY(-4px);
         }
 
+        /* Card top row: number + category */
+        .project-card-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .project-num {
+            font-size: 56px;
+            font-weight: 900;
+            color: var(--gray);
+            line-height: 1;
+            transition: color 0.3s;
+            letter-spacing: -2px;
+        }
+
+        .project-card:hover .project-num { color: var(--yellow); }
+
         .project-header {
-            padding: 40px;
-            background: var(--light-gray);
-            position: relative;
-            z-index: 1;
-            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 95%);
+            padding: 0;
+            background: none;
+            clip-path: none;
+            flex: 1;
         }
 
         .project-category {
             display: inline-block;
             background: var(--black);
             color: var(--white);
-            padding: 8px 16px;
-            font-size: 11px;
+            padding: 6px 14px;
+            font-size: 10px;
             font-weight: 700;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
-            margin-bottom: 20px;
             position: relative;
             overflow: hidden;
+            white-space: nowrap;
+            z-index: 0;
+            transition: color 0.3s;
         }
 
         .project-category::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
             background: var(--yellow);
             transition: left 0.4s;
+            z-index: -1;
         }
 
-        .project-card:hover .project-category::before {
-            left: 0;
-        }
+        .project-card:hover .project-category::before { left: 0; }
+        .project-card:hover .project-category { color: var(--black); }
 
         .project-title {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 800;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             line-height: 1.3;
-            position: relative;
-            z-index: 1;
         }
 
         .project-description {
-            font-size: 15px;
-            line-height: 1.7;
-            opacity: 0.7;
-            position: relative;
-            z-index: 1;
+            font-size: 14.5px;
+            line-height: 1.75;
+            opacity: 0.65;
+            margin-bottom: 0;
         }
 
-        .project-body {
-            padding: 40px;
-            position: relative;
-            z-index: 1;
-        }
+        .project-body { padding: 0; margin-top: 20px; }
 
         .tech-stack {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 30px;
+            gap: 8px;
         }
 
         .tech-tag {
-            background: var(--light-gray);
-            padding: 8px 16px;
-            font-size: 12px;
-            font-weight: 600;
-            border: 1px solid var(--gray);
-            transition: all 0.3s;
+            background: transparent;
+            padding: 5px 12px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            border: 1.5px solid var(--gray);
+            transition: all 0.25s;
             position: relative;
             overflow: hidden;
+            cursor: default;
+            isolation: isolate;
         }
 
         .tech-tag::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
             background: var(--yellow);
             transition: left 0.3s;
-            z-index: 0;
+            z-index: -1;
         }
 
-        .tech-tag:hover::before {
-            left: 0;
-        }
+        .tech-tag:hover::before { left: 0; }
+        .tech-tag:hover { border-color: var(--yellow); transform: translateY(-2px); color: var(--black); }
 
-        .tech-tag:hover {
-            border-color: var(--yellow);
-            transform: translateY(-2px);
+        /* Project actions row — sits at bottom of card */
+        .project-actions {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid var(--gray);
         }
 
         .project-link {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             color: var(--black);
-            font-weight: 600;
+            font-weight: 700;
             text-decoration: none;
-            font-size: 14px;
+            font-size: 13px;
+            letter-spacing: 0.3px;
             transition: all 0.3s;
             position: relative;
+            white-space: nowrap;
         }
 
         .project-link::after {
             content: '';
             position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 2px;
+            bottom: -2px; left: 0;
+            width: 0; height: 2px;
             background: var(--yellow);
             transition: width 0.3s;
         }
 
-        .project-link:hover::after {
-            width: calc(100% - 25px);
+        .project-link:hover::after { width: 100%; }
+        .project-link:hover { color: var(--black); }
+        .project-link i { transition: transform 0.3s; }
+        .project-link:hover i { transform: translateX(5px); }
+
+        /* Project Impact Block */
+        .project-impact {
+            margin-top: 20px;
+            padding: 16px 18px;
+            background: var(--light-gray);
+            border-left: 3px solid var(--yellow);
         }
 
-        .project-link:hover {
+        .project-impact-label {
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
             color: var(--black);
+            opacity: 0.45;
+            margin-bottom: 7px;
         }
 
-        .project-link i {
-            transition: transform 0.3s;
+        .project-impact p {
+            font-size: 13px;
+            line-height: 1.7;
+            color: var(--black);
+            opacity: 0.8;
+            margin: 0;
+        }
+        .skill-proficiency {
+            display: flex;
+            gap: 4px;
+            margin-top: 8px;
         }
 
-        .project-link:hover i {
-            transform: translateX(5px);
+        .skill-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--gray);
+            transition: background 0.3s;
         }
+
+        .skill-dot.filled { background: var(--yellow); }
+        .expertise-card:hover .skill-dot.filled { background: var(--black); }
 
         /* About Section */
+        /* ── About Section ── */
         .about-grid {
             display: grid;
-            grid-template-columns: 1fr 2fr;
+            grid-template-columns: 320px 1fr;
             gap: 80px;
             align-items: start;
         }
 
-        .about-image {
-            width: 200px;
-            height: 200px;
-            background: linear-gradient(135deg, var(--black) 0%, var(--yellow) 100%);
+        /* Left column */
+        .about-left {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 64px;
-            font-weight: 900;
-            color: var(--white);
-            position: relative;
-            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            flex-direction: column;
+            gap: 32px;
         }
 
-        .about-image::after {
+        /* Avatar card */
+        .about-avatar-wrap {
+            position: relative;
+        }
+
+        .about-avatar {
+            width: 100%;
+            aspect-ratio: 1;
+            background: var(--black);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            clip-path: polygon(0 0, 100% 0, 100% 92%, 0 100%);
+        }
+
+        /* Decorative geometric rings inside avatar */
+        .about-avatar::before {
             content: '';
             position: absolute;
-            bottom: -20px;
-            right: -20px;
-            width: 100px;
-            height: 100px;
+            width: 220px; height: 220px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,215,0,0.15);
+            top: 50%; left: 50%;
+            transform: translate(-50%,-50%);
+        }
+
+        .about-avatar::after {
+            content: '';
+            position: absolute;
+            width: 160px; height: 160px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,215,0,0.25);
+            top: 50%; left: 50%;
+            transform: translate(-50%,-50%);
+        }
+
+        .avatar-monogram {
+            font-size: 88px;
+            font-weight: 900;
+            letter-spacing: -6px;
+            line-height: 1;
+            position: relative;
+            z-index: 2;
+            /* Split color: G in white, G in yellow */
+        }
+
+        .avatar-monogram .m-white { color: var(--white); }
+        .avatar-monogram .m-yellow { color: var(--yellow); }
+
+        .avatar-role {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.45);
+            margin-top: 14px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Yellow accent square behind avatar */
+        .about-avatar-wrap::after {
+            content: '';
+            position: absolute;
+            bottom: -14px; right: -14px;
+            width: 80px; height: 80px;
             border: 2px solid var(--yellow);
             z-index: -1;
         }
 
+        /* Quick-facts strip */
+        .about-facts {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            border: 1px solid var(--gray);
+        }
+
+        .about-fact {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--gray);
+            transition: background 0.25s;
+        }
+
+        .about-fact:last-child { border-bottom: none; }
+
+        .about-fact:hover { background: var(--light-gray); }
+
+        .about-fact-icon {
+            width: 34px; height: 34px;
+            background: var(--black);
+            color: var(--yellow);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .about-fact-text {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--black);
+            line-height: 1.4;
+        }
+
+        .about-fact-text span {
+            display: block;
+            font-size: 11px;
+            font-weight: 400;
+            opacity: 0.5;
+            margin-top: 1px;
+        }
+
+        /* Right column */
+        .about-content { padding-top: 8px; }
+
         .about-content h3 {
-            font-size: 32px;
-            font-weight: 800;
-            margin-bottom: 20px;
+            font-size: 34px;
+            font-weight: 900;
+            margin-bottom: 28px;
+            line-height: 1.2;
+            letter-spacing: -1px;
             position: relative;
             display: inline-block;
         }
@@ -680,18 +833,101 @@
         .about-content h3::after {
             content: '';
             position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 60px;
-            height: 4px;
+            bottom: -12px; left: 0;
+            width: 60px; height: 4px;
             background: var(--yellow);
         }
 
-        .about-content p {
+        .about-intro {
             font-size: 16px;
-            line-height: 1.8;
-            margin-bottom: 20px;
+            line-height: 1.85;
             opacity: 0.8;
+            margin-bottom: 28px;
+        }
+
+        .about-quip {
+            font-size: 15px;
+            line-height: 1.8;
+            opacity: 0.75;
+            margin-bottom: 36px;
+            padding-left: 20px;
+            border-left: 3px solid var(--yellow);
+            font-style: italic;
+        }
+
+        /* Education block */
+        .about-edu {
+            margin-bottom: 36px;
+        }
+
+        .about-edu-label {
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            opacity: 0.4;
+            margin-bottom: 16px;
+        }
+
+        .about-edu-card {
+            border: 1px solid var(--gray);
+            padding: 22px 24px;
+            position: relative;
+            transition: border-color 0.3s;
+        }
+
+        .about-edu-card::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0;
+            width: 3px; height: 100%;
+            background: var(--yellow);
+        }
+
+        .about-edu-card:hover { border-color: var(--yellow); }
+
+        .about-edu-degree {
+            font-size: 16px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .about-edu-school {
+            font-size: 13px;
+            opacity: 0.55;
+            font-weight: 500;
+        }
+
+        /* Research tags */
+        .about-research-label {
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            opacity: 0.4;
+            margin-bottom: 14px;
+        }
+
+        .about-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .about-tag {
+            padding: 8px 16px;
+            border: 1.5px solid var(--black);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            transition: all 0.25s;
+            cursor: default;
+        }
+
+        .about-tag:hover {
+            background: var(--black);
+            color: var(--white);
+            transform: translateY(-2px);
         }
 
         .expertise-list {
@@ -891,13 +1127,15 @@
         }
 
         .expertise-skills li {
-            padding: 10px 0;
+            padding: 12px 0 12px 20px;
+            border-bottom: 1px solid var(--gray);
             font-size: 14px;
             font-weight: 500;
             color: var(--black);
-            opacity: 0.8;
+            opacity: 0.85;
             position: relative;
-            padding-left: 20px;
+            transition: all 0.3s;
+        
             transition: all 0.3s;
         }
 
@@ -1070,16 +1308,17 @@
 
             .projects-grid {
                 grid-template-columns: 1fr;
-                gap: 40px;
             }
 
-            .project-header {
-                padding: 30px;
+            .project-card:last-child { grid-column: auto; }
+
+            .project-card {
+                padding: 28px;
             }
 
-            .project-body {
-                padding: 30px;
-            }
+            .project-num { font-size: 40px; }
+            .project-header { padding: 0; }
+            .project-body { padding: 0; }
 
             .project-title {
                 font-size: 20px;
@@ -1108,15 +1347,13 @@
                 gap: 40px;
             }
 
-            .about-image {
+            .about-left {
+                max-width: 300px;
                 margin: 0 auto;
-                width: 150px;
-                height: 150px;
-                font-size: 48px;
             }
 
             .about-content h3 {
-                font-size: 24px;
+                font-size: 26px;
             }
 
             .contact-grid {
@@ -1237,7 +1474,7 @@
                 <div class="stat-label">Projects Delivered</div>
             </div>
             <div class="stat-card">
-                <div class="stat-value">Research</div>
+                <div class="stat-value">Research and Copyright</div>
                 <div class="stat-label">Publications</div>
             </div>
         </div>
@@ -1255,128 +1492,144 @@
         <div class="projects-grid">
             <!-- Project 1 -->
             <div class="project-card">
-                <div class="project-header">
+                <div class="project-card-top">
+                    <div class="project-num">01</div>
                     <div class="project-category">AI Fairness</div>
-                    <h3 class="project-title">Bias Detection & Mitigation Platform</h3>
-                    <p class="project-description">
-                        Advanced web application for detecting and mitigating bias in ML models through five automated phases with complete MLOps integration.
-                    </p>
                 </div>
-                <div class="project-body">
-                    <div class="tech-stack">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">IBM AIF360</span>
-                        <span class="tech-tag">JavaScript</span>
-                        <span class="tech-tag">MLOps</span>
-                        <span class="tech-tag">DagsHub</span>
+                <div class="project-header">
+                    <h3 class="project-title">Bias Detection & Mitigation Platform</h3>
+                    <p class="project-description">Advanced web application for detecting and mitigating bias in ML models through five automated phases with complete MLOps integration.</p>
+                    <div class="project-impact">
+                        <div class="project-impact-label">Why It Matters</div>
+                        <p>Biased AI in hiring, lending, and healthcare causes systemic discrimination at scale. This platform automates what MNCs like Google, IBM, and financial regulators spend millions on manually — making fairness audits accessible, reproducible, and production-ready from day one.</p>
                     </div>
-                    <a href="https://github.com/garvitwork/Bias-Web-App" class="project-link" target="_blank">
-                        Git Hub <i class="fas fa-arrow-right"></i>
-                    </a>
-                    <a href="https://garvitwork.github.io/BiasnessWebapplink/" class="project-link" target="_blank">
-                        Test Project <i class="fas fa-arrow-right"></i>
-                    </a>
+                    <div class="project-body">
+                        <div class="tech-stack">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">IBM AIF360</span>
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">MLOps</span>
+                            <span class="tech-tag">DagsHub</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-actions">
+                    <a href="https://github.com/garvitwork/Bias-Web-App" class="project-link" target="_blank">GitHub <i class="fas fa-arrow-right"></i></a>
+                    <a href="https://garvitwork.github.io/BiasnessWebapplink/" class="project-link" target="_blank">Test Project <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
 
             <!-- Project 2 -->
             <div class="project-card">
-                <div class="project-header">
+                <div class="project-card-top">
+                    <div class="project-num">02</div>
                     <div class="project-category">Business Intelligence</div>
-                    <h3 class="project-title">Enterprise Income Analytics Dashboard</h3>
-                    <p class="project-description">
-                        Sophisticated predictive dashboard achieving 91% accuracy with automated data pipelines and advanced UI integration.
-                    </p>
                 </div>
-                <div class="project-body">
-                    <div class="tech-stack">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">Hugging Face</span>
-                        <span class="tech-tag">Streamlit</span>
-                        <span class="tech-tag">MLOps</span>
-                        <span class="tech-tag">DagsHub</span>
+                <div class="project-header">
+                    <h3 class="project-title">Enterprise Income Analytics Dashboard</h3>
+                    <p class="project-description">Sophisticated predictive dashboard achieving 91% accuracy with automated data pipelines and advanced UI integration.</p>
+                    <div class="project-impact">
+                        <div class="project-impact-label">Why It Matters</div>
+                        <p>Income classification at 91% accuracy directly powers credit risk scoring, targeted financial products, and social welfare allocation — decisions that affect millions. This end-to-end pipeline replaces costly analyst workflows and is deployable out-of-the-box in enterprise environments.</p>
                     </div>
-                    <a href="https://github.com/garvitwork/Enterprise-Income-Model-Generation-and-Predictive-Dashboard" class="project-link" target="_blank">
-                        Git Hub <i class="fas fa-arrow-right"></i>
-                    </a>
+                    <div class="project-body">
+                        <div class="tech-stack">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Hugging Face</span>
+                            <span class="tech-tag">Streamlit</span>
+                            <span class="tech-tag">MLOps</span>
+                            <span class="tech-tag">DagsHub</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-actions">
+                    <a href="https://github.com/garvitwork/Enterprise-Income-Model-Generation-and-Predictive-Dashboard" class="project-link" target="_blank">GitHub <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
 
             <!-- Project 3 -->
             <div class="project-card">
-                <div class="project-header">
+                <div class="project-card-top">
+                    <div class="project-num">03</div>
                     <div class="project-category">ML Explainability</div>
-                    <h3 class="project-title">Model Analytics & Explainability Platform</h3>
-                    <p class="project-description">
-                        Comprehensive dashboard for ML model performance analysis using SHAP, LIME, and LLM-powered explainability reports.
-                    </p>
                 </div>
-                <div class="project-body">
-                    <div class="tech-stack">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">SHAP</span>
-                        <span class="tech-tag">LIME</span>
-                        <span class="tech-tag">FastAPI</span>
-                        <span class="tech-tag">LLM</span>
+                <div class="project-header">
+                    <h3 class="project-title">Model Analytics & Explainability Platform</h3>
+                    <p class="project-description">Comprehensive dashboard for ML model performance analysis using SHAP, LIME, and LLM-powered explainability reports.</p>
+                    <div class="project-impact">
+                        <div class="project-impact-label">Why It Matters</div>
+                        <p>Regulators (EU AI Act, RBI, FDA) now mandate explainable AI for high-stakes decisions. This platform gives data teams a unified audit trail — translating black-box model behaviour into human-readable reports — reducing compliance risk for enterprises deploying ML in regulated sectors.</p>
                     </div>
-                    <a href="https://github.com/garvitwork/dashboard" class="project-link" target="_blank">
-                        Git Hub <i class="fas fa-arrow-right"></i>
-                    </a>
-                    <a href="https://garvitwork.github.io/UI_explain/" class="project-link" target="_blank">
-                        Test Project <i class="fas fa-arrow-right"></i>
-                    </a>
+                    <div class="project-body">
+                        <div class="tech-stack">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">SHAP</span>
+                            <span class="tech-tag">LIME</span>
+                            <span class="tech-tag">FastAPI</span>
+                            <span class="tech-tag">LLM</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-actions">
+                    <a href="https://github.com/garvitwork/dashboard" class="project-link" target="_blank">GitHub <i class="fas fa-arrow-right"></i></a>
+                    <a href="https://garvitwork.github.io/UI_explain/" class="project-link" target="_blank">Test Project <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
 
             <!-- Project 4 -->
             <div class="project-card">
-                <div class="project-header">
+                <div class="project-card-top">
+                    <div class="project-num">04</div>
                     <div class="project-category">ML Explainability</div>
-                    <h3 class="project-title">Machine Learning Models' Trust Scoring Platform</h3>
-                    <p class="project-description">
-                        Comprehensive platform for scoring the ML models for how trustworthy they are based on 5 features - 
-                        Confidence Consistency, Data Familiarity, Agreement Score, Explanation Stability and Historical Error Rate.
-                    </p>
                 </div>
-                <div class="project-body">
-                    <div class="tech-stack">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">Trust Scoring Weighted Formula</span>
-                        <span class="tech-tag">JavaScript</span>
-                        <span class="tech-tag">FastAPI</span>
-                        <span class="tech-tag">MLOps</span>
+                <div class="project-header">
+                    <h3 class="project-title">Machine Learning Models' Trust Scoring Platform</h3>
+                    <p class="project-description">Comprehensive platform for scoring ML models' trustworthiness across 5 dimensions — Confidence Consistency, Data Familiarity, Agreement Score, Explanation Stability, and Historical Error Rate.</p>
+                    <div class="project-impact">
+                        <div class="project-impact-label">Why It Matters</div>
+                        <p>Before deploying an ML model in banking, healthcare, or autonomous systems, organisations need to know: can we trust it? This platform quantifies that answer with a single score across five rigorous axes — giving risk officers, CTOs, and compliance teams an objective standard for model governance.</p>
                     </div>
-                    <a href="https://github.com/garvitwork/Trustworthiness-Scoring-Web-App" class="project-link" target="_blank">
-                        Git Hub <i class="fas fa-arrow-right"></i>
-                    </a>
-                    <a href="https://garvitwork.github.io/TrustWebLink/" class="project-link" target="_blank">
-                        Test Project <i class="fas fa-arrow-right"></i>
-                    </a>
+                    <div class="project-body">
+                        <div class="tech-stack">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Trust Scoring</span>
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">FastAPI</span>
+                            <span class="tech-tag">MLOps</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-actions">
+                    <a href="https://github.com/garvitwork/Trustworthiness-Scoring-Web-App" class="project-link" target="_blank">GitHub <i class="fas fa-arrow-right"></i></a>
+                    <a href="https://garvitwork.github.io/TrustWebLink/" class="project-link" target="_blank">Test Project <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
 
-
-
-            <!-- Project 5 -->
+            <!-- Project 5 — spans full width -->
             <div class="project-card">
-                <div class="project-header">
+                <div class="project-card-top">
+                    <div class="project-num">05</div>
                     <div class="project-category">Research</div>
-                    <h3 class="project-title">AI-Powered Stock Prediction System</h3>
-                    <p class="project-description">
-                        Research-grade application with financial chatbot, sentiment analysis, and ML-based predictions using technical indicators.
-                    </p>
                 </div>
-                <div class="project-body">
-                    <div class="tech-stack">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">LLM</span>
-                        <span class="tech-tag">Deep Learning</span>
-                        <span class="tech-tag">NLP</span>
-                        <span class="tech-tag">Streamlit</span>
+                <div class="project-header">
+                    <h3 class="project-title">AI-Powered Stock Prediction System</h3>
+                    <p class="project-description">Research-grade application with financial chatbot, sentiment analysis, and ML-based predictions using technical indicators.</p>
+                    <div class="project-impact">
+                        <div class="project-impact-label">Why It Matters</div>
+                        <p>Retail investors lack the quantitative tools that hedge funds use daily. This system democratises that edge — combining NLP-driven news sentiment with technical indicators to surface actionable signals, while the integrated financial chatbot lowers the barrier for non-technical users to query markets intelligently.</p>
                     </div>
-                    <a href="#" class="project-link" style="opacity: 0.5; pointer-events: none;">
-                        Coming Soon <i class="fas fa-clock"></i>
-                    </a>
+                    <div class="project-body">
+                        <div class="tech-stack">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">LLM</span>
+                            <span class="tech-tag">Deep Learning</span>
+                            <span class="tech-tag">NLP</span>
+                            <span class="tech-tag">Streamlit</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-actions">
+                    <a href="#" class="project-link" style="opacity: 0.4; pointer-events: none;">Copyrighted Application (Contact for Collaboration) <i class="fas fa-clock"></i></a>
                 </div>
             </div>
         </div>
@@ -1392,13 +1645,9 @@
         <div class="expertise-grid">
             <!-- Deep Learning -->
             <div class="expertise-card">
-                <div class="expertise-icon">
-                    <i class="fas fa-brain"></i>
-                </div>
+                <div class="expertise-icon"><i class="fas fa-brain"></i></div>
                 <h3 class="expertise-title">Deep Learning</h3>
-                <p class="expertise-description">
-                    Advanced neural network architectures for complex pattern recognition and prediction tasks.
-                </p>
+                <p class="expertise-description">Advanced neural network architectures for complex pattern recognition and prediction.</p>
                 <ul class="expertise-skills">
                     <li>CNNs & Computer Vision</li>
                     <li>RNNs & LSTM Networks</li>
@@ -1409,13 +1658,9 @@
 
             <!-- Machine Learning -->
             <div class="expertise-card">
-                <div class="expertise-icon">
-                    <i class="fas fa-robot"></i>
-                </div>
+                <div class="expertise-icon"><i class="fas fa-robot"></i></div>
                 <h3 class="expertise-title">Machine Learning</h3>
-                <p class="expertise-description">
-                    Classical ML algorithms and modern techniques for diverse analytical challenges.
-                </p>
+                <p class="expertise-description">Classical ML algorithms and modern techniques for diverse analytical challenges.</p>
                 <ul class="expertise-skills">
                     <li>Supervised Learning</li>
                     <li>Unsupervised Learning</li>
@@ -1426,13 +1671,9 @@
 
             <!-- MLOps -->
             <div class="expertise-card">
-                <div class="expertise-icon">
-                    <i class="fas fa-cogs"></i>
-                </div>
+                <div class="expertise-icon"><i class="fas fa-cogs"></i></div>
                 <h3 class="expertise-title">MLOps & Deployment</h3>
-                <p class="expertise-description">
-                    End-to-end pipeline management from model training to production deployment.
-                </p>
+                <p class="expertise-description">End-to-end pipeline management from model training to production deployment.</p>
                 <ul class="expertise-skills">
                     <li>CI/CD Pipelines</li>
                     <li>Model Monitoring</li>
@@ -1443,13 +1684,9 @@
 
             <!-- NLP -->
             <div class="expertise-card">
-                <div class="expertise-icon">
-                    <i class="fas fa-language"></i>
-                </div>
+                <div class="expertise-icon"><i class="fas fa-language"></i></div>
                 <h3 class="expertise-title">Natural Language Processing</h3>
-                <p class="expertise-description">
-                    Text analysis and language understanding using state-of-the-art NLP techniques.
-                </p>
+                <p class="expertise-description">Text analysis and language understanding using state-of-the-art NLP techniques.</p>
                 <ul class="expertise-skills">
                     <li>Sentiment Analysis</li>
                     <li>Text Classification</li>
@@ -1460,13 +1697,9 @@
 
             <!-- AI Fairness -->
             <div class="expertise-card">
-                <div class="expertise-icon">
-                    <i class="fas fa-balance-scale"></i>
-                </div>
+                <div class="expertise-icon"><i class="fas fa-balance-scale"></i></div>
                 <h3 class="expertise-title">AI Fairness & Ethics</h3>
-                <p class="expertise-description">
-                    Building responsible AI systems with bias detection and mitigation strategies.
-                </p>
+                <p class="expertise-description">Building responsible AI systems with bias detection and mitigation strategies.</p>
                 <ul class="expertise-skills">
                     <li>Bias Detection</li>
                     <li>Fairness Metrics</li>
@@ -1477,13 +1710,9 @@
 
             <!-- Data Science -->
             <div class="expertise-card">
-                <div class="expertise-icon">
-                    <i class="fas fa-chart-line"></i>
-                </div>
+                <div class="expertise-icon"><i class="fas fa-chart-line"></i></div>
                 <h3 class="expertise-title">Data Science & Analytics</h3>
-                <p class="expertise-description">
-                    Statistical analysis and data visualization for actionable business insights.
-                </p>
+                <p class="expertise-description">Statistical analysis and data visualization for actionable business insights.</p>
                 <ul class="expertise-skills">
                     <li>Statistical Modeling</li>
                     <li>Data Visualization</li>
@@ -1498,16 +1727,16 @@
             <h3 class="tools-title">Tools & Technologies</h3>
             <div class="tools-grid">
                 <div class="tool-category">
-                    <h4>Languages</h4>
+                    <h4><i class="fas fa-code" style="color:var(--yellow);margin-right:8px"></i>Languages</h4>
                     <div class="tool-tags">
-                        <span class="tool-tag">Python</span>
+                        <span class="tool-tag"><i class="fab fa-python"></i> Python</span>
                         <span class="tool-tag">R</span>
-                        <span class="tool-tag">SQL</span>
-                        <span class="tool-tag">JavaScript</span>
+                        <span class="tool-tag"><i class="fas fa-database"></i> SQL</span>
+                        <span class="tool-tag"><i class="fab fa-js"></i> JavaScript</span>
                     </div>
                 </div>
                 <div class="tool-category">
-                    <h4>ML Frameworks</h4>
+                    <h4><i class="fas fa-network-wired" style="color:var(--yellow);margin-right:8px"></i>ML Frameworks</h4>
                     <div class="tool-tags">
                         <span class="tool-tag">TensorFlow</span>
                         <span class="tool-tag">PyTorch</span>
@@ -1516,7 +1745,7 @@
                     </div>
                 </div>
                 <div class="tool-category">
-                    <h4>Data Tools</h4>
+                    <h4><i class="fas fa-table" style="color:var(--yellow);margin-right:8px"></i>Data Tools</h4>
                     <div class="tool-tags">
                         <span class="tool-tag">Pandas</span>
                         <span class="tool-tag">NumPy</span>
@@ -1525,12 +1754,12 @@
                     </div>
                 </div>
                 <div class="tool-category">
-                    <h4>MLOps</h4>
+                    <h4><i class="fas fa-rocket" style="color:var(--yellow);margin-right:8px"></i>MLOps</h4>
                     <div class="tool-tags">
                         <span class="tool-tag">DagsHub</span>
                         <span class="tool-tag">MLflow</span>
-                        <span class="tool-tag">Docker</span>
-                        <span class="tool-tag">Git</span>
+                        <span class="tool-tag"><i class="fab fa-docker"></i> Docker</span>
+                        <span class="tool-tag"><i class="fab fa-git-alt"></i> Git</span>
                     </div>
                 </div>
             </div>
@@ -1544,27 +1773,85 @@
         </div>
 
         <div class="about-grid">
-            <div class="about-image">GG</div>
-            <div class="about-content">
-                <h3>Building the Future with Data & AI</h3>
-                <p>
-                    I'm a Data Science and Machine Learning researcher with 2+ years of experience transforming complex data into actionable insights. My work spans from AI fairness and bias mitigation to enterprise analytics and deep learning applications.
-                </p>
-                <p>
-                    With a strong foundation in mathematics from Delhi University, I combine theoretical rigor with practical engineering to build scalable, ethical AI solutions. My projects have been presented at international conferences, and I continue to contribute to the field through research and open-source development.
-                </p>
 
-                <div style="margin-top: 40px;">
-                    <h4 style="font-size: 20px; font-weight: 700; margin-bottom: 20px;">Education & Research</h4>
-                    <p style="margin-bottom: 15px;">
-                        <strong>Bachelor of Science in Mathematics</strong><br>
-                        Delhi University • Strong foundation in applied mathematics and statistics
-                    </p>
-                    <p>
-                        <strong>Research Focus:</strong> AI Fairness, Machine Learning, Deep Learning Applications, and Mathematical Optimization
-                    </p>
+            <!-- Left: Avatar + Quick Facts -->
+            <div class="about-left">
+                <div class="about-avatar-wrap">
+                    <div class="about-avatar">
+                        <div class="avatar-monogram">
+                            <span class="m-white">G</span><span class="m-yellow">G</span>
+                        </div>
+                        <div class="avatar-role">Garvit Gupta</div>
+                    </div>
+                </div>
+
+                <div class="about-facts">
+                    <div class="about-fact">
+                        <div class="about-fact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="about-fact-text">New Delhi, India
+                            <span>Open to remote & relocation</span>
+                        </div>
+                    </div>
+                    <div class="about-fact">
+                        <div class="about-fact-icon"><i class="fas fa-graduation-cap"></i></div>
+                        <div class="about-fact-text">B.Sc. Mathematics
+                            <span>Delhi University</span>
+                        </div>
+                    </div>
+                    <div class="about-fact">
+                        <div class="about-fact-icon"><i class="fas fa-briefcase"></i></div>
+                        <div class="about-fact-text">2+ Years in ML & DS
+                            <span>Research + Production</span>
+                        </div>
+                    </div>
+                    <div class="about-fact">
+                        <div class="about-fact-icon"><i class="fas fa-coffee"></i></div>
+                        <div class="about-fact-text">Runs on chai & curiosity
+                            <span>And the occasional bug fix at 2am</span>
+                        </div>
+                    </div>
+                    <div class="about-fact">
+                        <div class="about-fact-icon"><i class="fas fa-globe"></i></div>
+                        <div class="about-fact-text">Conference Speaker
+                            <span>International AI & ML forums</span>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <!-- Right: Content -->
+            <div class="about-content">
+                <h3>I make machines smarter.<br>Still working on myself.</h3>
+
+                <p class="about-intro">
+                    I'm a Data Science and Machine Learning researcher who genuinely believes that the most exciting unsolved problem in AI isn't artificial general intelligence — it's getting models to behave fairly, explainably, and honestly. That belief has driven 2+ years of building tools that real engineers, auditors, and organisations can actually use.
+                </p>
+
+                <p class="about-quip">
+                    "I chose Mathematics because I wanted the universe to make sense. Turns out the universe outsourced that job to neural networks, and now I'm debugging both."
+                </p>
+
+                <div class="about-edu">
+                    <div class="about-edu-label">Education</div>
+                    <div class="about-edu-card">
+                        <div class="about-edu-degree">Bachelor of Science in Mathematics with Research</div>
+                        <div class="about-edu-school">Delhi University &nbsp;·&nbsp; Mathematics, Statistics & Machine Learning</div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="about-research-label">Research Interests</div>
+                    <div class="about-tags">
+                        <span class="about-tag">AI Fairness</span>
+                        <span class="about-tag">ML Explainability</span>
+                        <span class="about-tag">Trust Scoring</span>
+                        <span class="about-tag">Deep Learning</span>
+                        <span class="about-tag">Mathematical Optimization</span>
+                        <span class="about-tag">Responsible AI</span>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
@@ -1581,7 +1868,7 @@
                     <i class="fas fa-envelope"></i>
                 </div>
                 <div class="contact-label">Email</div>
-                <div class="contact-value">garvitwork25@gmail.com</div>
+                <div class="contact-value"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="adcaccdfdbc4d9dac2dfc69f98edcac0ccc4c183cec2c0">[email&#160;protected]</a></div>
             </div>
 
             <div class="contact-card">
@@ -1611,7 +1898,7 @@
         <p>&copy; 2024 Garvit Gupta. All rights reserved.</p>
     </footer>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // Smooth navigation with active state
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', function(e) {
@@ -1695,9 +1982,8 @@
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
             const circles = document.querySelectorAll('.floating-circle');
-            
             circles.forEach((circle, index) => {
-                const speed = 0.1 + (index * 0.05);
+                const speed = (index + 1) * 0.3; // Different speed for each circle
                 circle.style.transform = `translateY(${scrolled * speed}px)`;
             });
         });
