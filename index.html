@@ -454,28 +454,380 @@
             z-index: 1;
         }
 
-        /* Projects — 2-col card grid */
+        /* Projects — single-col card grid, video beside content */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: 1fr;
             gap: 32px;
-        }
-
-        /* Project 5 (last, odd) spans full width */
-        .project-card:last-child {
-            grid-column: 1 / -1;
         }
 
         .project-card {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
+            align-items: stretch;
             border: 1px solid var(--gray);
-            padding: 40px;
             position: relative;
             transition: box-shadow 0.35s ease, transform 0.35s ease, border-color 0.35s ease;
             cursor: default;
             background: var(--white);
             overflow: hidden;
+        }
+
+        /* Left: all existing text content */
+        .project-content {
+            flex: 1 1 50%;
+            width: 50%;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            box-sizing: border-box;
+        }
+
+        /* Right: video panel — sized by the video's natural aspect ratio */
+        .project-video-panel {
+            flex: 0 0 50%;
+            width: 50%;
+            background: var(--dark-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border-left: 1px solid rgba(255,255,255,0.08);
+            min-height: 320px;
+            box-sizing: border-box;
+        }
+
+        /* Video fills the panel width, height adjusts to 16:9 naturally */
+        .project-video-panel video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            background: var(--dark-gray);
+        }
+
+        /* ── Stock Visualization Panel (Project 6) ── */
+        .stock-panel {
+            flex-direction: column !important;
+            justify-content: space-between !important;
+            padding: 0;
+            overflow: hidden;
+            background: #0d0d0d;
+        }
+
+        .stock-ticker-bar {
+            width: 100%;
+            background: #000;
+            border-bottom: 1px solid rgba(255,215,0,0.15);
+            overflow: hidden;
+            padding: 8px 0;
+            flex-shrink: 0;
+        }
+
+        .stock-ticker-inner {
+            display: flex;
+            gap: 40px;
+            white-space: nowrap;
+            animation: tickerScroll 18s linear infinite;
+        }
+
+        @keyframes tickerScroll {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .tick { font-size: 11px; font-weight: 700; letter-spacing: 0.5px; }
+        .tick.up   { color: #4ade80; }
+        .tick.down { color: #f87171; }
+
+        .stock-chart-wrap {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 16px 10px 4px 42px;
+            min-height: 0;
+            position: relative;
+        }
+
+        .stock-y-labels {
+            position: absolute;
+            left: 8px;
+            top: 16px;
+            bottom: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            pointer-events: none;
+        }
+
+        .stock-y-labels span {
+            font-size: 9px;
+            color: rgba(255,255,255,0.25);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .stock-chart-svg-wrap {
+            position: relative;
+            flex: 1;
+            min-height: 0;
+        }
+
+        .stock-svg { width: 100%; height: 100%; }
+
+        .chart-line {
+            stroke-dasharray: 900;
+            stroke-dashoffset: 900;
+            animation: drawLine 2.5s ease forwards;
+        }
+
+        .chart-area {
+            opacity: 0;
+            animation: fadeArea 0.8s ease 2.2s forwards;
+        }
+
+        .chart-predict {
+            stroke-dasharray: 60;
+            stroke-dashoffset: 60;
+            animation: drawLine 0.8s ease 2.4s forwards;
+        }
+
+        @keyframes drawLine { to { stroke-dashoffset: 0; } }
+        @keyframes fadeArea { to { opacity: 1; } }
+
+        .chart-dot {
+            opacity: 0;
+            animation: popIn 0.4s ease 2.8s forwards;
+        }
+
+        .chart-pulse {
+            opacity: 0;
+            animation: pulse 1.8s ease-in-out 3s infinite;
+        }
+
+        @keyframes popIn { from { r: 0; opacity: 0; } to { opacity: 1; } }
+        @keyframes pulse {
+            0%, 100% { r: 8;  opacity: 0.15; }
+            50%       { r: 14; opacity: 0.06; }
+        }
+
+        .chart-tooltip {
+            position: absolute;
+            top: 0;
+            right: 8px;
+            background: rgba(0,0,0,0.85);
+            border: 1px solid rgba(255,215,0,0.4);
+            padding: 8px 12px;
+            opacity: 0;
+            animation: fadeIn 0.4s ease 3s forwards;
+        }
+
+        @keyframes fadeIn { to { opacity: 1; } }
+
+        .chart-tooltip-label {
+            font-size: 8px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--yellow);
+            margin-bottom: 4px;
+        }
+
+        .chart-tooltip-value { font-size: 15px; font-weight: 800; color: #4ade80; }
+        .chart-tooltip-conf  { font-size: 9px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+
+        .stock-x-labels {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0 0 0;
+        }
+
+        .stock-x-labels span {
+            font-size: 9px;
+            color: rgba(255,255,255,0.25);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .stock-stats-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 12px 16px;
+            background: rgba(0,0,0,0.4);
+            border-top: 1px solid rgba(255,215,0,0.1);
+            flex-shrink: 0;
+        }
+
+        .stock-stat { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+
+        .stock-stat-val {
+            font-size: 16px;
+            font-weight: 900;
+            color: var(--white);
+            letter-spacing: -0.5px;
+        }
+
+        .stock-stat-val.up { color: #4ade80; }
+
+        .stock-stat-label {
+            font-size: 8px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.3);
+        }
+
+        .stock-stat-divider {
+            width: 1px;
+            height: 32px;
+            background: rgba(255,215,0,0.12);
+        }
+
+        .stock-lock-badge {
+            position: absolute;
+            top: 40px;
+            right: 14px;
+            background: rgba(0,0,0,0.7);
+            border: 1px solid rgba(255,215,0,0.3);
+            color: rgba(255,215,0,0.6);
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 5px 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            z-index: 3;
+        }
+        .stock-disclaimer {
+            position: absolute;
+            bottom: 52px; /* sits just above the stats row */
+            left: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            background: rgba(0,0,0,0.72);
+            border-top: 1px solid rgba(255,215,0,0.12);
+            border-bottom: 1px solid rgba(255,215,0,0.12);
+            padding: 7px 14px;
+            font-size: 10px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.4);
+            letter-spacing: 0.3px;
+            z-index: 4;
+            backdrop-filter: blur(4px);
+        }
+
+        .stock-disclaimer i {
+            color: var(--yellow);
+            opacity: 0.6;
+            flex-shrink: 0;
+        }
+
+        .stock-disclaimer a {
+            color: var(--yellow);
+            text-decoration: none;
+            font-weight: 700;
+            opacity: 0.85;
+            transition: opacity 0.2s;
+        }
+
+        .stock-disclaimer a:hover { opacity: 1; }
+        /* ── End Stock Panel ── */
+
+        /* Fullscreen button — appears on hover */
+        .video-fullscreen-btn {
+            position: absolute;
+            bottom: 14px;
+            right: 14px;
+            width: 36px;
+            height: 36px;
+            background: rgba(0, 0, 0, 0.65);
+            border: 1.5px solid rgba(255, 215, 0, 0.6);
+            color: var(--yellow);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 5;
+            opacity: 0;
+            transition: opacity 0.25s ease, background 0.25s ease, transform 0.2s ease;
+            font-size: 13px;
+        }
+
+        .project-video-panel:hover .video-fullscreen-btn {
+            opacity: 1;
+        }
+
+        .video-fullscreen-btn:hover {
+            background: var(--yellow);
+            color: var(--black);
+            transform: scale(1.1);
+        }
+
+        /* Native fullscreen */
+        .project-video-panel video:fullscreen,
+        .project-video-panel video:-webkit-full-screen,
+        .project-video-panel video:-moz-full-screen {
+            width: 100vw;
+            height: 100vh;
+            object-fit: contain;
+            background: #000;
+        }
+
+        /* Placeholder shown when no video src is set */
+        .video-placeholder {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            color: rgba(255,255,255,0.3);
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-align: center;
+            padding: 20px;
+            /* Hidden by default — JS reveals it only if video fails */
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Only show placeholder when video panel has the error state */
+        .project-video-panel.video-error .video-placeholder {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .video-placeholder i {
+            font-size: 48px;
+            color: var(--yellow);
+            opacity: 0.4;
+        }
+
+        /* Video label strip at top of video panel */
+        .video-label {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            background: var(--yellow);
+            color: var(--black);
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 5px 10px;
+            z-index: 2;
         }
 
         /* Yellow top accent bar that grows on hover */
@@ -488,6 +840,7 @@
             transform: scaleX(0);
             transform-origin: left;
             transition: transform 0.4s ease;
+            z-index: 3;
         }
 
         .project-card:hover::before { transform: scaleX(1); }
@@ -522,6 +875,8 @@
             background: none;
             clip-path: none;
             flex: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .project-category {
@@ -1407,11 +1762,31 @@
         /* Large screens optimization */
         @media (min-width: 1400px) {
             .projects-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: 1fr;
             }
 
             .expertise-grid {
                 grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Stack project cards vertically on smaller screens */
+        @media (max-width: 900px) {
+            .project-card {
+                flex-direction: column;
+            }
+
+            .project-video-panel {
+                flex: 0 0 auto;
+                width: 100%;
+                aspect-ratio: 16 / 9;
+                min-height: unset;
+                border-left: none;
+                border-top: 1px solid rgba(255,255,255,0.08);
+            }
+
+            .video-fullscreen-btn {
+                opacity: 1;
             }
         }
     </style>
@@ -1492,186 +1867,393 @@
         <div class="projects-grid">
             <!-- Project 1 — AURUM Gold Price Intelligence -->
             <div class="project-card">
-                <div class="project-card-top">
-                    <div class="project-num">01</div>
-                    <div class="project-category">ML · FinTech · MLOps</div>
-                </div>
-                <div class="project-header">
-                    <h3 class="project-title">AURUM — Gold Price Direction Intelligence</h3>
-                    <p class="project-description">End-to-end ML system predicting gold price directional movement using 70 years of financial data — deployed as a production FastAPI inference service with MLflow experiment tracking, DagsHub Model Registry, and a live web frontend.</p>
-                    <div class="project-impact">
-                        <div class="project-impact-label">Why It Matters</div>
-                        <p>
-                            Rural households – Data-driven signal before buying/selling gold jewellery.<br>
-                            Small jewellers – Inventory timing informed by directional predictions.<br>
-                            First-generation investors – Free, accessible alternative to expensive advisory services.<br>
-                            Students & researchers – Open demonstration of production ML on real financial data.<br>
-                            Gold loan borrowers – Better timing for pledging or redeeming gold assets.
-                            </p>
+                <!-- LEFT: text content -->
+                <div class="project-content">
+                    <div class="project-card-top">
+                        <div class="project-num">01</div>
+                        <div class="project-category">ML · FinTech · MLOps</div>
                     </div>
-                    <div class="project-body">
-                        <div class="tech-stack">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">FastAPI</span>
-                            <span class="tech-tag">scikit-learn</span>
-                            <span class="tech-tag">MLflow</span>
-                            <span class="tech-tag">DagsHub</span>
-                            <span class="tech-tag">SMOTE</span>
-                            <span class="tech-tag">Walk-Forward CV</span>
-                            <span class="tech-tag">Render</span>
+                    <div class="project-header">
+                        <h3 class="project-title">AURUM — Gold Price Direction Intelligence</h3>
+                        <p class="project-description">End-to-end ML system predicting gold price directional movement using 70 years of financial data — deployed as a production FastAPI inference service with MLflow experiment tracking, DagsHub Model Registry, and a live web frontend.</p>
+                        <div class="project-impact">
+                            <div class="project-impact-label">Why It Matters</div>
+                            <p>
+                                Rural households – Data-driven signal before buying/selling gold jewellery.<br>
+                                Small jewellers – Inventory timing informed by directional predictions.<br>
+                                First-generation investors – Free, accessible alternative to expensive advisory services.<br>
+                                Students & researchers – Open demonstration of production ML on real financial data.<br>
+                                Gold loan borrowers – Better timing for pledging or redeeming gold assets.
+                            </p>
+                        </div>
+                        <div class="project-body">
+                            <div class="tech-stack">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">FastAPI</span>
+                                <span class="tech-tag">scikit-learn</span>
+                                <span class="tech-tag">MLflow</span>
+                                <span class="tech-tag">DagsHub</span>
+                                <span class="tech-tag">SMOTE</span>
+                                <span class="tech-tag">Walk-Forward CV</span>
+                                <span class="tech-tag">Render</span>
+                            </div>
                         </div>
                     </div>
+                    <div class="project-actions">
+                        <a href="https://github.com/garvitwork/gold_backend" class="project-link" target="_blank">GitHub <i class="fas fa-arrow-right"></i></a>
+                        <a href="https://dagshub.com/garvitwork/gold_backend.mlflow" class="project-link" target="_blank">MLflow <i class="fas fa-arrow-right"></i></a>
+                        <a href="https://garvitwork.github.io/Frontend_Deploy/" class="project-link" target="_blank">Test Link <i class="fas fa-arrow-right"></i></a>
+                    </div>
                 </div>
-                <div class="project-actions">
-                    <a href="https://github.com/garvitwork/gold_backend" class="project-link" target="_blank">GitHub <i class="fas fa-arrow-right"></i></a>
-                    <a href="https://dagshub.com/garvitwork/gold_backend.mlflow" class="project-link" target="_blank">MLflow <i class="fas fa-arrow-right"></i></a>
-                    <a href="https://garvitwork.github.io/Frontend_Deploy/" class="project-link" target="_blank">Test Link <i class="fas fa-arrow-right"></i></a>
+                <!-- RIGHT: demo video — replace src with your actual video file path -->
+                <div class="project-video-panel">
+                    <span class="video-label">Live Demo</span>
+                    <video src="videos/aurum-demo.mp4" muted loop playsinline
+                           onmouseenter="this.play()" onmouseleave="this.pause()">
+                    </video>
+                    <div class="video-placeholder">
+                        <i class="fas fa-play-circle"></i>
+                        <span>Demo Video</span>
+                        <span style="font-size:10px;opacity:0.5;">Add videos/aurum-demo.mp4</span>
+                    </div>
+                    <button class="video-fullscreen-btn" title="Fullscreen" onclick="this.closest('.project-video-panel').querySelector('video').requestFullscreen()">
+                        <i class="fas fa-expand"></i>
+                    </button>
                 </div>
             </div>
 
             
 
-            
             <!-- Project 2 -->
             <div class="project-card">
-                <div class="project-card-top">
-                    <div class="project-num">02</div>
-                    <div class="project-category">AI Fairness</div>
-                </div>
-                <div class="project-header">
-                    <h3 class="project-title">Bias Detection & Mitigation Platform</h3>
-                    <p class="project-description">Advanced web application for detecting and mitigating bias in ML models through five automated phases with complete MLOps integration.</p>
-                    <div class="project-impact">
-                        <div class="project-impact-label">Why It Matters</div>
-                        <p>Biased AI in hiring, lending, and healthcare causes systemic discrimination at scale. This platform automates what MNCs like Google, IBM, and financial regulators spend millions on manually — making fairness audits accessible, reproducible, and production-ready from day one.</p>
+                <!-- LEFT: text content -->
+                <div class="project-content">
+                    <div class="project-card-top">
+                        <div class="project-num">02</div>
+                        <div class="project-category">AI Fairness</div>
                     </div>
-                    <div class="project-body">
-                        <div class="tech-stack">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">IBM AIF360</span>
-                            <span class="tech-tag">JavaScript</span>
-                            <span class="tech-tag">MLOps</span>
-                            <span class="tech-tag">DagsHub</span>
+                    <div class="project-header">
+                        <h3 class="project-title">Bias Detection & Mitigation Platform</h3>
+                        <p class="project-description">Advanced web application for detecting and mitigating bias in ML models through five automated phases with complete MLOps integration.</p>
+                        <div class="project-impact">
+                            <div class="project-impact-label">Why It Matters</div>
+                            <p>Biased AI in hiring, lending, and healthcare causes systemic discrimination at scale. This platform automates what MNCs like Google, IBM, and financial regulators spend millions on manually — making fairness audits accessible, reproducible, and production-ready from day one.</p>
+                        </div>
+                        <div class="project-body">
+                            <div class="tech-stack">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">IBM AIF360</span>
+                                <span class="tech-tag">JavaScript</span>
+                                <span class="tech-tag">MLOps</span>
+                                <span class="tech-tag">DagsHub</span>
+                            </div>
                         </div>
                     </div>
+                    <div class="project-actions">
+                        <a href="https://github.com/garvitwork/Bias-Web-App" class="project-link" target="_blank">GitHub <i class="fas fa-arrow-right"></i></a>
+                        <a href="https://garvitwork.github.io/BiasnessWebapplink/" class="project-link" target="_blank">Test Project <i class="fas fa-arrow-right"></i></a>
+                    </div>
                 </div>
-                <div class="project-actions">
-                    <a href="https://github.com/garvitwork/Bias-Web-App" class="project-link" target="_blank">GitHub <i class="fas fa-arrow-right"></i></a>
-                    <a href="https://garvitwork.github.io/BiasnessWebapplink/" class="project-link" target="_blank">Test Project <i class="fas fa-arrow-right"></i></a>
+                <!-- RIGHT: demo video -->
+                <div class="project-video-panel">
+                    <span class="video-label">Live Demo</span>
+                    <video src="videos/bias-demo.mp4" muted loop playsinline
+                           onmouseenter="this.play()" onmouseleave="this.pause()">
+                    </video>
+                    <div class="video-placeholder">
+                        <i class="fas fa-play-circle"></i>
+                        <span>Demo Video</span>
+                        <span style="font-size:10px;opacity:0.5;">Add videos/bias-demo.mp4</span>
+                    </div>
+                    <button class="video-fullscreen-btn" title="Fullscreen" onclick="this.closest('.project-video-panel').querySelector('video').requestFullscreen()">
+                        <i class="fas fa-expand"></i>
+                    </button>
                 </div>
             </div>
 
             <!-- Project 3 -->
             <div class="project-card">
-                <div class="project-card-top">
-                    <div class="project-num">03</div>
-                    <div class="project-category">Business Intelligence</div>
-                </div>
-                <div class="project-header">
-                    <h3 class="project-title">Enterprise Income Analytics Dashboard</h3>
-                    <p class="project-description">Sophisticated predictive dashboard achieving 91% accuracy with automated data pipelines and advanced UI integration.</p>
-                    <div class="project-impact">
-                        <div class="project-impact-label">Why It Matters</div>
-                        <p>Income classification at 91% accuracy directly powers credit risk scoring, targeted financial products, and social welfare allocation — decisions that affect millions. This end-to-end pipeline replaces costly analyst workflows and is deployable out-of-the-box in enterprise environments.</p>
+                <!-- LEFT: text content -->
+                <div class="project-content">
+                    <div class="project-card-top">
+                        <div class="project-num">03</div>
+                        <div class="project-category">Business Intelligence</div>
                     </div>
-                    <div class="project-body">
-                        <div class="tech-stack">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">Hugging Face</span>
-                            <span class="tech-tag">Streamlit</span>
-                            <span class="tech-tag">MLOps</span>
-                            <span class="tech-tag">DagsHub</span>
+                    <div class="project-header">
+                        <h3 class="project-title">Enterprise Income Analytics Dashboard</h3>
+                        <p class="project-description">Sophisticated predictive dashboard achieving 91% accuracy with automated data pipelines and advanced UI integration.</p>
+                        <div class="project-impact">
+                            <div class="project-impact-label">Why It Matters</div>
+                            <p>Income classification at 91% accuracy directly powers credit risk scoring, targeted financial products, and social welfare allocation — decisions that affect millions. This end-to-end pipeline replaces costly analyst workflows and is deployable out-of-the-box in enterprise environments.</p>
+                        </div>
+                        <div class="project-body">
+                            <div class="tech-stack">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">Hugging Face</span>
+                                <span class="tech-tag">Streamlit</span>
+                                <span class="tech-tag">MLOps</span>
+                                <span class="tech-tag">DagsHub</span>
+                            </div>
                         </div>
                     </div>
+                    <div class="project-actions">
+                        <a href="https://github.com/garvitwork/Enterprise-Income-Model-Generation-and-Predictive-Dashboard" class="project-link" target="_blank">GitHub <i class="fas fa-arrow-right"></i></a>
+                    </div>
                 </div>
-                <div class="project-actions">
-                    <a href="https://github.com/garvitwork/Enterprise-Income-Model-Generation-and-Predictive-Dashboard" class="project-link" target="_blank">GitHub <i class="fas fa-arrow-right"></i></a>
+                <!-- RIGHT: demo video -->
+                <div class="project-video-panel">
+                    <span class="video-label">Live Demo</span>
+                    <video src="videos/income-demo.mp4" muted loop playsinline
+                           onmouseenter="this.play()" onmouseleave="this.pause()">
+                    </video>
+                    <div class="video-placeholder">
+                        <i class="fas fa-play-circle"></i>
+                        <span>Demo Video</span>
+                        <span style="font-size:10px;opacity:0.5;">Add videos/income-demo.mp4</span>
+                    </div>
+                    <button class="video-fullscreen-btn" title="Fullscreen" onclick="this.closest('.project-video-panel').querySelector('video').requestFullscreen()">
+                        <i class="fas fa-expand"></i>
+                    </button>
                 </div>
             </div>
 
             <!-- Project 4 -->
             <div class="project-card">
-                <div class="project-card-top">
-                    <div class="project-num">04</div>
-                    <div class="project-category">ML Explainability</div>
-                </div>
-                <div class="project-header">
-                    <h3 class="project-title">Model Analytics & Explainability Platform</h3>
-                    <p class="project-description">Comprehensive dashboard for ML model performance analysis using SHAP, LIME, and LLM-powered explainability reports.</p>
-                    <div class="project-impact">
-                        <div class="project-impact-label">Why It Matters</div>
-                        <p>Regulators (EU AI Act, RBI, FDA) now mandate explainable AI for high-stakes decisions. This platform gives data teams a unified audit trail — translating black-box model behaviour into human-readable reports — reducing compliance risk for enterprises deploying ML in regulated sectors.</p>
+                <!-- LEFT: text content -->
+                <div class="project-content">
+                    <div class="project-card-top">
+                        <div class="project-num">04</div>
+                        <div class="project-category">ML Explainability</div>
                     </div>
-                    <div class="project-body">
-                        <div class="tech-stack">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">SHAP</span>
-                            <span class="tech-tag">LIME</span>
-                            <span class="tech-tag">FastAPI</span>
-                            <span class="tech-tag">LLM</span>
+                    <div class="project-header">
+                        <h3 class="project-title">Model Analytics & Explainability Platform</h3>
+                        <p class="project-description">Comprehensive dashboard for ML model performance analysis using SHAP, LIME, and LLM-powered explainability reports.</p>
+                        <div class="project-impact">
+                            <div class="project-impact-label">Why It Matters</div>
+                            <p>Regulators (EU AI Act, RBI, FDA) now mandate explainable AI for high-stakes decisions. This platform gives data teams a unified audit trail — translating black-box model behaviour into human-readable reports — reducing compliance risk for enterprises deploying ML in regulated sectors.</p>
+                        </div>
+                        <div class="project-body">
+                            <div class="tech-stack">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">SHAP</span>
+                                <span class="tech-tag">LIME</span>
+                                <span class="tech-tag">FastAPI</span>
+                                <span class="tech-tag">LLM</span>
+                            </div>
                         </div>
                     </div>
+                    <div class="project-actions">
+                        <a href="https://github.com/garvitwork/dashboard" class="project-link" target="_blank">GitHub <i class="fas fa-arrow-right"></i></a>
+                        <a href="https://garvitwork.github.io/UI_explain/" class="project-link" target="_blank">Test Project <i class="fas fa-arrow-right"></i></a>
+                    </div>
                 </div>
-                <div class="project-actions">
-                    <a href="https://github.com/garvitwork/dashboard" class="project-link" target="_blank">GitHub <i class="fas fa-arrow-right"></i></a>
-                    <a href="https://garvitwork.github.io/UI_explain/" class="project-link" target="_blank">Test Project <i class="fas fa-arrow-right"></i></a>
+                <!-- RIGHT: demo video -->
+                <div class="project-video-panel">
+                    <span class="video-label">Live Demo</span>
+                    <video src="videos/explainability-demo.mp4" muted loop playsinline
+                           onmouseenter="this.play()" onmouseleave="this.pause()">
+                    </video>
+                    <div class="video-placeholder">
+                        <i class="fas fa-play-circle"></i>
+                        <span>Demo Video</span>
+                        <span style="font-size:10px;opacity:0.5;">Add videos/explainability-demo.mp4</span>
+                    </div>
+                    <button class="video-fullscreen-btn" title="Fullscreen" onclick="this.closest('.project-video-panel').querySelector('video').requestFullscreen()">
+                        <i class="fas fa-expand"></i>
+                    </button>
                 </div>
             </div>
 
             <!-- Project 5 -->
             <div class="project-card">
-                <div class="project-card-top">
-                    <div class="project-num">05</div>
-                    <div class="project-category">ML Explainability</div>
-                </div>
-                <div class="project-header">
-                    <h3 class="project-title">Machine Learning Models' Trust Scoring Platform</h3>
-                    <p class="project-description">Comprehensive platform for scoring ML models' trustworthiness across 5 dimensions — Confidence Consistency, Data Familiarity, Agreement Score, Explanation Stability, and Historical Error Rate.</p>
-                    <div class="project-impact">
-                        <div class="project-impact-label">Why It Matters</div>
-                        <p>Before deploying an ML model in banking, healthcare, or autonomous systems, organisations need to know: can we trust it? This platform quantifies that answer with a single score across five rigorous axes — giving risk officers, CTOs, and compliance teams an objective standard for model governance.</p>
+                <!-- LEFT: text content -->
+                <div class="project-content">
+                    <div class="project-card-top">
+                        <div class="project-num">05</div>
+                        <div class="project-category">ML Explainability</div>
                     </div>
-                    <div class="project-body">
-                        <div class="tech-stack">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">Trust Scoring</span>
-                            <span class="tech-tag">JavaScript</span>
-                            <span class="tech-tag">FastAPI</span>
-                            <span class="tech-tag">MLOps</span>
+                    <div class="project-header">
+                        <h3 class="project-title">Machine Learning Models' Trust Scoring Platform</h3>
+                        <p class="project-description">Comprehensive platform for scoring ML models' trustworthiness across 5 dimensions — Confidence Consistency, Data Familiarity, Agreement Score, Explanation Stability, and Historical Error Rate.</p>
+                        <div class="project-impact">
+                            <div class="project-impact-label">Why It Matters</div>
+                            <p>Before deploying an ML model in banking, healthcare, or autonomous systems, organisations need to know: can we trust it? This platform quantifies that answer with a single score across five rigorous axes — giving risk officers, CTOs, and compliance teams an objective standard for model governance.</p>
+                        </div>
+                        <div class="project-body">
+                            <div class="tech-stack">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">Trust Scoring</span>
+                                <span class="tech-tag">JavaScript</span>
+                                <span class="tech-tag">FastAPI</span>
+                                <span class="tech-tag">MLOps</span>
+                            </div>
                         </div>
                     </div>
+                    <div class="project-actions">
+                        <a href="https://github.com/garvitwork/Trustworthiness-Scoring-Web-App" class="project-link" target="_blank">GitHub <i class="fas fa-arrow-right"></i></a>
+                        <a href="https://garvitwork.github.io/TrustWebLink/" class="project-link" target="_blank">Test Project <i class="fas fa-arrow-right"></i></a>
+                    </div>
                 </div>
-                <div class="project-actions">
-                    <a href="https://github.com/garvitwork/Trustworthiness-Scoring-Web-App" class="project-link" target="_blank">GitHub <i class="fas fa-arrow-right"></i></a>
-                    <a href="https://garvitwork.github.io/TrustWebLink/" class="project-link" target="_blank">Test Project <i class="fas fa-arrow-right"></i></a>
+                <!-- RIGHT: demo video -->
+                <div class="project-video-panel">
+                    <span class="video-label">Live Demo</span>
+                    <video src="videos/trust-demo.mp4" muted loop playsinline
+                           onmouseenter="this.play()" onmouseleave="this.pause()">
+                    </video>
+                    <div class="video-placeholder">
+                        <i class="fas fa-play-circle"></i>
+                        <span>Demo Video</span>
+                        <span style="font-size:10px;opacity:0.5;">Add videos/trust-demo.mp4</span>
+                    </div>
+                    <button class="video-fullscreen-btn" title="Fullscreen" onclick="this.closest('.project-video-panel').querySelector('video').requestFullscreen()">
+                        <i class="fas fa-expand"></i>
+                    </button>
                 </div>
             </div>
 
-            <!-- Project 6 — spans full width -->
+            <!-- Project 6 — copyrighted, no public video -->
             <div class="project-card">
-                <div class="project-card-top">
-                    <div class="project-num">Copyrighted Application (Contact for Collaboration)</div>
-                    <div class="project-category">Research</div>
-                </div>
-                <div class="project-header">
-                    <h3 class="project-title">AI-Powered Stock Prediction System</h3>
-                    <p class="project-description">Research-grade application with financial chatbot, sentiment analysis, and ML-based predictions using technical indicators.</p>
-                    <div class="project-impact">
-                        <div class="project-impact-label">Why It Matters</div>
-                        <p>Retail investors lack the quantitative tools that hedge funds use daily. This system democratises that edge — combining NLP-driven news sentiment with technical indicators to surface actionable signals, while the integrated financial chatbot lowers the barrier for non-technical users to query markets intelligently.</p>
+                <!-- LEFT: text content -->
+                <div class="project-content">
+                    <div class="project-card-top">
+                        <div class="project-num">06</div>
+                        <div class="project-category">Research</div>
                     </div>
-                    <div class="project-body">
-                        <div class="tech-stack">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">LLM</span>
-                            <span class="tech-tag">Deep Learning</span>
-                            <span class="tech-tag">NLP</span>
-                            <span class="tech-tag">Streamlit</span>
+                    <div style="display:inline-flex; align-items:center; gap:8px; margin-bottom:12px; background:var(--black); color:var(--yellow); font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:6px 14px; width:fit-content;">
+                        <i class="fas fa-lock" style="font-size:9px;"></i> Copyrighted — Contact for Collaboration
+                    </div>
+                    <div class="project-header">
+                        <h3 class="project-title">AI-Powered Stock Prediction System</h3>
+                        <p class="project-description">Research-grade application with financial chatbot, sentiment analysis, and ML-based predictions using technical indicators.</p>
+                        <div class="project-impact">
+                            <div class="project-impact-label">Why It Matters</div>
+                            <p>Retail investors lack the quantitative tools that hedge funds use daily. This system democratises that edge — combining NLP-driven news sentiment with technical indicators to surface actionable signals, while the integrated financial chatbot lowers the barrier for non-technical users to query markets intelligently.</p>
+                        </div>
+                        <div class="project-body">
+                            <div class="tech-stack">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">LLM</span>
+                                <span class="tech-tag">Deep Learning</span>
+                                <span class="tech-tag">NLP</span>
+                                <span class="tech-tag">Streamlit</span>
+                            </div>
                         </div>
                     </div>
+                    <div class="project-actions">
+                        <a href="#" class="project-link" style="opacity: 0.4; pointer-events: none;">Copyrighted Application (Contact for Collaboration) <i class="fas fa-clock"></i></a>
+                    </div>
                 </div>
-                <div class="project-actions">
-                    <a href="#" class="project-link" style="opacity: 0.4; pointer-events: none;">Copyrighted Application (Contact for Collaboration) <i class="fas fa-clock"></i></a>
+                <!-- RIGHT: stock visualization panel -->
+                <div class="project-video-panel stock-panel">
+                    <!-- Ticker strip -->
+                    <div class="stock-ticker-bar">
+                        <div class="stock-ticker-inner">
+                            <span class="tick up">AAPL &nbsp;+2.34%</span>
+                            <span class="tick down">TSLA &nbsp;−1.12%</span>
+                            <span class="tick up">NVDA &nbsp;+4.87%</span>
+                            <span class="tick down">META &nbsp;−0.56%</span>
+                            <span class="tick up">MSFT &nbsp;+1.09%</span>
+                            <span class="tick up">AMZN &nbsp;+3.21%</span>
+                            <span class="tick down">GOOGL &nbsp;−0.88%</span>
+                            <span class="tick up">NFLX &nbsp;+2.45%</span>
+                            <!-- duplicate for seamless loop -->
+                            <span class="tick up">AAPL &nbsp;+2.34%</span>
+                            <span class="tick down">TSLA &nbsp;−1.12%</span>
+                            <span class="tick up">NVDA &nbsp;+4.87%</span>
+                            <span class="tick down">META &nbsp;−0.56%</span>
+                            <span class="tick up">MSFT &nbsp;+1.09%</span>
+                            <span class="tick up">AMZN &nbsp;+3.21%</span>
+                            <span class="tick down">GOOGL &nbsp;−0.88%</span>
+                            <span class="tick up">NFLX &nbsp;+2.45%</span>
+                        </div>
+                    </div>
+
+                    <!-- Main chart area -->
+                    <div class="stock-chart-wrap">
+                        <!-- Y-axis labels -->
+                        <div class="stock-y-labels">
+                            <span>$420</span>
+                            <span>$380</span>
+                            <span>$340</span>
+                            <span>$300</span>
+                            <span>$260</span>
+                        </div>
+
+                        <!-- SVG chart line -->
+                        <div class="stock-chart-svg-wrap">
+                            <svg viewBox="0 0 400 160" preserveAspectRatio="none" class="stock-svg">
+                                <!-- Grid lines -->
+                                <line x1="0" y1="32"  x2="400" y2="32"  stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+                                <line x1="0" y1="64"  x2="400" y2="64"  stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+                                <line x1="0" y1="96"  x2="400" y2="96"  stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+                                <line x1="0" y1="128" x2="400" y2="128" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+                                <!-- Gradient fill under line -->
+                                <defs>
+                                    <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%"   stop-color="#FFD700" stop-opacity="0.25"/>
+                                        <stop offset="100%" stop-color="#FFD700" stop-opacity="0"/>
+                                    </linearGradient>
+                                </defs>
+                                <path class="chart-area"
+                                    d="M0,130 C20,125 35,118 55,110 S80,95 100,88 S130,70 155,62 S180,55 200,58 S225,72 245,65 S270,40 295,30 S330,22 355,18 S385,14 400,12 L400,160 L0,160 Z"
+                                    fill="url(#chartGrad)"/>
+                                <!-- Main line -->
+                                <path class="chart-line"
+                                    d="M0,130 C20,125 35,118 55,110 S80,95 100,88 S130,70 155,62 S180,55 200,58 S225,72 245,65 S270,40 295,30 S330,22 355,18 S385,14 400,12"
+                                    fill="none" stroke="#FFD700" stroke-width="2.5" stroke-linecap="round"/>
+                                <!-- Prediction dashed segment -->
+                                <path class="chart-predict"
+                                    d="M400,12 C415,8 430,5 450,3"
+                                    fill="none" stroke="#FFD700" stroke-width="2" stroke-dasharray="5,4" opacity="0.6"/>
+                                <!-- Glowing dot at prediction point -->
+                                <circle class="chart-dot" cx="400" cy="12" r="5" fill="#FFD700"/>
+                                <circle cx="400" cy="12" r="10" fill="#FFD700" opacity="0.15" class="chart-pulse"/>
+                            </svg>
+
+                            <!-- Tooltip -->
+                            <div class="chart-tooltip">
+                                <div class="chart-tooltip-label">ML Prediction</div>
+                                <div class="chart-tooltip-value">▲ $418.20</div>
+                                <div class="chart-tooltip-conf">Confidence: 84%</div>
+                            </div>
+                        </div>
+
+                        <!-- X-axis labels -->
+                        <div class="stock-x-labels">
+                            <span>Jan</span><span>Mar</span><span>May</span><span>Jul</span><span>Sep</span><span>Now</span>
+                        </div>
+                    </div>
+
+                    <!-- Bottom stats row -->
+                    <div class="stock-stats-row">
+                        <div class="stock-stat">
+                            <span class="stock-stat-val up">+18.4%</span>
+                            <span class="stock-stat-label">6-Month Return</span>
+                        </div>
+                        <div class="stock-stat-divider"></div>
+                        <div class="stock-stat">
+                            <span class="stock-stat-val">84%</span>
+                            <span class="stock-stat-label">Model Confidence</span>
+                        </div>
+                        <div class="stock-stat-divider"></div>
+                        <div class="stock-stat">
+                            <span class="stock-stat-val up">BUY</span>
+                            <span class="stock-stat-label">Signal</span>
+                        </div>
+                    </div>
+
+                    <!-- Lock overlay badge -->
+                    <div class="stock-lock-badge">
+                        <i class="fas fa-lock"></i> Restricted
+                    </div>
+
+                    <!-- Disclaimer bar -->
+                    <div class="stock-disclaimer">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Sample visualisation only — full app is proprietary.&nbsp;
+                            <a href="#contact">DM or contact to collaborate →</a>
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1910,7 +2492,7 @@
                     <i class="fas fa-envelope"></i>
                 </div>
                 <div class="contact-label">Email</div>
-                <div class="contact-value"><a href="garvitwork25@gmail.com" class="__cf_email__" data-cfemail="adcaccdfdbc4d9dac2dfc69f98edcac0ccc4c183cec2c0">garvitwork25@gmail.com</a></div>
+                <div class="contact-value"><a href="garvitwork25@gmail.com" class="__cf_email__" data-cfemail="adcaccdfdbc4d9dac2dfc69f98edcac0ccc4c183cec2c0"><span class="__cf_email__" data-cfemail="2a4d4b585c435e5d455841181f6a4d474b434604494547">[email&#160;protected]</span></a></div>
             </div>
 
             <div class="contact-card">
@@ -1940,7 +2522,46 @@
         <p>&copy; 2024 Garvit Gupta. All rights reserved.</p>
     </footer>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Video placeholder logic — show placeholder ONLY if video fails to load
+        function initVideos() {
+            document.querySelectorAll('.project-video-panel video').forEach(video => {
+                const panel = video.closest('.project-video-panel');
+
+                // If video has no src or empty src, show placeholder immediately
+                if (!video.src || video.src === window.location.href) {
+                    panel.classList.add('video-error');
+                    return;
+                }
+
+                // If video is already loaded (cached), do nothing — placeholder stays hidden
+                if (video.readyState >= 2) return;
+
+                // Video failed to load
+                video.addEventListener('error', function () {
+                    panel.classList.add('video-error');
+                });
+            });
+        }
+
+        initVideos();
+
+        // Toggle fullscreen button icon between expand and compress
+        document.addEventListener('fullscreenchange', function () {
+            document.querySelectorAll('.video-fullscreen-btn').forEach(btn => {
+                const icon = btn.querySelector('i');
+                if (document.fullscreenElement) {
+                    icon.classList.replace('fa-expand', 'fa-compress');
+                    btn.setAttribute('title', 'Exit Fullscreen');
+                    btn.setAttribute('onclick', 'document.exitFullscreen()');
+                } else {
+                    icon.classList.replace('fa-compress', 'fa-expand');
+                    btn.setAttribute('title', 'Fullscreen');
+                    btn.setAttribute('onclick', "this.closest('.project-video-panel').querySelector('video').requestFullscreen()");
+                }
+            });
+        });
+
         // Smooth navigation with active state
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', function(e) {
@@ -2028,7 +2649,7 @@
                 const speed = (index + 1) * 0.3; // Different speed for each circle
                 circle.style.transform = `translateY(${scrolled * speed}px)`;
             });
-        });
+        }); 
     </script>
-</body>
+</body> 
 </html>
