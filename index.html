@@ -464,6 +464,7 @@
         .project-card {
             display: flex;
             flex-direction: row;
+            flex-wrap: wrap;          /* ← key: stacks automatically when too narrow */
             align-items: stretch;
             border: 1px solid var(--gray);
             position: relative;
@@ -473,10 +474,9 @@
             overflow: hidden;
         }
 
-        /* Left: all existing text content */
+        /* Left: text content — tries to be at least 340px wide */
         .project-content {
-            flex: 1 1 50%;
-            width: 50%;
+            flex: 1 1 340px;          /* grows/shrinks, min 340px before wrapping */
             padding: 40px;
             display: flex;
             flex-direction: column;
@@ -484,10 +484,9 @@
             box-sizing: border-box;
         }
 
-        /* Right: video panel — sized by the video's natural aspect ratio */
+        /* Right: video panel — also tries to be at least 340px wide */
         .project-video-panel {
-            flex: 0 0 50%;
-            width: 50%;
+            flex: 1 1 340px;          /* same basis — when both can't fit, second wraps below */
             background: var(--dark-gray);
             display: flex;
             align-items: center;
@@ -495,7 +494,7 @@
             position: relative;
             overflow: hidden;
             border-left: 1px solid rgba(255,255,255,0.08);
-            min-height: 320px;
+            min-height: 280px;
             box-sizing: border-box;
         }
 
@@ -1656,38 +1655,27 @@
                 margin-bottom: 60px;
             }
 
-            /* ── Project cards: full mobile fix ── */
+            /* ── Project cards: mobile fix ── */
             .projects-grid {
                 grid-template-columns: 1fr;
                 gap: 24px;
             }
 
-            .project-card {
-                flex-direction: column !important;
-                width: 100%;
-            }
-
-            /* Content side: full width, no squashing */
-            .project-content {
-                flex: none !important;
-                width: 100% !important;
-                padding: 24px 20px !important;
-                box-sizing: border-box;
-            }
-
-            /* Video side: sits below, 16:9 */
+            /* When stacked, video panel fills full width at 16:9 */
             .project-video-panel {
-                flex: none !important;
-                width: 100% !important;
-                height: auto !important;
-                aspect-ratio: 16 / 9;
-                min-height: unset !important;
-                border-left: none !important;
+                width: 100%;
+                border-left: none;
                 border-top: 1px solid rgba(255,255,255,0.08);
-                box-sizing: border-box;
+                aspect-ratio: 16 / 9;
+                min-height: unset;
             }
 
-            /* Fullscreen button always visible on mobile */
+            /* Content takes full width and gets comfortable padding */
+            .project-content {
+                padding: 24px 20px;
+            }
+
+            /* Fullscreen button always visible on touch screens */
             .video-fullscreen-btn { opacity: 1; }
 
             /* Fix text wrapping — remove the narrow container issue */
@@ -1805,18 +1793,11 @@
                 grid-template-columns: 1fr;
             }
 
-            .project-content,
-            .project-video-panel {
-                flex: 0 0 50%;
-                width: 50%;
-            }
-
             .expertise-grid {
                 grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             }
 
             .nav-links { gap: 25px; }
-
             .section { padding: 80px 30px; }
         }
 
@@ -2691,7 +2672,7 @@
                 const speed = (index + 1) * 0.3; // Different speed for each circle
                 circle.style.transform = `translateY(${scrolled * speed}px)`;
             });
-        });
+        }); 
     </script>
 </body>
 </html>
