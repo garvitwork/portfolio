@@ -161,6 +161,34 @@
             color: var(--black);
         }
 
+        /* Hamburger button — hidden on desktop */
+        .nav-hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 6px;
+            z-index: 1001;
+        }
+
+        .nav-hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--black);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+
+        /* Animate to X when open */
+        .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
         /* Hero Section */
         .hero {
             min-height: 100vh;
@@ -349,12 +377,40 @@
             transform: translateY(-2px);
         }
 
+        /* ── Page-switching (tab navigation) ── */
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active {
+            display: block;
+            animation: pageFadeIn 0.35s ease;
+        }
+
+        @keyframes pageFadeIn {
+            from { opacity: 0; transform: translateY(18px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Projects & Contact pages — white background (original styling) */
+        #projects-page,
+        #contact-page {
+            background: var(--white);
+            min-height: 100vh;
+        }
+
         /* Section Styles */
         .section {
             padding: 100px 40px;
             max-width: 1400px;
             margin: 0 auto;
             width: 100%;
+        }
+
+        /* Projects section — full-width, reduced padding so cards use all available space */
+        #projects-page #projects {
+            max-width: 100%;
+            padding: 80px 48px;
         }
 
         .section-header {
@@ -1602,34 +1658,314 @@
             opacity: 0.6;
         }
 
-        /* Responsive */
+        /* ── Projects Page Sidebar Layout ── */
+        .projects-layout {
+            display: flex;
+            gap: 0;
+            align-items: flex-start;
+        }
+
+        .projects-sidebar {
+            width: 240px;
+            flex-shrink: 0;
+            position: sticky;
+            top: 90px;
+            align-self: flex-start;
+            margin-right: 48px;
+        }
+
+        .sidebar-inner {
+            background: var(--white);
+            border: 1px solid var(--gray);
+            border-left: 3px solid var(--black);
+            padding: 24px 0 16px;
+        }
+
+        .sidebar-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: rgba(0,0,0,0.35);
+            padding: 0 20px 16px;
+            border-bottom: 1px solid var(--gray);
+            margin-bottom: 8px;
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: var(--black);
+            transition: all 0.25s ease;
+            border-left: 3px solid transparent;
+            margin-left: -3px;
+            position: relative;
+        }
+
+        .sidebar-link:hover {
+            background: var(--light-gray);
+        }
+
+        .sidebar-link.active {
+            background: rgba(255, 215, 0, 0.12);
+            border-left-color: var(--yellow);
+        }
+
+        .sidebar-link.active .sidebar-num {
+            color: var(--black);
+        }
+
+        .sidebar-num {
+            font-size: 13px;
+            font-weight: 800;
+            color: rgba(0,0,0,0.2);
+            font-variant-numeric: tabular-nums;
+            min-width: 22px;
+            transition: color 0.25s;
+        }
+
+        .sidebar-link:hover .sidebar-num,
+        .sidebar-link.active .sidebar-num {
+            color: var(--black);
+        }
+
+        .sidebar-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            overflow: hidden;
+        }
+
+        .sidebar-name {
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: var(--black);
+            transition: color 0.25s;
+        }
+
+        .sidebar-cat {
+            font-size: 10px;
+            font-weight: 500;
+            color: rgba(0,0,0,0.4);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .sidebar-link.active .sidebar-name {
+            color: var(--black);
+        }
+
+        /* Scroll progress bar at bottom of sidebar */
+        .sidebar-progress {
+            margin: 16px 20px 0;
+            height: 3px;
+            background: var(--gray);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .sidebar-progress-bar {
+            height: 100%;
+            width: 0%;
+            background: var(--yellow);
+            border-radius: 2px;
+            transition: width 0.1s linear;
+        }
+
+        /* projects-main fills remaining width and contains both grids */
+        .projects-main {
+            flex: 1;
+            min-width: 0;
+        }
+
+        /* projects-grid now fills remaining width */
+        .projects-layout .projects-grid {
+            flex: 1;
+            min-width: 0;
+        }
+
+        /* ── Research & Copyrighted Section ── */
+        .research-divider {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 56px 0 20px;
+        }
+
+        .research-divider-line {
+            flex: 1;
+            height: 1px;
+            background: var(--gray);
+        }
+
+        .research-divider-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--black);
+            white-space: nowrap;
+        }
+
+        .research-divider-label i {
+            color: var(--black);
+            font-size: 11px;
+        }
+
+        .research-divider-badge {
+            background: var(--black);
+            color: var(--yellow);
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 3px 8px;
+        }
+
+        .research-intro {
+            font-size: 14px;
+            color: rgba(0,0,0,0.5);
+            margin-bottom: 28px;
+            line-height: 1.6;
+            max-width: 680px;
+        }
+
+        .research-grid {
+            border: 1px dashed rgba(0,0,0,0.15);
+            padding: 24px;
+            background: var(--light-gray);
+        }
+
+        .research-card {
+            border-color: rgba(0,0,0,0.12) !important;
+            position: relative;
+        }
+
+        .research-card::after {
+            content: '🔒 Copyrighted';
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: var(--black);
+            color: var(--yellow);
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* Sidebar group labels */
+        .sidebar-group-label {
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(0,0,0,0.35);
+            padding: 12px 20px 4px;
+        }
+
+        .sidebar-group-research {
+            color: var(--black);
+            border-top: 1px solid var(--gray);
+            margin-top: 4px;
+            padding-top: 14px;
+        }
+
+        .sidebar-link-research {
+            position: relative;
+        }
+
+        .sidebar-link-research.active {
+            background: rgba(0,0,0,0.05);
+            border-left-color: var(--black);
+        }
+
+        .sidebar-lock {
+            font-size: 8px;
+            color: rgba(0,0,0,0.3);
+            margin-left: auto;
+            flex-shrink: 0;
+        }
+
+        .sidebar-link-research:hover .sidebar-lock,
+        .sidebar-link-research.active .sidebar-lock {
+            color: var(--black);
+        }
+
+        /* Responsive: hide sidebar on small screens */
+        @media (max-width: 1100px) {
+            .projects-sidebar { display: none; }
+            .projects-layout  { display: block; }
+        }
+
+        /* ── MOBILE (≤768px) ── */
         @media (max-width: 768px) {
-            .nav-container {
-                padding: 0 20px;
-            }
+
+            /* --- Hamburger nav --- */
+            .nav-hamburger { display: flex; }
 
             .nav-links {
-                gap: 15px;
-                font-size: 13px;
+                display: none;
+                position: fixed;
+                top: 0; left: 0; right: 0;
+                background: rgba(255,255,255,0.98);
+                backdrop-filter: blur(12px);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 0;
+                padding: 80px 0 40px;
+                z-index: 999;
+                list-style: none;
+                min-height: 100dvh;
             }
+
+            .nav-links.open { display: flex; }
+
+            .nav-links li { width: 100%; text-align: center; }
 
             .nav-link {
-                font-size: 13px;
+                display: block;
+                font-size: 22px;
+                font-weight: 700;
+                padding: 18px 40px;
+                letter-spacing: -0.5px;
             }
 
+            .nav-link::after { bottom: -2px; }
+
+            .nav-container { padding: 0 20px; }
+
+            /* --- Hero --- */
             .hero {
-                padding: 100px 20px 60px;
-                min-height: 80vh;
+                padding: 90px 20px 50px;
+                min-height: 85dvh;
             }
 
             .hero-title {
-                font-size: 48px;
+                font-size: clamp(38px, 10vw, 52px);
                 letter-spacing: -1px;
             }
 
-            .hero-subtitle {
-                font-size: 18px;
-            }
+            .hero-subtitle { font-size: 17px; }
 
             .hero-cta {
                 flex-direction: column;
@@ -1642,26 +1978,55 @@
                 padding: 16px 30px;
             }
 
-            .section {
-                padding: 60px 20px;
-            }
+            /* --- Sections --- */
+            .section { padding: 60px 20px; }
 
-            .section-title  { font-size: 36px; }
-            .section-subtitle { font-size: 16px; }
+            /* Override the wide projects padding on mobile */
+            #projects-page #projects { padding: 60px 16px; }
 
+            .section-title  { font-size: 32px; letter-spacing: -1px; }
+            .section-subtitle { font-size: 15px; }
+
+            /* --- Stats --- */
             .stats-grid {
                 grid-template-columns: 1fr;
-                gap: 20px;
-                margin-bottom: 60px;
+                gap: 16px;
+                margin-bottom: 0;
             }
 
-            /* ── Project cards: mobile fix ── */
+            .stat-value { font-size: 36px; }
+
+            /* --- Projects layout (sidebar hidden via earlier rule) --- */
+            .projects-main { width: 100%; }
+
             .projects-grid {
                 grid-template-columns: 1fr;
-                gap: 24px;
+                gap: 20px;
             }
 
-            /* When stacked, video panel fills full width at 16:9 */
+            .research-grid { padding: 16px; }
+
+            .research-divider {
+                flex-direction: column;
+                gap: 10px;
+                margin: 40px 0 14px;
+                text-align: center;
+            }
+
+            .research-divider-line { width: 60px; height: 1px; }
+
+            .research-divider-label {
+                flex-wrap: wrap;
+                justify-content: center;
+                font-size: 11px;
+            }
+
+            .research-intro {
+                font-size: 13px;
+                margin-bottom: 20px;
+            }
+
+            /* Project cards stacked */
             .project-video-panel {
                 width: 100%;
                 border-left: none;
@@ -1670,120 +2035,63 @@
                 min-height: unset;
             }
 
-            /* Content takes full width and gets comfortable padding */
-            .project-content {
-                padding: 24px 20px;
-            }
+            .project-content { padding: 22px 18px; }
 
-            /* Fullscreen button always visible on touch screens */
             .video-fullscreen-btn { opacity: 1; }
 
-            /* Fix text wrapping — remove the narrow container issue */
             .project-title {
-                font-size: 18px;
-                word-break: normal;
+                font-size: 17px;
                 overflow-wrap: break-word;
             }
 
             .project-description,
             .project-impact p {
-                word-break: normal;
+                font-size: 14px;
                 overflow-wrap: break-word;
                 hyphens: auto;
             }
 
-            .project-num { font-size: 40px; }
+            .project-num { font-size: 36px; }
 
-            /* Tech tags: wrap properly in a row */
-            .tech-stack {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 6px;
-            }
+            .tech-stack { display: flex; flex-wrap: wrap; gap: 6px; }
 
             .tech-tag {
                 flex: 0 0 auto;
                 white-space: nowrap;
                 font-size: 10px;
-                padding: 5px 10px;
+                padding: 4px 9px;
             }
 
-            /* Actions row */
-            .project-actions {
-                flex-wrap: wrap;
-                gap: 12px;
-            }
+            .project-actions { flex-wrap: wrap; gap: 10px; }
+            .project-card-top { flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
 
-            /* Card-top row */
-            .project-card-top {
-                flex-wrap: wrap;
-                gap: 8px;
-                margin-bottom: 12px;
-            }
+            /* --- Expertise --- */
+            .expertise-grid { grid-template-columns: 1fr; gap: 20px; }
+            .expertise-card { padding: 24px 20px; }
+            .tools-section { padding: 30px 16px; }
+            .tools-grid { grid-template-columns: 1fr; gap: 24px; }
 
-            /* Expertise */
-            .expertise-grid {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
+            /* --- About --- */
+            .about-grid { grid-template-columns: 1fr; gap: 32px; }
+            .about-left { max-width: 280px; margin: 0 auto; }
+            .about-content h3 { font-size: 24px; }
 
-            .expertise-card { padding: 30px; }
-
-            .tools-section { padding: 40px 20px; }
-
-            .tools-grid {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-
-            /* About */
-            .about-grid {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-
-            .about-left {
-                max-width: 300px;
-                margin: 0 auto;
-            }
-
-            .about-content h3 { font-size: 26px; }
-
-            /* Contact */
-            .contact-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
-            .contact-card { padding: 30px; }
-
-            .contact-icon {
-                width: 60px;
-                height: 60px;
-                font-size: 24px;
-            }
+            /* --- Contact --- */
+            .contact-grid { grid-template-columns: 1fr; gap: 16px; }
+            .contact-card { padding: 28px 20px; }
+            .contact-icon { width: 56px; height: 56px; font-size: 22px; }
 
             /* Disable hover transforms on touch */
             .project-card:hover,
             .stat-card:hover,
             .expertise-card:hover,
-            .contact-card:hover {
-                transform: none;
-            }
+            .contact-card:hover { transform: none; }
 
             .project-card:active { border-color: var(--yellow); }
 
             /* Stock panel on mobile */
-            .stock-disclaimer {
-                font-size: 9px;
-                padding: 6px 10px;
-                bottom: 48px;
-            }
-
-            .stock-stats-row {
-                padding: 8px 10px;
-            }
-
+            .stock-disclaimer { font-size: 9px; padding: 6px 10px; bottom: 48px; }
+            .stock-stats-row { padding: 8px 10px; }
             .stock-stat-val { font-size: 13px; }
         }
 
@@ -1826,18 +2134,25 @@
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <a href="#home" class="logo">Garvit<span>.</span></a>
-            <ul class="nav-links">
+            <!-- Hamburger button (mobile only) -->
+            <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
                 <li><a href="#home" class="nav-link active">Home</a></li>
-                <li><a href="#projects" class="nav-link">Projects</a></li>
-                <li><a href="#expertise" class="nav-link">Expertise</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><a href="#projects-page" class="nav-link">Projects</a></li>
+                <li><a href="#expertise-page" class="nav-link">Expertise</a></li>
+                <li><a href="#about-page" class="nav-link">About</a></li>
+                <li><a href="#contact-page" class="nav-link">Contact</a></li>
             </ul>
         </div>
     </nav>
 
+    <!-- HOME PAGE -->
+    <div class="page-section active" id="home">
+
     <!-- Hero Section -->
-    <section class="hero" id="home">
+    <section class="hero">
         <div class="hero-content">
             <div class="hero-badge">Available for Opportunities</div>
             <h1 class="hero-title">
@@ -1849,11 +2164,11 @@
                 Transforming complex data into actionable insights through cutting-edge AI solutions and research-driven approaches.
             </p>
             <div class="hero-cta">
-                <a href="#projects" class="btn btn-primary">
+                <a href="#projects-page" class="btn btn-primary">
                     <span>View Projects</span>
                     <i class="fas fa-arrow-right"></i>
                 </a>
-                <a href="#contact" class="btn btn-secondary">
+                <a href="#contact-page" class="btn btn-secondary">
                     <span>Get In Touch</span>
                 </a>
             </div>
@@ -1876,8 +2191,11 @@
                 <div class="stat-label">Publications</div>
             </div>
         </div>
-    </section>
+    </section><!-- /stats -->
+    </div><!-- /#home page-section -->
 
+    <!-- PROJECTS PAGE -->
+    <div class="page-section" id="projects-page">
     <!-- Projects Section -->
     <section class="section" id="projects">
         <div class="section-header">
@@ -1885,11 +2203,77 @@
             <p class="section-subtitle">Innovative AI solutions driving real-world impact</p>
         </div>
 
-        
+        <!-- Projects layout: sidebar + cards -->
+        <div class="projects-layout">
 
-        <div class="projects-grid">
+            <!-- LEFT SIDEBAR NAV -->
+            <aside class="projects-sidebar">
+                <div class="sidebar-inner">
+                    <div class="sidebar-label">Jump to Project</div>
+                    <nav class="sidebar-nav">
+
+                        <div class="sidebar-group-label">Featured</div>
+
+                        <a href="#proj-1" class="sidebar-link active" data-proj="proj-1">
+                            <span class="sidebar-num">01</span>
+                            <span class="sidebar-text">
+                                <span class="sidebar-name">AURUM</span>
+                                <span class="sidebar-cat">ML · FinTech · MLOps</span>
+                            </span>
+                        </a>
+                        <a href="#proj-2" class="sidebar-link" data-proj="proj-2">
+                            <span class="sidebar-num">02</span>
+                            <span class="sidebar-text">
+                                <span class="sidebar-name">Bias Detection</span>
+                                <span class="sidebar-cat">AI Fairness</span>
+                            </span>
+                        </a>
+                        <a href="#proj-3" class="sidebar-link" data-proj="proj-3">
+                            <span class="sidebar-num">03</span>
+                            <span class="sidebar-text">
+                                <span class="sidebar-name">Income Analytics</span>
+                                <span class="sidebar-cat">Business Intelligence</span>
+                            </span>
+                        </a>
+                        <a href="#proj-4" class="sidebar-link" data-proj="proj-4">
+                            <span class="sidebar-num">04</span>
+                            <span class="sidebar-text">
+                                <span class="sidebar-name">Explainability Platform</span>
+                                <span class="sidebar-cat">ML Explainability</span>
+                            </span>
+                        </a>
+                        <a href="#proj-5" class="sidebar-link" data-proj="proj-5">
+                            <span class="sidebar-num">05</span>
+                            <span class="sidebar-text">
+                                <span class="sidebar-name">Trust Scoring</span>
+                                <span class="sidebar-cat">ML Explainability</span>
+                            </span>
+                        </a>
+
+                        <div class="sidebar-group-label sidebar-group-research">
+                            <i class="fas fa-flask" style="font-size:9px;margin-right:4px;"></i>Research
+                        </div>
+
+                        <a href="#proj-6" class="sidebar-link sidebar-link-research" data-proj="proj-6">
+                            <span class="sidebar-num">06</span>
+                            <span class="sidebar-text">
+                                <span class="sidebar-name">Stock Prediction</span>
+                                <span class="sidebar-cat">Research · Copyrighted</span>
+                            </span>
+                            <i class="fas fa-lock sidebar-lock"></i>
+                        </a>
+                    </nav>
+                    <div class="sidebar-progress">
+                        <div class="sidebar-progress-bar" id="projectsProgress"></div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- RIGHT: project cards -->
+            <div class="projects-main" id="projectsScrollArea">
+            <div class="projects-grid" id="projects-featured-grid">
             <!-- Project 1 — AURUM Gold Price Intelligence -->
-            <div class="project-card">
+            <div class="project-card" id="proj-1">
                 <!-- LEFT: text content -->
                 <div class="project-content">
                     <div class="project-card-top">
@@ -1948,7 +2332,7 @@
             
 
             <!-- Project 2 -->
-            <div class="project-card">
+            <div class="project-card" id="proj-2">
                 <!-- LEFT: text content -->
                 <div class="project-content">
                     <div class="project-card-top">
@@ -1995,7 +2379,7 @@
             </div>
 
             <!-- Project 3 -->
-            <div class="project-card">
+            <div class="project-card" id="proj-3">
                 <!-- LEFT: text content -->
                 <div class="project-content">
                     <div class="project-card-top">
@@ -2041,7 +2425,7 @@
             </div>
 
             <!-- Project 4 -->
-            <div class="project-card">
+            <div class="project-card" id="proj-4">
                 <!-- LEFT: text content -->
                 <div class="project-content">
                     <div class="project-card-top">
@@ -2088,7 +2472,7 @@
             </div>
 
             <!-- Project 5 -->
-            <div class="project-card">
+            <div class="project-card" id="proj-5">
                 <!-- LEFT: text content -->
                 <div class="project-content">
                     <div class="project-card-top">
@@ -2135,7 +2519,23 @@
             </div>
 
             <!-- Project 6 — copyrighted, no public video -->
-            <div class="project-card">
+            </div><!-- /.projects-grid (featured) -->
+
+            <!-- ── Research & Copyrighted Web Apps ── -->
+            <div class="research-divider" id="research-section">
+                <div class="research-divider-line"></div>
+                <div class="research-divider-label">
+                    <i class="fas fa-flask"></i>
+                    Research &amp; Copyrighted Web Apps
+                    <span class="research-divider-badge">Protected IP</span>
+                </div>
+                <div class="research-divider-line"></div>
+            </div>
+            <p class="research-intro">These projects are proprietary research applications — the source code and full implementations are protected. Get in touch to discuss collaboration or licensing.</p>
+
+            <div class="projects-grid research-grid">
+            <!-- Project 6 — copyrighted, no public video -->
+            <div class="project-card research-card" id="proj-6">
                 <!-- LEFT: text content -->
                 <div class="project-content">
                     <div class="project-card-top">
@@ -2274,14 +2674,19 @@
                     <div class="stock-disclaimer">
                         <i class="fas fa-info-circle"></i>
                         <span>Sample visualisation only — full app is proprietary.&nbsp;
-                            <a href="#contact">DM or contact to collaborate →</a>
+                            <a href="#contact-page" onclick="event.preventDefault(); showPage('#contact-page')">DM or contact to collaborate →</a>
                         </span>
                     </div>
                 </div>
             </div>
-        </div>
+        </div><!-- /.projects-grid (research) -->
+        </div><!-- /.projects-main -->
+        </div><!-- /.projects-layout -->
     </section>
+    </div><!-- /#projects-page -->
 
+    <!-- EXPERTISE PAGE -->
+    <div class="page-section" id="expertise-page">
     <!-- Expertise Section -->
     <section class="section" id="expertise">
         <div class="section-header">
@@ -2412,7 +2817,10 @@
             </div>
         </div>
     </section>
+    </div><!-- /#expertise-page -->
 
+    <!-- ABOUT PAGE -->
+    <div class="page-section" id="about-page">
     <!-- About Section -->
     <section class="section" id="about">
         <div class="section-header">
@@ -2501,7 +2909,10 @@
 
         </div>
     </section>
+    </div><!-- /#about-page -->
 
+    <!-- CONTACT PAGE -->
+    <div class="page-section" id="contact-page">
     <!-- Contact Section -->
     <section class="section" id="contact">
         <div class="section-header">
@@ -2539,6 +2950,7 @@
             </div>
         </div>
     </section>
+    </div><!-- /#contact-page -->
 
     <!-- Footer -->
     <footer class="footer">
@@ -2585,60 +2997,84 @@
             });
         });
 
-        // Smooth navigation with active state
+        // ── Hamburger menu ──
+        const hamburger = document.getElementById('navHamburger');
+        const navLinks  = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('open');
+            navLinks.classList.toggle('open');
+            document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
+        });
+
+        // Close menu when any nav link is clicked
+        navLinks.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('open');
+                navLinks.classList.remove('open');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // ── Tab-based navigation ──
+        const PAGE_MAP = {
+            '#home':          '#home',
+            '#projects-page': '#projects-page',
+            '#expertise-page':'#expertise-page',
+            '#about-page':    '#about-page',
+            '#contact-page':  '#contact-page'
+        };
+
+        function showPage(targetHash) {
+            // Hide all pages
+            document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
+
+            // Show target
+            const page = document.querySelector(targetHash);
+            if (page) {
+                page.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            // Update nav active state
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === targetHash) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.showPage = showPage;
+
+        // Nav link clicks
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
-                
-                // Remove active class from all links
-                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-                
-                // Add active class to clicked link
-                this.classList.add('active');
-                
-                // Smooth scroll to section
-                const targetId = this.getAttribute('href');
-                const targetSection = document.querySelector(targetId);
-                
-                if (targetSection) {
-                    const offsetTop = targetSection.offsetTop - 80;
-                    window.scrollTo({
-                        top: offsetTop,
-                        behavior: 'smooth'
-                    });
+                const href = this.getAttribute('href');
+                showPage(href);
+            });
+        });
+
+        // Hero CTA buttons
+        document.querySelectorAll('.hero-cta a').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href && href.startsWith('#')) {
+                    e.preventDefault();
+                    showPage(href);
                 }
             });
         });
 
-        // Update active nav on scroll
+        // Navbar scrolled style
         window.addEventListener('scroll', () => {
             const navbar = document.getElementById('navbar');
-            
-            // Add scrolled class to navbar
             if (window.scrollY > 50) {
                 navbar.classList.add('scrolled');
             } else {
                 navbar.classList.remove('scrolled');
             }
-            
-            // Update active section
-            const sections = document.querySelectorAll('section[id]');
-            const scrollY = window.pageYOffset;
-
-            sections.forEach(section => {
-                const sectionHeight = section.offsetHeight;
-                const sectionTop = section.offsetTop - 100;
-                const sectionId = section.getAttribute('id');
-
-                if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-                    document.querySelectorAll('.nav-link').forEach(link => {
-                        link.classList.remove('active');
-                        if (link.getAttribute('href') === `#${sectionId}`) {
-                            link.classList.add('active');
-                        }
-                    });
-                }
-            });
         });
 
         // Intersection Observer for fade-in animations
@@ -2664,15 +3100,78 @@
             observer.observe(card);
         });
 
-        // Parallax effect for floating circles
+        // ── Projects sidebar scroll-spy ──
+        function initProjectsSidebar() {
+            const sidebarLinks = document.querySelectorAll('.sidebar-link');
+            const projectCards = ['proj-1','proj-2','proj-3','proj-4','proj-5','proj-6']
+                .map(id => document.getElementById(id))
+                .filter(Boolean);
+
+            if (!projectCards.length) return;
+
+            // Smooth scroll to project card on sidebar click
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        const offset = target.getBoundingClientRect().top + window.scrollY - 110;
+                        window.scrollTo({ top: offset, behavior: 'smooth' });
+                    }
+                });
+            });
+
+            // Scroll-spy: highlight active project + update progress bar
+            function onScroll() {
+                const scrollY = window.scrollY + 180;
+                const bar = document.getElementById('projectsProgress');
+
+                // Progress bar
+                const firstTop = projectCards[0].getBoundingClientRect().top + window.scrollY;
+                const lastBottom = projectCards[projectCards.length - 1].getBoundingClientRect().bottom + window.scrollY;
+                const progress = Math.min(100, Math.max(0,
+                    ((scrollY - firstTop) / (lastBottom - firstTop)) * 100
+                ));
+                if (bar) bar.style.width = progress + '%';
+
+                // Active link
+                let activeId = projectCards[0].id;
+                projectCards.forEach(card => {
+                    const top = card.getBoundingClientRect().top + window.scrollY;
+                    if (scrollY >= top) activeId = card.id;
+                });
+
+                sidebarLinks.forEach(link => {
+                    const proj = link.getAttribute('data-proj');
+                    link.classList.toggle('active', proj === activeId);
+                });
+            }
+
+            window.addEventListener('scroll', onScroll, { passive: true });
+            onScroll();
+        }
+
+        // Hook sidebar init into page navigation
+        const _origShowPage = window.showPage;
+        window.showPage = function(hash) {
+            _origShowPage(hash);
+            if (hash === '#projects-page') {
+                setTimeout(initProjectsSidebar, 50);
+            }
+        };
+
+        // Also init if projects page loads as active
+        if (document.getElementById('projects-page') && document.getElementById('projects-page').classList.contains('active')) {
+            initProjectsSidebar();
+        }
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
             const circles = document.querySelectorAll('.floating-circle');
             circles.forEach((circle, index) => {
-                const speed = (index + 1) * 0.3; // Different speed for each circle
+                const speed = (index + 1) * 0.3;
                 circle.style.transform = `translateY(${scrolled * speed}px)`;
             });
-        }); 
+        });
     </script>
 </body>
 </html>
