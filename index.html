@@ -324,6 +324,74 @@
             animation: slideInUp 0.8s ease-out 0.6s both;
         }
 
+        /* ── Diverging arrows navigator (landing page) ── */
+        .hero-divider {
+            display: flex;
+            gap: 140px;
+            margin-top: 64px;
+            animation: slideInUp 0.8s ease-out 0.8s both;
+        }
+
+        .hero-divider-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 22px;
+            text-decoration: none;
+            color: var(--black);
+            cursor: pointer;
+        }
+
+        .hero-divider-label {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-align: center;
+            transition: color 0.3s ease;
+        }
+
+        .hero-divider-link:hover .hero-divider-label {
+            color: var(--yellow);
+        }
+
+        .hero-divider-icon {
+            font-size: 56px;
+            line-height: 1;
+        }
+
+        /* "left" arrow diverges toward the bottom-LEFT (points away from center) */
+        .hero-divider-icon.left i {
+            display: inline-block;
+            animation: heroArrowLeft 1.8s infinite ease-in-out;
+        }
+
+        /* "right" arrow diverges toward the bottom-RIGHT (points away from center) */
+        .hero-divider-icon.right i {
+            display: inline-block;
+            animation: heroArrowRight 1.8s infinite ease-in-out 0.3s;
+        }
+
+        .hero-divider-link:hover .hero-divider-icon i {
+            color: var(--yellow);
+        }
+
+        @keyframes heroArrowLeft {
+            0%, 100% { transform: rotate(35deg) translateY(0); opacity: 0.55; }
+            50%      { transform: rotate(35deg) translateY(10px); opacity: 1; }
+        }
+
+        @keyframes heroArrowRight {
+            0%, 100% { transform: rotate(-35deg) translateY(0); opacity: 0.55; }
+            50%      { transform: rotate(-35deg) translateY(10px); opacity: 1; }
+        }
+
+        @media (max-width: 500px) {
+            .hero-divider { gap: 64px; margin-top: 48px; }
+            .hero-divider-icon { font-size: 40px; }
+            .hero-divider-label { font-size: 11px; }
+        }
+
         .btn {
             padding: 18px 40px;
             font-size: 15px;
@@ -412,8 +480,9 @@
             to   { opacity: 1; transform: translateY(0); }
         }
 
-        /* Projects & Contact pages — white background (original styling) */
+        /* Projects, Data Analysis & Contact pages — white background (original styling) */
         #projects-page,
+        #data-analysis-page,
         #contact-page {
             background: var(--white);
             min-height: 100vh;
@@ -428,9 +497,15 @@
         }
 
         /* Projects section — full-width, reduced padding so cards use all available space */
-        #projects-page #projects {
+        #projects-page #projects,
+        #data-analysis-page #data-analysis {
             max-width: 100%;
             padding: 80px 48px;
+        }
+
+        /* No-video project cards (Data Analysis) — content panel fills the full card width */
+        .project-card.no-video .project-content {
+            flex: 1 1 100%;
         }
 
         .section-header {
@@ -2256,10 +2331,11 @@
             </button>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#home" class="nav-link active" data-num="01">Home</a></li>
-                <li><a href="#projects-page" class="nav-link" data-num="02">Projects</a></li>
-                <li><a href="#expertise-page" class="nav-link" data-num="03">Expertise</a></li>
-                <li><a href="#about-page" class="nav-link" data-num="04">About</a></li>
-                <li><a href="#contact-page" class="nav-link" data-num="05">Contact</a></li>
+                <li><a href="#projects-page" class="nav-link" data-num="02">AI/ML Work</a></li>
+                <li><a href="#data-analysis-page" class="nav-link" data-num="03">Data Analysis/BI Work</a></li>
+                <li><a href="#expertise-page" class="nav-link" data-num="04">Expertise</a></li>
+                <li><a href="#about-page" class="nav-link" data-num="05">About</a></li>
+                <li><a href="#contact-page" class="nav-link" data-num="06">Contact</a></li>
             </ul>
         </div>
     </nav>
@@ -2286,6 +2362,18 @@
                 </a>
                 <a href="#contact-page" class="btn btn-secondary">
                     <span>Get In Touch</span>
+                </a>
+            </div>
+
+            <!-- Diverging arrows: quick navigation to the two work branches -->
+            <div class="hero-divider">
+                <a href="#projects-page" class="hero-divider-link">
+                    <span class="hero-divider-icon left"><i class="fas fa-arrow-down"></i></span>
+                    <span class="hero-divider-label">AI/ML Work</span>
+                </a>
+                <a href="#data-analysis-page" class="hero-divider-link">
+                    <span class="hero-divider-icon right"><i class="fas fa-arrow-down"></i></span>
+                    <span class="hero-divider-label">Data Analysis/BI Work</span>
                 </a>
             </div>
         </div>
@@ -2315,7 +2403,7 @@
     <!-- Projects Section -->
     <section class="section" id="projects">
         <div class="section-header">
-            <h2 class="section-title">Featured Projects</h2>
+            <h2 class="section-title">AI/ML Work</h2>
             <p class="section-subtitle">Innovative AI solutions driving real-world impact</p>
         </div>
 
@@ -2831,6 +2919,178 @@
     </section>
     </div><!-- /#projects-page -->
 
+    <!-- DATA ANALYSIS PAGE -->
+    <div class="page-section" id="data-analysis-page">
+    <!-- Data Analysis Section -->
+    <section class="section" id="data-analysis">
+        <div class="section-header">
+            <h2 class="section-title">Data Analysis/BI Work</h2>
+            <p class="section-subtitle">Turning raw data into decision-ready insights with Python, SQL & Power BI</p>
+        </div>
+
+        <!-- Mobile horizontal project nav (visible on ≤1100px) -->
+        <div class="mobile-projects-nav" id="mobileDaProjectsNav">
+            <div class="mobile-projects-nav-inner">
+                <a href="#da-1" class="mobile-proj-link active" data-proj="da-1">
+                    <span class="mobile-proj-num">01</span>
+                    <span>AEGIS</span>
+                </a>
+                <a href="#da-2" class="mobile-proj-link" data-proj="da-2">
+                    <span class="mobile-proj-num">02</span>
+                    <span>Retail Demand AI</span>
+                </a>
+                <a href="#da-3" class="mobile-proj-link" data-proj="da-3">
+                    <span class="mobile-proj-num">03</span>
+                    <span>Churn & CLV</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Projects layout: sidebar + cards -->
+        <div class="projects-layout">
+
+            <!-- LEFT SIDEBAR NAV -->
+            <aside class="projects-sidebar">
+                <div class="sidebar-inner">
+                    <div class="sidebar-label">Jump to Project</div>
+                    <nav class="sidebar-nav">
+
+                        <div class="sidebar-group-label">Data Analysis</div>
+
+                        <a href="#da-1" class="sidebar-link active" data-proj="da-1">
+                            <span class="sidebar-num">01</span>
+                            <span class="sidebar-text">
+                                <span class="sidebar-name">AEGIS</span>
+                                <span class="sidebar-cat">Data Engineering · BI · ML</span>
+                            </span>
+                        </a>
+                        <a href="#da-2" class="sidebar-link" data-proj="da-2">
+                            <span class="sidebar-num">02</span>
+                            <span class="sidebar-text">
+                                <span class="sidebar-name">Retail Demand AI</span>
+                                <span class="sidebar-cat">Demand Forecasting</span>
+                            </span>
+                        </a>
+                        <a href="#da-3" class="sidebar-link" data-proj="da-3">
+                            <span class="sidebar-num">03</span>
+                            <span class="sidebar-text">
+                                <span class="sidebar-name">Churn & CLV Platform</span>
+                                <span class="sidebar-cat">Retention Intelligence</span>
+                            </span>
+                        </a>
+                    </nav>
+                    <div class="sidebar-progress">
+                        <div class="sidebar-progress-bar" id="daProjectsProgress"></div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- RIGHT: project cards -->
+            <div class="projects-main" id="daProjectsScrollArea">
+            <div class="projects-grid" id="data-analysis-grid">
+
+            <!-- Data Project 1 — AEGIS -->
+            <div class="project-card no-video" id="da-1">
+                <div class="project-content">
+                    <div class="project-card-top">
+                        <div class="project-num">01</div>
+                        <div class="project-category">Data Engineering · BI · ML</div>
+                    </div>
+                    <div class="project-header">
+                        <h3 class="project-title">AEGIS — AI-Driven Planetary Defense Intelligence Platform</h3>
+                        <p class="project-description">End-to-end data engineering + AI + BI system that prioritizes which near-Earth asteroids need urgent re-observation, using real NASA/JPL data, a MySQL star schema, Isolation Forest anomaly detection, and an interactive Power BI drillthrough report.</p>
+                        <div class="project-impact">
+                            <div class="project-impact-label">Why It Matters</div>
+                            <p>Telescope observation time for tracking near-Earth objects is scarce and expensive. AEGIS combines impact risk, orbital uncertainty, and orbital anomaly into a single prioritized watchlist — the kind of decision-support tool planetary defense teams currently lack.</p>
+                        </div>
+                        <div class="project-body">
+                            <div class="tech-stack">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">MySQL</span>
+                                <span class="tech-tag">scikit-learn</span>
+                                <span class="tech-tag">Isolation Forest</span>
+                                <span class="tech-tag">Power BI</span>
+                                <span class="tech-tag">DAX</span>
+                                <span class="tech-tag">NASA / JPL APIs</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-actions">
+                        <a href="https://github.com/garvitwork/AEGIS" class="project-link" target="_blank">GitHub <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Project 2 — Retail Demand AI -->
+            <div class="project-card no-video" id="da-2">
+                <div class="project-content">
+                    <div class="project-card-top">
+                        <div class="project-num">02</div>
+                        <div class="project-category">Demand Forecasting · Retail Analytics</div>
+                    </div>
+                    <div class="project-header">
+                        <h3 class="project-title">AI-Powered Retail Demand Forecasting & Inventory Optimization</h3>
+                        <p class="project-description">End-to-end pipeline predicting product-level demand for a real UK-based online retailer and flagging restock risk — built with Python (XGBoost), a MySQL storage layer, and a Power BI dashboard with 20+ DAX measures and AI visuals.</p>
+                        <div class="project-impact">
+                            <div class="project-impact-label">Why It Matters</div>
+                            <p>Retailers routinely lose revenue to stockouts and overstock when reorder decisions are made on gut feel. This pipeline replaces that with a demand-driven forecast-to-decision workflow, reaching 87%+ forecast accuracy on real transactional data.</p>
+                        </div>
+                        <div class="project-body">
+                            <div class="tech-stack">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">XGBoost</span>
+                                <span class="tech-tag">scikit-learn</span>
+                                <span class="tech-tag">MySQL</span>
+                                <span class="tech-tag">SQLAlchemy</span>
+                                <span class="tech-tag">Power BI</span>
+                                <span class="tech-tag">DAX</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-actions">
+                        <a href="https://github.com/garvitwork/retail-demand-ai" class="project-link" target="_blank">GitHub <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Project 3 — Churn & CLV Platform -->
+            <div class="project-card no-video" id="da-3">
+                <div class="project-content">
+                    <div class="project-card-top">
+                        <div class="project-num">03</div>
+                        <div class="project-category">Churn Prediction · CLV · Power BI</div>
+                    </div>
+                    <div class="project-header">
+                        <h3 class="project-title">AI-Powered Customer Retention & Revenue Intelligence Platform</h3>
+                        <p class="project-description">Predicts customer churn, estimates customer lifetime value, and surfaces AI-driven retention insights on the Olist Brazilian e-commerce dataset (~100K real orders) — built with Python (Random Forest, sentiment analysis) and Power BI, with an optional MySQL warehouse layer.</p>
+                        <div class="project-impact">
+                            <div class="project-impact-label">Why It Matters</div>
+                            <p>Retention teams typically learn about churn only after revenue has already dropped. This platform gives them a predictive signal instead — flagging ~56K high-risk customers and estimated CLV so retention effort can be prioritized before it's too late.</p>
+                        </div>
+                        <div class="project-body">
+                            <div class="tech-stack">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">scikit-learn</span>
+                                <span class="tech-tag">Random Forest</span>
+                                <span class="tech-tag">TextBlob</span>
+                                <span class="tech-tag">MySQL</span>
+                                <span class="tech-tag">Power BI</span>
+                                <span class="tech-tag">DAX</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-actions">
+                        <a href="https://github.com/garvitwork/PowerBI-Churn-Project" class="project-link" target="_blank">GitHub <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            </div><!-- /.projects-grid -->
+            </div><!-- /.projects-main -->
+        </div><!-- /.projects-layout -->
+    </section>
+    </div><!-- /#data-analysis-page -->
+
     <!-- EXPERTISE PAGE -->
     <div class="page-section" id="expertise-page">
     <!-- Expertise Section -->
@@ -3164,11 +3424,12 @@
 
         // ── Tab-based navigation ──
         const PAGE_MAP = {
-            '#home':          '#home',
-            '#projects-page': '#projects-page',
-            '#expertise-page':'#expertise-page',
-            '#about-page':    '#about-page',
-            '#contact-page':  '#contact-page'
+            '#home':              '#home',
+            '#projects-page':     '#projects-page',
+            '#data-analysis-page':'#data-analysis-page',
+            '#expertise-page':    '#expertise-page',
+            '#about-page':        '#about-page',
+            '#contact-page':      '#contact-page'
         };
 
         function showPage(targetHash) {
@@ -3202,8 +3463,8 @@
             });
         });
 
-        // Hero CTA buttons
-        document.querySelectorAll('.hero-cta a').forEach(btn => {
+        // Hero CTA buttons + diverging-arrows navigator
+        document.querySelectorAll('.hero-cta a, .hero-divider-link').forEach(btn => {
             btn.addEventListener('click', function(e) {
                 const href = this.getAttribute('href');
                 if (href && href.startsWith('#')) {
@@ -3246,11 +3507,14 @@
             observer.observe(card);
         });
 
-        // ── Projects sidebar + mobile nav scroll-spy ──
-        function initProjectsSidebar() {
-            const sidebarLinks = document.querySelectorAll('.sidebar-link');
-            const mobileLinks  = document.querySelectorAll('.mobile-proj-link');
-            const projectCards = ['proj-1','proj-2','proj-3','proj-4','proj-5','proj-6']
+        // ── Sidebar + mobile nav scroll-spy (generalized, scoped per page) ──
+        // pageSelector scopes all queries to one page-section so the Projects
+        // page and Data Analysis page (which share the same class names) never
+        // cross-wire each other's active states.
+        function initSidebarNav(pageSelector, cardIds, progressBarId, mobileNavId) {
+            const sidebarLinks = document.querySelectorAll(`${pageSelector} .sidebar-link`);
+            const mobileLinks  = document.querySelectorAll(`${pageSelector} .mobile-proj-link`);
+            const projectCards = cardIds
                 .map(id => document.getElementById(id))
                 .filter(Boolean);
 
@@ -3274,7 +3538,7 @@
                     e.preventDefault();
                     const target = document.querySelector(this.getAttribute('href'));
                     if (target) {
-                        const mobileNav = document.getElementById('mobileProjectsNav');
+                        const mobileNav = document.getElementById(mobileNavId);
                         const mobileNavH = mobileNav ? mobileNav.offsetHeight : 0;
                         const offset = target.getBoundingClientRect().top + window.scrollY - 120 - mobileNavH;
                         window.scrollTo({ top: offset, behavior: 'smooth' });
@@ -3285,7 +3549,7 @@
             // Scroll-spy
             function onScroll() {
                 const scrollY = window.scrollY + 200;
-                const bar = document.getElementById('projectsProgress');
+                const bar = document.getElementById(progressBarId);
 
                 // Progress bar
                 const firstTop   = projectCards[0].getBoundingClientRect().top + window.scrollY;
@@ -3304,8 +3568,8 @@
 
                 // Update mobile tabs + auto-scroll the tab bar
                 mobileLinks.forEach(link => link.classList.toggle('active', link.getAttribute('data-proj') === activeId));
-                const activeMobile = document.querySelector(`.mobile-proj-link[data-proj="${activeId}"]`);
-                const mobileNav    = document.getElementById('mobileProjectsNav');
+                const activeMobile = document.querySelector(`${pageSelector} .mobile-proj-link[data-proj="${activeId}"]`);
+                const mobileNav    = document.getElementById(mobileNavId);
                 if (activeMobile && mobileNav) {
                     const scrollTo = activeMobile.offsetLeft - (mobileNav.offsetWidth / 2) + (activeMobile.offsetWidth / 2);
                     mobileNav.scrollTo({ left: scrollTo, behavior: 'smooth' });
@@ -3316,6 +3580,14 @@
             onScroll();
         }
 
+        function initProjectsSidebar() {
+            initSidebarNav('#projects-page', ['proj-1','proj-2','proj-3','proj-4','proj-5','proj-6'], 'projectsProgress', 'mobileProjectsNav');
+        }
+
+        function initDataAnalysisSidebar() {
+            initSidebarNav('#data-analysis-page', ['da-1','da-2','da-3'], 'daProjectsProgress', 'mobileDaProjectsNav');
+        }
+
         // Hook sidebar init into page navigation
         const _origShowPage = window.showPage;
         window.showPage = function(hash) {
@@ -3323,11 +3595,17 @@
             if (hash === '#projects-page') {
                 setTimeout(initProjectsSidebar, 50);
             }
+            if (hash === '#data-analysis-page') {
+                setTimeout(initDataAnalysisSidebar, 50);
+            }
         };
 
-        // Also init if projects page loads as active
+        // Also init if a sidebar-driven page loads as already active
         if (document.getElementById('projects-page') && document.getElementById('projects-page').classList.contains('active')) {
             initProjectsSidebar();
+        }
+        if (document.getElementById('data-analysis-page') && document.getElementById('data-analysis-page').classList.contains('active')) {
+            initDataAnalysisSidebar();
         }
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
