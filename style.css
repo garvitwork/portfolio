@@ -137,9 +137,15 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; letter-spac
 
 .gradient-text {
   background: var(--gradient);
+  background-size: 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  animation: gradientShift 7s ease-in-out infinite alternate;
+}
+@keyframes gradientShift {
+  from { background-position: 0% 50%; }
+  to   { background-position: 100% 50%; }
 }
 
 .skip-link {
@@ -264,6 +270,11 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; letter-spac
   background: var(--gradient);
   margin-left: 4px;
   transform: translateY(-8px);
+  animation: logoDotPulse 2.6s ease-in-out infinite;
+}
+@keyframes logoDotPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(139,124,246,0.5); }
+  50%      { box-shadow: 0 0 0 5px rgba(139,124,246,0); }
 }
 
 .nav-links-wrap {
@@ -359,6 +370,23 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; letter-spac
   z-index: 0;
   opacity: 0.55;
   pointer-events: none;
+  animation: heroCurveDrift 11s ease-in-out infinite alternate;
+}
+@keyframes heroCurveDrift {
+  from { transform: translateY(0) scale(1); }
+  to   { transform: translateY(-14px) scale(1.015); }
+}
+
+/* Orchestrated hero load-in: badge, title, subtitle, CTAs and divider   */
+/* rise into place in sequence via a shared --rise-delay per element.    */
+.hero-rise {
+  opacity: 0;
+  animation: heroRise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--rise-delay, 0s);
+}
+@keyframes heroRise {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .hero-glow {
@@ -366,7 +394,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; letter-spac
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background: radial-gradient(560px circle at var(--hx, 20%) var(--hy, 30%), rgba(139,124,246,0.16), transparent 60%);
+  background: radial-gradient(280px circle at var(--hx, 20%) var(--hy, 30%), rgba(139,124,246,0.10), transparent 60%);
   transition: background 0.6s ease;
 }
 

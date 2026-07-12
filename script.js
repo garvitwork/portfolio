@@ -21,6 +21,7 @@
     initCardEffects();
     initMagneticButtons();
     initHeroGlow();
+    initHeroSignal();
     initStatCounters();
     initBackToTop();
     hardenExternalLinks();
@@ -239,6 +240,40 @@
         glow.style.setProperty('--hy', hy.toFixed(2) + '%');
       });
     });
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* Hero signal: a small dot travels along the ambient curve path,     */
+  /* echoing the "signal models" language in the hero copy. Pauses      */
+  /* automatically off-screen isn't needed since it's cheap (one        */
+  /* getPointAtLength call per frame), but it does respect              */
+  /* prefers-reduced-motion like every other motion effect here.        */
+  /* ---------------------------------------------------------------- */
+  function initHeroSignal() {
+    if (reduceMotion) return;
+
+    var path = document.getElementById('heroSignalPath');
+    var dot = document.getElementById('heroSignalDot');
+    var halo = document.getElementById('heroSignalHalo');
+    if (!path || !dot || typeof path.getTotalLength !== 'function') return;
+
+    var length = path.getTotalLength();
+    var duration = 8000; // ms per lap
+    var start = null;
+
+    function frame(ts) {
+      if (start === null) start = ts;
+      var elapsed = (ts - start) % duration;
+      var pt = path.getPointAtLength((elapsed / duration) * length);
+      dot.setAttribute('cx', pt.x.toFixed(2));
+      dot.setAttribute('cy', pt.y.toFixed(2));
+      if (halo) {
+        halo.setAttribute('cx', pt.x.toFixed(2));
+        halo.setAttribute('cy', pt.y.toFixed(2));
+      }
+      window.requestAnimationFrame(frame);
+    }
+    window.requestAnimationFrame(frame);
   }
 
   /* ---------------------------------------------------------------- */

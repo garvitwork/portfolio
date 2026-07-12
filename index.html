@@ -29,7 +29,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer">
 
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
 <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
@@ -73,33 +73,34 @@
             <stop offset="100%" stop-color="#45d9c7"/>
           </linearGradient>
         </defs>
-        <path d="M -50,120 C 250,80 380,420 620,430 S 980,220 1250,60" fill="none" stroke="url(#curveGrad)" stroke-width="1.5" opacity="0.5"/>
+        <path id="heroSignalPath" d="M -50,120 C 250,80 380,420 620,430 S 980,220 1250,60" fill="none" stroke="url(#curveGrad)" stroke-width="1.5" opacity="0.5"/>
         <path d="M -50,260 C 280,240 420,560 640,560 S 1000,360 1250,220" fill="none" stroke="url(#curveGrad)" stroke-width="1" opacity="0.3"/>
         <path d="M -50,40 C 220,10 340,300 600,320 S 960,120 1250,-30" fill="none" stroke="url(#curveGrad)" stroke-width="1" opacity="0.25"/>
-        <circle cx="620" cy="430" r="4" fill="#45d9c7"/>
+        <circle id="heroSignalHalo" cx="620" cy="430" r="9" fill="#45d9c7" opacity="0.18"/>
+        <circle id="heroSignalDot" cx="620" cy="430" r="4" fill="#45d9c7"/>
       </svg>
     </div>
 
     <div class="container">
       <div class="hero-inner">
-        <div class="hero-badge"><span class="pulse"></span> Available for opportunities</div>
+        <div class="hero-badge hero-rise" style="--rise-delay:0s"><span class="pulse"></span> Available for opportunities</div>
 
-        <h1 class="hero-title">
+        <h1 class="hero-title hero-rise" style="--rise-delay:0.1s">
           Data Science &amp;<br>
           <span class="gradient-text">Machine Learning</span><br>
           Research Work
         </h1>
 
-        <p class="hero-subtitle">
+        <p class="hero-subtitle hero-rise" style="--rise-delay:0.22s">
           Transforming complex data into actionable insights through cutting-edge AI solutions and research-driven approaches — from FinTech signal models to fairness-audited production systems.
         </p>
 
-        <div class="hero-cta">
+        <div class="hero-cta hero-rise" style="--rise-delay:0.34s">
           <a href="#projects" class="btn btn-primary" data-magnetic><span>View Projects</span> <i class="fas fa-arrow-right"></i></a>
           <a href="#contact" class="btn btn-secondary" data-magnetic><span>Get in Touch</span></a>
         </div>
 
-        <div class="hero-divider">
+        <div class="hero-divider hero-rise" style="--rise-delay:0.44s">
           <a href="#projects" class="hero-divider-link"><i class="fas fa-arrow-down"></i> AI / ML Work</a>
           <a href="#data-bi" class="hero-divider-link"><i class="fas fa-arrow-down"></i> Data Analysis / BI Work</a>
         </div>
@@ -746,6 +747,6 @@
   <i class="fas fa-arrow-up"></i>
 </button>
 
-<script src="script.js" defer></script>
+<script src="script.js?v=3" defer></script>
 </body>
 </html>
