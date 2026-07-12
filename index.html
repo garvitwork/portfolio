@@ -32,6 +32,7 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 <a class="skip-link" href="#home">Skip to content</a>
 
 <!-- ==================== NAVIGATION ==================== -->
@@ -43,15 +44,18 @@
       <span></span><span></span><span></span>
     </button>
 
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#home" class="nav-link active">Home</a></li>
-      <li><a href="#projects" class="nav-link">AI / ML Work</a></li>
-      <li><a href="#data-bi" class="nav-link">Data & BI</a></li>
-      <li><a href="#expertise" class="nav-link">Expertise</a></li>
-      <li><a href="#about" class="nav-link">About</a></li>
-      <li><a href="#contact" class="nav-link">Contact</a></li>
-      <li><a href="#contact" class="nav-cta">Hire me <i class="fas fa-arrow-right"></i></a></li>
-    </ul>
+    <div class="nav-links-wrap">
+      <span class="nav-indicator" id="navIndicator" aria-hidden="true"></span>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home" class="nav-link active">Home</a></li>
+        <li><a href="#projects" class="nav-link">AI / ML Work</a></li>
+        <li><a href="#data-bi" class="nav-link">Data &amp; BI</a></li>
+        <li><a href="#expertise" class="nav-link">Expertise</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+        <li><a href="#contact" class="nav-cta" data-magnetic>Hire me <i class="fas fa-arrow-right"></i></a></li>
+      </ul>
+    </div>
   </div>
 </nav>
 
@@ -59,7 +63,8 @@
 
 <!-- ==================== HOME / HERO ==================== -->
 <section id="home">
-  <div class="hero">
+  <div class="hero" id="heroSurface">
+    <div class="hero-glow" id="heroGlow" aria-hidden="true"></div>
     <div class="hero-curve" aria-hidden="true">
       <svg viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -90,8 +95,8 @@
         </p>
 
         <div class="hero-cta">
-          <a href="#projects" class="btn btn-primary"><span>View Projects</span> <i class="fas fa-arrow-right"></i></a>
-          <a href="#contact" class="btn btn-secondary"><span>Get in Touch</span></a>
+          <a href="#projects" class="btn btn-primary" data-magnetic><span>View Projects</span> <i class="fas fa-arrow-right"></i></a>
+          <a href="#contact" class="btn btn-secondary" data-magnetic><span>Get in Touch</span></a>
         </div>
 
         <div class="hero-divider">
@@ -104,15 +109,15 @@
 
   <div class="stats-section container">
     <div class="stats-grid reveal">
-      <div class="stat-card">
-        <div class="stat-value">2+</div>
+      <div class="fx-card stat-card">
+        <div class="stat-value" data-count="2" data-suffix="+">2+</div>
         <div class="stat-label">Years in ML &amp; Data Science</div>
       </div>
-      <div class="stat-card">
-        <div class="stat-value">10+</div>
+      <div class="fx-card stat-card">
+        <div class="stat-value" data-count="10" data-suffix="+">10+</div>
         <div class="stat-label">Projects Delivered to Production</div>
       </div>
-      <div class="stat-card">
+      <div class="fx-card stat-card">
         <div class="stat-value">Research</div>
         <div class="stat-label">&amp; Copyrighted Publications</div>
       </div>
@@ -132,7 +137,7 @@
     <div class="projects-list">
 
       <!-- Project 1 — AURUM -->
-      <article class="project-card reveal" id="proj-aurum">
+      <article class="fx-card project-card reveal" id="proj-aurum">
         <div class="project-content">
           <div class="project-card-top">
             <span class="project-num mono">01</span>
@@ -172,7 +177,7 @@
       </article>
 
       <!-- Project 2 — Bias Detection -->
-      <article class="project-card reverse reveal" id="proj-bias">
+      <article class="fx-card project-card reverse reveal" id="proj-bias">
         <div class="project-content">
           <div class="project-card-top">
             <span class="project-num mono">02</span>
@@ -208,7 +213,7 @@
       </article>
 
       <!-- Project 3 — Income Analytics -->
-      <article class="project-card reveal" id="proj-income">
+      <article class="fx-card project-card reveal" id="proj-income">
         <div class="project-content">
           <div class="project-card-top">
             <span class="project-num mono">03</span>
@@ -243,7 +248,7 @@
       </article>
 
       <!-- Project 4 — Explainability -->
-      <article class="project-card reverse reveal" id="proj-explain">
+      <article class="fx-card project-card reverse reveal" id="proj-explain">
         <div class="project-content">
           <div class="project-card-top">
             <span class="project-num mono">04</span>
@@ -279,7 +284,7 @@
       </article>
 
       <!-- Project 5 — Trust Scoring -->
-      <article class="project-card reveal" id="proj-trust">
+      <article class="fx-card project-card reveal" id="proj-trust">
         <div class="project-content">
           <div class="project-card-top">
             <span class="project-num mono">05</span>
@@ -323,7 +328,7 @@
     </div>
     <p class="research-intro reveal">This project is proprietary research — the source code and full implementation are protected. Get in touch to discuss collaboration or licensing.</p>
 
-    <article class="project-card reverse research-card reveal" id="proj-stock">
+    <article class="fx-card project-card reverse research-card reveal" id="proj-stock">
       <div class="project-content">
         <div class="project-card-top">
           <span class="project-num mono">06</span>
@@ -396,6 +401,15 @@
   </div>
 </section>
 
+<!-- ==================== BRANCH DIVIDER ==================== -->
+<div class="branch-divider container reveal" aria-hidden="true">
+  <span class="branch-divider-label branch-divider-label--ml">AI / ML</span>
+  <span class="branch-divider-track">
+    <span class="branch-divider-dot"></span>
+  </span>
+  <span class="branch-divider-label branch-divider-label--bi">Data &amp; BI</span>
+</div>
+
 <!-- ==================== DATA ANALYSIS / BI ==================== -->
 <section id="data-bi" class="section">
   <div class="container">
@@ -407,7 +421,7 @@
 
     <div class="projects-list">
 
-      <article class="project-card no-video reveal" id="da-aegis">
+      <article class="fx-card project-card no-video reveal" id="da-aegis">
         <div class="project-content">
           <div class="project-card-top">
             <span class="project-num mono">01</span>
@@ -434,7 +448,7 @@
         </div>
       </article>
 
-      <article class="project-card no-video reveal" id="da-retail">
+      <article class="fx-card project-card no-video reveal" id="da-retail">
         <div class="project-content">
           <div class="project-card-top">
             <span class="project-num mono">02</span>
@@ -461,7 +475,7 @@
         </div>
       </article>
 
-      <article class="project-card no-video reveal" id="da-churn">
+      <article class="fx-card project-card no-video reveal" id="da-churn">
         <div class="project-content">
           <div class="project-card-top">
             <span class="project-num mono">03</span>
@@ -501,7 +515,7 @@
     </div>
 
     <div class="expertise-grid">
-      <div class="expertise-card reveal">
+      <div class="fx-card expertise-card reveal">
         <div class="expertise-icon"><i class="fas fa-brain"></i></div>
         <h3 class="expertise-title">Deep Learning</h3>
         <p class="expertise-description">Advanced neural network architectures for complex pattern recognition and prediction.</p>
@@ -513,7 +527,7 @@
         </ul>
       </div>
 
-      <div class="expertise-card reveal">
+      <div class="fx-card expertise-card reveal">
         <div class="expertise-icon"><i class="fas fa-robot"></i></div>
         <h3 class="expertise-title">Machine Learning</h3>
         <p class="expertise-description">Classical ML algorithms and modern techniques for diverse analytical challenges.</p>
@@ -525,7 +539,7 @@
         </ul>
       </div>
 
-      <div class="expertise-card reveal">
+      <div class="fx-card expertise-card reveal">
         <div class="expertise-icon"><i class="fas fa-cogs"></i></div>
         <h3 class="expertise-title">MLOps &amp; Deployment</h3>
         <p class="expertise-description">End-to-end pipeline management from model training to production deployment.</p>
@@ -537,7 +551,7 @@
         </ul>
       </div>
 
-      <div class="expertise-card reveal">
+      <div class="fx-card expertise-card reveal">
         <div class="expertise-icon"><i class="fas fa-language"></i></div>
         <h3 class="expertise-title">Natural Language Processing</h3>
         <p class="expertise-description">Text analysis and language understanding using state-of-the-art NLP techniques.</p>
@@ -549,7 +563,7 @@
         </ul>
       </div>
 
-      <div class="expertise-card reveal">
+      <div class="fx-card expertise-card reveal">
         <div class="expertise-icon"><i class="fas fa-balance-scale"></i></div>
         <h3 class="expertise-title">AI Fairness &amp; Ethics</h3>
         <p class="expertise-description">Building responsible AI systems with bias detection and mitigation strategies.</p>
@@ -561,7 +575,7 @@
         </ul>
       </div>
 
-      <div class="expertise-card reveal">
+      <div class="fx-card expertise-card reveal">
         <div class="expertise-icon"><i class="fas fa-chart-line"></i></div>
         <h3 class="expertise-title">Data Science &amp; Analytics</h3>
         <p class="expertise-description">Statistical analysis and data visualization for actionable business insights.</p>
@@ -696,21 +710,24 @@
     </div>
 
     <div class="contact-grid reveal">
-      <div class="contact-card">
+      <div class="fx-card contact-card">
         <div class="contact-icon"><i class="fas fa-envelope"></i></div>
         <div class="contact-label">Email</div>
-        <div class="contact-value">
-          <a href="#" data-email-user="garvitwork25" data-email-domain="gmail.com">Loading…</a>
+        <div class="contact-value contact-value--email">
+          <a href="#" id="emailLink" data-email-user="garvitwork25" data-email-domain="gmail.com">Loading…</a>
+          <button type="button" class="copy-btn" id="copyEmailBtn" aria-label="Copy email address" title="Copy email address">
+            <i class="fas fa-copy"></i>
+          </button>
         </div>
       </div>
 
-      <div class="contact-card">
+      <div class="fx-card contact-card">
         <div class="contact-icon"><i class="fab fa-linkedin"></i></div>
         <div class="contact-label">LinkedIn</div>
         <div class="contact-value"><a href="https://www.linkedin.com/in/garvit-gupta-87875a226/" target="_blank" rel="noopener noreferrer">Connect with me</a></div>
       </div>
 
-      <div class="contact-card">
+      <div class="fx-card contact-card">
         <div class="contact-icon"><i class="fab fa-github"></i></div>
         <div class="contact-label">GitHub</div>
         <div class="contact-value"><a href="https://github.com/garvitwork" target="_blank" rel="noopener noreferrer">View repositories</a></div>
@@ -724,6 +741,10 @@
 <footer class="footer">
   <p>&copy; 2026 Garvit Gupta. All rights reserved.</p>
 </footer>
+
+<button type="button" class="back-to-top" id="backToTop" aria-label="Back to top">
+  <i class="fas fa-arrow-up"></i>
+</button>
 
 <script src="script.js" defer></script>
 </body>
