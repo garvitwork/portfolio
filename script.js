@@ -22,6 +22,7 @@
     initMagneticButtons();
     initHeroGlow();
     initHeroSignal();
+    initBranchPanels();
     initStatCounters();
     initBackToTop();
     hardenExternalLinks();

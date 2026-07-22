@@ -536,6 +536,175 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; letter-spac
 }
 
 /* ---------------------------------------------------------------------- */
+/* Branch select — the "choose a path" hub between the hero and the two    */
+/* bodies of work. Two panels sharing one border, each with a cursor-      */
+/* tracked spotlight and its own miniature animated icon; hovering one      */
+/* grows it and settles the other back, so the choice feels physical        */
+/* rather than like a plain tab switch.                                     */
+/* ---------------------------------------------------------------------- */
+.branch-select { padding: 20px 0 110px; }
+.branch-select-intro { max-width: 640px; margin: 0 auto 48px; text-align: center; }
+.branch-select-eyebrow {
+  justify-content: center;
+  color: var(--violet);
+}
+.branch-select-eyebrow::before { background: var(--violet); }
+.branch-select-intro .section-subtitle { margin: 0 auto; }
+
+.branch-panels {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--surface);
+  min-height: 380px;
+}
+
+.branch-panel {
+  position: relative;
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 28px;
+  padding: 44px 44px 36px;
+  overflow: hidden;
+  color: inherit;
+  text-decoration: none;
+  transition: flex-grow 0.55s cubic-bezier(0.22, 0.85, 0.2, 1);
+}
+.branch-panel + .branch-panel,
+.branch-center + .branch-panel { border-left: 1px solid var(--border); }
+
+.branch-panel--ml { --branch-c: var(--cobalt); --branch-c-rgb: var(--cobalt-rgb); }
+.branch-panel--bi { --branch-c: var(--coral);  --branch-c-rgb: var(--coral-rgb); }
+
+/* base tint so each side reads as its own territory even before hover */
+.branch-panel--ml { background: linear-gradient(160deg, rgba(76,111,255,0.05), transparent 55%); }
+.branch-panel--bi { background: linear-gradient(200deg, rgba(255,93,115,0.05), transparent 55%); }
+
+.branch-panels:hover .branch-panel { flex-grow: 0.82; }
+.branch-panels .branch-panel:hover { flex-grow: 1.28; }
+
+.branch-panel-spotlight {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(var(--branch-c-rgb), 0.16), transparent 55%);
+}
+.branch-panel:hover .branch-panel-spotlight { opacity: 1; }
+
+.branch-panel-top {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+.branch-panel-eyebrow {
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--branch-c);
+}
+.branch-panel-icon { width: 56px; height: 56px; flex-shrink: 0; opacity: 0.9; }
+
+/* AI/ML icon: pulsing neural-net nodes */
+.bp-net line { stroke: rgba(var(--branch-c-rgb), 0.35); stroke-width: 1.2; }
+.bp-node { fill: var(--branch-c); animation: bpNodePulse 2.6s ease-in-out infinite; animation-delay: var(--d, 0s); }
+@keyframes bpNodePulse {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50%      { opacity: 1;    transform: scale(1.18); }
+}
+
+/* Data/BI icon: bars rising + a trend line sweeping in */
+.bp-bar { fill: var(--branch-c); transform-origin: bottom; animation: bpBarRise 0.6s cubic-bezier(0.2,0.8,0.2,1) both; animation-delay: var(--d, 0s); opacity: 0.85; }
+@keyframes bpBarRise { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+.bp-trend {
+  stroke: var(--branch-c);
+  stroke-dasharray: 70;
+  stroke-dashoffset: 70;
+  animation: bpTrendDraw 1.1s 0.5s ease forwards;
+  opacity: 0.9;
+}
+@keyframes bpTrendDraw { to { stroke-dashoffset: 0; } }
+
+.branch-panel-body { position: relative; }
+.branch-panel-title {
+  font-size: clamp(20px, 2.2vw, 25px);
+  color: var(--text);
+  margin-bottom: 10px;
+}
+.branch-panel-desc { font-size: 14px; color: var(--text-dim); line-height: 1.65; max-width: 34ch; }
+.branch-panel-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.branch-panel-chip {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: var(--branch-c);
+  border: 1px solid rgba(var(--branch-c-rgb), 0.3);
+  background: rgba(var(--branch-c-rgb), 0.08);
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.branch-panel-cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--branch-c);
+  transition: gap 0.25s ease;
+}
+.branch-panel:hover .branch-panel-cta { gap: 13px; }
+
+.branch-center {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 0;
+}
+.branch-center-badge {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  background: var(--bg);
+  border: 1px solid var(--border-strong);
+  box-shadow: 0 0 0 6px var(--surface), var(--shadow-lift);
+}
+.branch-center-badge .m-white { color: var(--text); }
+.branch-center-badge .m-yellow { color: var(--violet); }
+
+@media (max-width: 860px) {
+  .branch-panels { flex-direction: column; min-height: 0; }
+  .branch-panel + .branch-panel,
+  .branch-center + .branch-panel { border-left: none; border-top: 1px solid var(--border); }
+  .branch-panels:hover .branch-panel,
+  .branch-panels .branch-panel:hover { flex-grow: 1; }
+  .branch-panel { padding: 34px 28px; }
+  .branch-panel-desc { max-width: none; }
+  .branch-center { display: none; }
+}
+
+/* ---------------------------------------------------------------------- */
 /* Shared section header                                                   */
 /* ---------------------------------------------------------------------- */
 .section { padding: 100px 0; scroll-margin-top: var(--nav-h); }
@@ -610,6 +779,22 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; letter-spac
   border: 1px solid rgba(var(--accent-rgb), 0.3);
   border-radius: 999px;
 }
+
+.flagship-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #0a0e17;
+  background: var(--gradient);
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-left: auto;
+}
+.flagship-badge i { font-size: 9px; }
 
 .project-title { font-size: 21px; color: var(--text); line-height: 1.3; }
 .project-description { font-size: 14.5px; color: var(--text-dim); line-height: 1.7; }

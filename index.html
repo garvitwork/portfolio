@@ -101,8 +101,7 @@
         </div>
 
         <div class="hero-divider hero-rise" style="--rise-delay:0.44s">
-          <a href="#projects" class="hero-divider-link"><i class="fas fa-arrow-down"></i> AI / ML Work</a>
-          <a href="#data-bi" class="hero-divider-link"><i class="fas fa-arrow-down"></i> Data Analysis / BI Work</a>
+          <a href="#branch-select" class="hero-divider-link"><i class="fas fa-arrow-down"></i> Two branches of work below</a>
         </div>
       </div>
     </div>
@@ -122,6 +121,85 @@
         <div class="stat-value">Research</div>
         <div class="stat-label">&amp; Copyrighted Publications</div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== BRANCH SELECT ==================== -->
+<section id="branch-select" class="branch-select">
+  <div class="container">
+    <div class="branch-select-intro reveal">
+      <div class="section-eyebrow branch-select-eyebrow">One Practitioner, Two Disciplines</div>
+      <h2 class="section-title">Choose a Path</h2>
+      <p class="section-subtitle">Every project below sits in one of two connected bodies of work. Pick a branch, or scroll through both.</p>
+    </div>
+
+    <div class="branch-panels reveal">
+      <a href="#projects" class="branch-panel branch-panel--ml" data-branch-panel aria-label="View AI and Machine Learning work">
+        <div class="branch-panel-spotlight" aria-hidden="true"></div>
+        <div class="branch-panel-top">
+          <span class="branch-panel-eyebrow mono">Branch 01</span>
+          <svg class="branch-panel-icon" viewBox="0 0 64 64" aria-hidden="true">
+            <g class="bp-net">
+              <line x1="12" y1="18" x2="32" y2="10"/>
+              <line x1="12" y1="18" x2="32" y2="32"/>
+              <line x1="12" y1="46" x2="32" y2="32"/>
+              <line x1="12" y1="46" x2="32" y2="54"/>
+              <line x1="32" y1="10" x2="52" y2="24"/>
+              <line x1="32" y1="32" x2="52" y2="24"/>
+              <line x1="32" y1="32" x2="52" y2="42"/>
+              <line x1="32" y1="54" x2="52" y2="42"/>
+              <circle class="bp-node" cx="12" cy="18" r="3.4" style="--d:0s"/>
+              <circle class="bp-node" cx="12" cy="46" r="3.4" style="--d:0.3s"/>
+              <circle class="bp-node" cx="32" cy="10" r="3.4" style="--d:0.6s"/>
+              <circle class="bp-node" cx="32" cy="32" r="4.2" style="--d:0.15s"/>
+              <circle class="bp-node" cx="32" cy="54" r="3.4" style="--d:0.9s"/>
+              <circle class="bp-node" cx="52" cy="24" r="3.4" style="--d:0.45s"/>
+              <circle class="bp-node" cx="52" cy="42" r="3.4" style="--d:0.75s"/>
+            </g>
+          </svg>
+        </div>
+        <div class="branch-panel-body">
+          <h3 class="branch-panel-title">AI / ML Work</h3>
+          <p class="branch-panel-desc">Production-grade machine learning systems — from FinTech signal models to fairness-audited MLOps platforms.</p>
+          <div class="branch-panel-meta">
+            <span class="branch-panel-chip">6 Projects</span>
+            <span class="branch-panel-chip">XGBoost · MLflow · LLMs</span>
+          </div>
+        </div>
+        <div class="branch-panel-cta">Explore AI/ML <i class="fas fa-arrow-right"></i></div>
+      </a>
+
+      <div class="branch-center" aria-hidden="true">
+        <div class="branch-center-badge">
+          <span class="m-white">G</span><span class="m-yellow">G</span>
+        </div>
+      </div>
+
+      <a href="#data-bi" class="branch-panel branch-panel--bi" data-branch-panel aria-label="View Data Analysis and Business Intelligence work">
+        <div class="branch-panel-spotlight" aria-hidden="true"></div>
+        <div class="branch-panel-top">
+          <span class="branch-panel-eyebrow mono">Branch 02</span>
+          <svg class="branch-panel-icon" viewBox="0 0 64 64" aria-hidden="true">
+            <g class="bp-bars">
+              <rect class="bp-bar" x="8"  y="34" width="9" height="22" rx="1.5" style="--h:22px;--d:0s"/>
+              <rect class="bp-bar" x="21" y="20" width="9" height="36" rx="1.5" style="--h:36px;--d:0.15s"/>
+              <rect class="bp-bar" x="34" y="28" width="9" height="28" rx="1.5" style="--h:28px;--d:0.3s"/>
+              <rect class="bp-bar" x="47" y="12" width="9" height="44" rx="1.5" style="--h:44px;--d:0.45s"/>
+              <path class="bp-trend" d="M12,30 L25,16 L38,24 L51,8" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+          </svg>
+        </div>
+        <div class="branch-panel-body">
+          <h3 class="branch-panel-title">Data Analysis / BI Work</h3>
+          <p class="branch-panel-desc">End-to-end warehousing and business intelligence — from planetary defense analytics to hospital operations intelligence.</p>
+          <div class="branch-panel-meta">
+            <span class="branch-panel-chip">4 Projects</span>
+            <span class="branch-panel-chip">MySQL · Power BI · DAX</span>
+          </div>
+        </div>
+        <div class="branch-panel-cta">Explore Data &amp; BI <i class="fas fa-arrow-right"></i></div>
+      </a>
     </div>
   </div>
 </section>
@@ -417,15 +495,45 @@
     <div class="section-header reveal">
       <div class="section-eyebrow">Data Engineering &amp; BI</div>
       <h2 class="section-title">Data Analysis / BI Work</h2>
-      <p class="section-subtitle">End-to-end data pipelines and business intelligence platforms — from planetary defense analytics to retail forecasting.</p>
+      <p class="section-subtitle">End-to-end data pipelines and business intelligence platforms — from hospital operations intelligence to planetary defense analytics and retail forecasting.</p>
     </div>
 
     <div class="projects-list">
 
-      <article class="fx-card project-card no-video reveal" id="da-aegis">
+      <article class="fx-card project-card no-video reveal" id="da-medipulse">
         <div class="project-content">
           <div class="project-card-top">
             <span class="project-num mono">01</span>
+            <span class="project-category">Healthcare Analytics · MLOps · Power BI</span>
+            <span class="flagship-badge"><i class="fas fa-star"></i> Flagship</span>
+          </div>
+          <h3 class="project-title">MediPulse AI — Hospital Operations &amp; Patient Risk Intelligence Platform</h3>
+          <p class="project-description">Full-stack analytics platform spanning a MySQL data warehouse, Python ETL, five machine learning models, an LLM narrative layer, and a 7-page Power BI dashboard — predicting patient readmission risk, bed demand, supply stockouts, and staff burnout across a hospital network, then having an AI write the weekly executive briefing.</p>
+          <div class="project-impact">
+            <div class="project-impact-label">Why it matters</div>
+            <p>Most healthcare analytics projects predict one thing in isolation. MediPulse AI connects four domains through one shared warehouse — a bad flu season raises occupancy, which raises overtime, which raises burnout risk, which feeds back into readmissions — and reasons across all of them instead of four spreadsheets that never talk to each other. Every threshold is percentile-based relative to the model's own score distribution rather than a fixed cutoff, so segmentation stays meaningful as the underlying data shifts.</p>
+          </div>
+          <div class="tech-stack">
+            <span class="tech-tag">MySQL</span>
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">XGBoost</span>
+            <span class="tech-tag">Random Forest</span>
+            <span class="tech-tag">Holt-Winters</span>
+            <span class="tech-tag">Groq</span>
+            <span class="tech-tag">LLM (Llama 3.3)</span>
+            <span class="tech-tag">Power BI</span>
+            <span class="tech-tag">DAX</span>
+          </div>
+          <div class="project-actions">
+            <a href="https://github.com/garvitwork/HealthCare" class="project-link" target="_blank" rel="noopener noreferrer">GitHub <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="fx-card project-card no-video reveal" id="da-aegis">
+        <div class="project-content">
+          <div class="project-card-top">
+            <span class="project-num mono">02</span>
             <span class="project-category">Data Engineering · BI · ML</span>
           </div>
           <h3 class="project-title">AEGIS — AI-Driven Planetary Defense Intelligence Platform</h3>
@@ -452,7 +560,7 @@
       <article class="fx-card project-card no-video reveal" id="da-retail">
         <div class="project-content">
           <div class="project-card-top">
-            <span class="project-num mono">02</span>
+            <span class="project-num mono">03</span>
             <span class="project-category">Demand Forecasting · Retail Analytics</span>
           </div>
           <h3 class="project-title">AI-Powered Retail Demand Forecasting &amp; Inventory Optimization</h3>
@@ -479,7 +587,7 @@
       <article class="fx-card project-card no-video reveal" id="da-churn">
         <div class="project-content">
           <div class="project-card-top">
-            <span class="project-num mono">03</span>
+            <span class="project-num mono">04</span>
             <span class="project-category">Churn Prediction · CLV · Power BI</span>
           </div>
           <h3 class="project-title">AI-Powered Customer Retention &amp; Revenue Intelligence Platform</h3>
