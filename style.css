@@ -1497,32 +1497,35 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; letter-spac
   .hero-divider { gap: 20px; }
 
   /* ---- Stats: horizontally snapping metric rail ---- */
+  /* Deliberately NOT using a negative-margin "bleed to edge" trick here —      */
+  /* that pattern is a known source of page-level horizontal overflow on       */
+  /* some Android/Chrome builds when combined with scroll-snap. The rail sits  */
+  /* fully inside the container's own padding instead: safer, still tactile.  */
   .stats-section { padding: 8px 0 48px; }
   .stats-grid {
     display: flex;
     grid-template-columns: none;
     overflow-x: auto;
+    overscroll-behavior-x: contain;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     border: none;
     background: none;
     border-radius: 0;
-    margin: 0 -20px;
-    padding: 0 20px;
+    max-width: 100%;
     gap: 12px;
   }
   .stats-grid::-webkit-scrollbar { display: none; }
   .stat-card,
   .stat-card:last-child {
-    flex: 0 0 68vw;
+    flex: 0 0 calc(100% - 56px);
     max-width: 260px;
     scroll-snap-align: start;
     border: 1px solid var(--border) !important;
     border-radius: var(--radius-lg);
     background: var(--surface);
   }
-  .stats-grid::after { content: ''; flex: 0 0 8px; }
 
   /* ---- Branch select ---- */
   .branch-select { padding: 8px 0 72px; }
@@ -1564,10 +1567,10 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; letter-spac
   .tech-stack {
     flex-wrap: nowrap;
     overflow-x: auto;
+    overscroll-behavior-x: contain;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    margin: 0 -22px;
-    padding: 2px 22px;
+    max-width: 100%;
     scroll-snap-type: x proximity;
   }
   .tech-stack::-webkit-scrollbar { display: none; }
@@ -1614,7 +1617,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; letter-spac
   .about-grid { gap: 32px; }
   .about-avatar-wrap { max-width: none; }
   .about-content h3 { font-size: 22px; }
-  .about-tags { overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; margin: 0 -20px; padding: 0 20px 4px; }
+  .about-tags { overflow-x: auto; overscroll-behavior-x: contain; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; max-width: 100%; }
   .about-tags::-webkit-scrollbar { display: none; }
   .about-tag { flex-shrink: 0; }
 
@@ -1635,9 +1638,8 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; letter-spac
   .container { padding: 0 20px; }
   .nav-container { padding: 0 20px; }
   .hero-title { font-size: clamp(32px, 9vw, 44px); }
-  .stat-card { flex-basis: 74vw; padding: 26px 24px; }
+  .stat-card { flex-basis: calc(100% - 90px); padding: 26px 24px; }
   .project-content { padding: 24px 20px; }
-  .tech-stack { margin: 0 -20px; padding: 2px 20px; }
   .hero-cta { flex-direction: column; align-items: stretch; }
   .btn { justify-content: center; }
   .mobile-fab-cta { left: 12px; right: 12px; height: 50px; font-size: 14px; }
@@ -1648,7 +1650,6 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; letter-spac
   .branch-panel { padding: 26px 20px; }
   .branch-panel-title { font-size: 19px; }
   .project-content { padding: 22px 16px; }
-  .tech-stack { margin: 0 -16px; padding: 2px 16px; }
   .expertise-card { padding: 22px 18px; }
   .contact-card { padding: 22px 18px; }
 }
