@@ -19,6 +19,7 @@
     initEmailProtection();
     initEmailCopy();
     initCardEffects();
+    initExpandableCards();
     initMagneticButtons();
     initHeroGlow();
     initHeroSignal();
@@ -189,6 +190,60 @@
       card.addEventListener('pointerenter', handleEnter);
       card.addEventListener('pointermove', handleMove);
       card.addEventListener('pointerleave', handleLeave);
+    });
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* Expandable cards: every project & expertise card ships a short     */
+  /* teaser by default. Clicking anywhere on the card (except a real    */
+  /* link, the video fullscreen button, or a tech tag) reveals the      */
+  /* full write-up for that card only — every other card is untouched.  */
+  /* The reveal height is measured from the actual content each time,   */
+  /* so it animates cleanly regardless of how long the text is.         */
+  /* ---------------------------------------------------------------- */
+  function initExpandableCards() {
+    var cards = Array.prototype.slice.call(document.querySelectorAll('[data-expand]'));
+    if (!cards.length) return;
+
+    var IGNORE_SELECTOR = 'a, .video-fullscreen-btn, .tech-tag, video, .project-video-panel';
+
+    cards.forEach(function (card) {
+      var panel = card.querySelector('.card-expand-panel');
+      var btn = card.querySelector('.card-expand-btn');
+      if (!panel || !btn) return;
+
+      function setExpanded(expand) {
+        card.classList.toggle('is-expanded', expand);
+        btn.setAttribute('aria-expanded', String(expand));
+        panel.style.maxHeight = expand ? panel.scrollHeight + 'px' : '0px';
+      }
+
+      function pulse() {
+        if (reduceMotion) return;
+        card.classList.remove('card-pulse');
+        // Force reflow so the animation restarts if the card is tapped rapidly.
+        void card.offsetWidth;
+        card.classList.add('card-pulse');
+        window.setTimeout(function () { card.classList.remove('card-pulse'); }, 400);
+      }
+
+      card.addEventListener('click', function (e) {
+        if (e.target.closest(IGNORE_SELECTOR)) return;
+        pulse();
+        setExpanded(!card.classList.contains('is-expanded'));
+      });
+
+      // Keep an expanded panel's measured height correct if content
+      // reflows on resize (e.g. rotating a tablet, or a font finishing load).
+      window.addEventListener(
+        'resize',
+        function () {
+          if (card.classList.contains('is-expanded')) {
+            panel.style.maxHeight = panel.scrollHeight + 'px';
+          }
+        },
+        { passive: true }
+      );
     });
   }
 

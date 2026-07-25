@@ -178,7 +178,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; letter-spac
   z-index: -1;
   border-radius: inherit;
   opacity: 0;
-  background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%), rgba(var(--accent-rgb), 0.16), transparent 68%);
+  background: radial-gradient(11px circle at var(--mx, 20%) var(--my, 20%), rgba(var(--accent-rgb), 0.16), transparent 68%);
   transition: opacity 0.4s ease;
 }
 .fx-card:hover::before,
@@ -757,12 +757,13 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; letter-spac
 .project-card.reverse .project-video-panel { order: 1; }
 .project-card.no-video { grid-template-columns: 1fr; }
 
-.project-content { padding: 40px; display: flex; flex-direction: column; gap: 18px; }
+.project-content { padding: 40px; display: flex; flex-direction: column; }
 
 .project-card-top {
   display: flex;
   align-items: center;
   gap: 12px;
+  margin-bottom: 14px;
 }
 .project-num {
   font-family: var(--font-mono);
@@ -796,7 +797,8 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; letter-spac
 }
 .flagship-badge i { font-size: 9px; }
 
-.project-title { font-size: 21px; color: var(--text); line-height: 1.3; }
+.project-title { font-size: 21px; color: var(--text); line-height: 1.3; margin-bottom: 10px; }
+.project-teaser { font-size: 14.5px; color: var(--text-dim); line-height: 1.65; }
 .project-description { font-size: 14.5px; color: var(--text-dim); line-height: 1.7; }
 
 .project-impact {
@@ -817,6 +819,132 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; letter-spac
 .project-impact p { font-size: 13.5px; color: var(--text-dim); line-height: 1.65; }
 
 .tech-stack { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* ---------------------------------------------------------------------- */
+/* Expandable cards                                                        */
+/* Every project & expertise card shows a short teaser by default; the     */
+/* full write-up lives in .card-expand-panel and unfolds on click, driven  */
+/* by a JS-measured max-height so the reveal animates smoothly to any      */
+/* content length. The interaction language borrows from premium mobile    */
+/* card UI (soft spring overshoot, glow, light sweep) rather than a flat   */
+/* accordion — cards should feel physical, not administrative.             */
+/* ---------------------------------------------------------------------- */
+.project-card[data-expand],
+.expertise-card[data-expand] {
+  cursor: pointer;
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.35s ease, box-shadow 0.35s ease, background 0.3s ease;
+}
+
+/* A soft press: scale down a hair on pointerdown, spring back on release.
+   Runs as a CSS animation (not a transition) so it briefly outranks the
+   inline transform the tilt effect writes on every pointermove. */
+@keyframes cardPress {
+  0%   { transform: scale(1); }
+  45%  { transform: scale(0.975); }
+  100% { transform: scale(1); }
+}
+.project-card.card-pulse,
+.expertise-card.card-pulse {
+  animation: cardPress 0.38s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Diagonal light sweep on hover — the same trick CRED uses on its metal-      */
+/* card surfaces to suggest a reflective, tactile material rather than flat UI. */
+.project-card::after,
+.expertise-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(115deg, transparent, rgba(255,255,255,0.06) 45%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.06) 55%, transparent);
+  transform: skewX(-18deg);
+  transition: left 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+  z-index: 1;
+}
+.project-card:hover::after,
+.expertise-card:hover::after { left: 135%; }
+@media (pointer: coarse) {
+  .project-card::after, .expertise-card::after { display: none; }
+}
+
+/* Expanded state gets a glowing accent border + lifted elevation, so the    */
+/* open card visibly separates itself from its collapsed neighbours.        */
+.project-card.is-expanded {
+  border-color: rgba(var(--accent-rgb), 0.55);
+  box-shadow: 0 0 0 1px rgba(var(--accent-rgb), 0.25), 0 28px 70px -24px rgba(var(--accent-rgb), 0.35), var(--shadow-lift);
+}
+.expertise-card.is-expanded {
+  border-color: var(--violet);
+  box-shadow: 0 0 0 1px rgba(var(--violet-rgb), 0.3), 0 24px 60px -22px rgba(var(--violet-rgb), 0.35);
+}
+
+.card-expand-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  margin-top: 0;
+  transform: translateY(-8px);
+  transition:
+    max-height 0.55s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.4s ease,
+    margin-top 0.45s ease,
+    transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.project-card.is-expanded .card-expand-panel,
+.expertise-card.is-expanded .card-expand-panel {
+  opacity: 1;
+  margin-top: 18px;
+  transform: translateY(0);
+}
+
+.card-expand-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  margin-top: 16px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(var(--accent-rgb), 0.08);
+  border: 1px solid rgba(var(--accent-rgb), 0.3);
+  padding: 9px 15px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), gap 0.25s ease, box-shadow 0.3s ease;
+}
+.card-expand-btn:hover {
+  background: rgba(var(--accent-rgb), 0.16);
+  border-color: var(--accent);
+  gap: 11px;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -8px rgba(var(--accent-rgb), 0.5);
+}
+.card-expand-btn:active { transform: scale(0.92); }
+.card-expand-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.card-expand-btn i {
+  font-size: 9.5px;
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.is-expanded .card-expand-btn i { transform: rotate(180deg); }
+
+.expand-label-more { display: inline; }
+.expand-label-less { display: none; }
+.is-expanded .expand-label-more { display: none; }
+.is-expanded .expand-label-less { display: inline; }
+
 .tech-tag {
   font-family: var(--font-mono);
   font-size: 11.5px;
@@ -953,6 +1081,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; letter-spac
   border: 1px solid rgba(245,179,66,0.3);
   padding: 6px 13px;
   border-radius: 999px;
+  margin-bottom: 14px;
 }
 
 .stock-panel { flex-direction: column; padding: 0; overflow: hidden; }
@@ -1033,6 +1162,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; letter-spac
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: 30px 26px;
+  overflow: hidden;
 }
 .expertise-card:hover { border-color: var(--violet); transform: translateY(-4px); }
 .expertise-icon {

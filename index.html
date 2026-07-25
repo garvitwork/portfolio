@@ -29,7 +29,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer">
 
-<link rel="stylesheet" href="style.css?v=4">
+<link rel="stylesheet" href="style.css?v=6">
 </head>
 <body>
 <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
@@ -216,33 +216,43 @@
     <div class="projects-list">
 
       <!-- Project 1 — AURUM -->
-      <article class="fx-card project-card reveal" id="proj-aurum">
+      <article class="fx-card project-card reveal" id="proj-aurum" data-expand>
         <div class="project-content">
           <div class="project-card-top">
             <span class="project-num mono">01</span>
             <span class="project-category">ML · FinTech · MLOps</span>
           </div>
           <h3 class="project-title">AURUM — Gold Price Direction Intelligence</h3>
-          <p class="project-description">End-to-end ML system predicting gold price directional movement using 70 years of financial data — deployed as a production FastAPI inference service with MLflow experiment tracking, DagsHub Model Registry, and a live web frontend.</p>
-          <div class="project-impact">
-            <div class="project-impact-label">Why it matters</div>
-            <p>Gives rural households a data-driven signal before buying or selling gold jewellery, helps small jewellers time inventory, and offers first-generation investors and students a free, transparent alternative to paid advisory tools.</p>
+          <p class="project-teaser">Production ML system forecasting gold price direction from 70 years of financial data, served live via FastAPI with MLflow tracking.</p>
+
+          <div class="card-expand-panel">
+            <p class="project-description">End-to-end ML system predicting gold price directional movement using 70 years of financial data — deployed as a production FastAPI inference service with MLflow experiment tracking, DagsHub Model Registry, and a live web frontend.</p>
+            <div class="project-impact">
+              <div class="project-impact-label">Why it matters</div>
+              <p>Gives rural households a data-driven signal before buying or selling gold jewellery, helps small jewellers time inventory, and offers first-generation investors and students a free, transparent alternative to paid advisory tools.</p>
+            </div>
+            <div class="tech-stack">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">FastAPI</span>
+              <span class="tech-tag">scikit-learn</span>
+              <span class="tech-tag">MLflow</span>
+              <span class="tech-tag">DagsHub</span>
+              <span class="tech-tag">SMOTE</span>
+              <span class="tech-tag">Walk-Forward CV</span>
+              <span class="tech-tag">Render</span>
+            </div>
+            <div class="project-actions">
+              <a href="https://github.com/garvitwork/gold_backend" class="project-link" target="_blank" rel="noopener noreferrer">GitHub <i class="fas fa-arrow-right"></i></a>
+              <a href="https://dagshub.com/garvitwork/gold_backend.mlflow" class="project-link" target="_blank" rel="noopener noreferrer">MLflow <i class="fas fa-arrow-right"></i></a>
+              <a href="https://garvitwork.github.io/Frontend_Deploy/" class="project-link" target="_blank" rel="noopener noreferrer">Live Demo <i class="fas fa-arrow-right"></i></a>
+            </div>
           </div>
-          <div class="tech-stack">
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">FastAPI</span>
-            <span class="tech-tag">scikit-learn</span>
-            <span class="tech-tag">MLflow</span>
-            <span class="tech-tag">DagsHub</span>
-            <span class="tech-tag">SMOTE</span>
-            <span class="tech-tag">Walk-Forward CV</span>
-            <span class="tech-tag">Render</span>
-          </div>
-          <div class="project-actions">
-            <a href="https://github.com/garvitwork/gold_backend" class="project-link" target="_blank" rel="noopener noreferrer">GitHub <i class="fas fa-arrow-right"></i></a>
-            <a href="https://dagshub.com/garvitwork/gold_backend.mlflow" class="project-link" target="_blank" rel="noopener noreferrer">MLflow <i class="fas fa-arrow-right"></i></a>
-            <a href="https://garvitwork.github.io/Frontend_Deploy/" class="project-link" target="_blank" rel="noopener noreferrer">Live Demo <i class="fas fa-arrow-right"></i></a>
-          </div>
+
+          <button type="button" class="card-expand-btn" aria-expanded="false">
+            <span class="expand-label-more">View details</span>
+            <span class="expand-label-less">Hide details</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
         </div>
         <div class="project-video-panel">
           <span class="video-label">Live Demo</span>
@@ -256,29 +266,39 @@
       </article>
 
       <!-- Project 2 — Bias Detection -->
-      <article class="fx-card project-card reverse reveal" id="proj-bias">
+      <article class="fx-card project-card reverse reveal" id="proj-bias" data-expand>
         <div class="project-content">
           <div class="project-card-top">
             <span class="project-num mono">02</span>
             <span class="project-category">AI Fairness</span>
           </div>
           <h3 class="project-title">Bias Detection &amp; Mitigation Platform</h3>
-          <p class="project-description">Advanced web application for detecting and mitigating bias in ML models through five automated phases with complete MLOps integration.</p>
-          <div class="project-impact">
-            <div class="project-impact-label">Why it matters</div>
-            <p>Biased AI in hiring, lending, and healthcare causes systemic discrimination at scale. This platform automates what large organizations spend heavily on manually — making fairness audits accessible, reproducible, and production-ready from day one.</p>
+          <p class="project-teaser">Web app that detects and mitigates ML bias across five automated audit phases with full MLOps integration.</p>
+
+          <div class="card-expand-panel">
+            <p class="project-description">Advanced web application for detecting and mitigating bias in ML models through five automated phases with complete MLOps integration.</p>
+            <div class="project-impact">
+              <div class="project-impact-label">Why it matters</div>
+              <p>Biased AI in hiring, lending, and healthcare causes systemic discrimination at scale. This platform automates what large organizations spend heavily on manually — making fairness audits accessible, reproducible, and production-ready from day one.</p>
+            </div>
+            <div class="tech-stack">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">IBM AIF360</span>
+              <span class="tech-tag">JavaScript</span>
+              <span class="tech-tag">MLOps</span>
+              <span class="tech-tag">DagsHub</span>
+            </div>
+            <div class="project-actions">
+              <a href="https://github.com/garvitwork/Bias-Web-App" class="project-link" target="_blank" rel="noopener noreferrer">GitHub <i class="fas fa-arrow-right"></i></a>
+              <a href="https://garvitwork.github.io/BiasnessWebapplink/" class="project-link" target="_blank" rel="noopener noreferrer">Live Demo <i class="fas fa-arrow-right"></i></a>
+            </div>
           </div>
-          <div class="tech-stack">
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">IBM AIF360</span>
-            <span class="tech-tag">JavaScript</span>
-            <span class="tech-tag">MLOps</span>
-            <span class="tech-tag">DagsHub</span>
-          </div>
-          <div class="project-actions">
-            <a href="https://github.com/garvitwork/Bias-Web-App" class="project-link" target="_blank" rel="noopener noreferrer">GitHub <i class="fas fa-arrow-right"></i></a>
-            <a href="https://garvitwork.github.io/BiasnessWebapplink/" class="project-link" target="_blank" rel="noopener noreferrer">Live Demo <i class="fas fa-arrow-right"></i></a>
-          </div>
+
+          <button type="button" class="card-expand-btn" aria-expanded="false">
+            <span class="expand-label-more">View details</span>
+            <span class="expand-label-less">Hide details</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
         </div>
         <div class="project-video-panel">
           <span class="video-label">Live Demo</span>
@@ -292,28 +312,38 @@
       </article>
 
       <!-- Project 3 — Income Analytics -->
-      <article class="fx-card project-card reveal" id="proj-income">
+      <article class="fx-card project-card reveal" id="proj-income" data-expand>
         <div class="project-content">
           <div class="project-card-top">
             <span class="project-num mono">03</span>
             <span class="project-category">Business Intelligence</span>
           </div>
           <h3 class="project-title">Enterprise Income Analytics Dashboard</h3>
-          <p class="project-description">Sophisticated predictive dashboard achieving 91% accuracy with automated data pipelines and advanced UI integration.</p>
-          <div class="project-impact">
-            <div class="project-impact-label">Why it matters</div>
-            <p>Income classification at 91% accuracy directly powers credit risk scoring, targeted financial products, and social welfare allocation. This end-to-end pipeline replaces costly analyst workflows and deploys out-of-the-box in enterprise environments.</p>
+          <p class="project-teaser">Predictive income-classification dashboard achieving 91% accuracy with automated data pipelines and a live UI.</p>
+
+          <div class="card-expand-panel">
+            <p class="project-description">Sophisticated predictive dashboard achieving 91% accuracy with automated data pipelines and advanced UI integration.</p>
+            <div class="project-impact">
+              <div class="project-impact-label">Why it matters</div>
+              <p>Income classification at 91% accuracy directly powers credit risk scoring, targeted financial products, and social welfare allocation. This end-to-end pipeline replaces costly analyst workflows and deploys out-of-the-box in enterprise environments.</p>
+            </div>
+            <div class="tech-stack">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">Hugging Face</span>
+              <span class="tech-tag">Streamlit</span>
+              <span class="tech-tag">MLOps</span>
+              <span class="tech-tag">DagsHub</span>
+            </div>
+            <div class="project-actions">
+              <a href="https://github.com/garvitwork/Enterprise-Income-Model-Generation-and-Predictive-Dashboard" class="project-link" target="_blank" rel="noopener noreferrer">GitHub <i class="fas fa-arrow-right"></i></a>
+            </div>
           </div>
-          <div class="tech-stack">
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">Hugging Face</span>
-            <span class="tech-tag">Streamlit</span>
-            <span class="tech-tag">MLOps</span>
-            <span class="tech-tag">DagsHub</span>
-          </div>
-          <div class="project-actions">
-            <a href="https://github.com/garvitwork/Enterprise-Income-Model-Generation-and-Predictive-Dashboard" class="project-link" target="_blank" rel="noopener noreferrer">GitHub <i class="fas fa-arrow-right"></i></a>
-          </div>
+
+          <button type="button" class="card-expand-btn" aria-expanded="false">
+            <span class="expand-label-more">View details</span>
+            <span class="expand-label-less">Hide details</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
         </div>
         <div class="project-video-panel">
           <span class="video-label">Live Demo</span>
@@ -327,29 +357,39 @@
       </article>
 
       <!-- Project 4 — Explainability -->
-      <article class="fx-card project-card reverse reveal" id="proj-explain">
+      <article class="fx-card project-card reverse reveal" id="proj-explain" data-expand>
         <div class="project-content">
           <div class="project-card-top">
             <span class="project-num mono">04</span>
             <span class="project-category">ML Explainability</span>
           </div>
           <h3 class="project-title">Model Analytics &amp; Explainability Platform</h3>
-          <p class="project-description">Comprehensive dashboard for ML model performance analysis using SHAP, LIME, and LLM-powered explainability reports.</p>
-          <div class="project-impact">
-            <div class="project-impact-label">Why it matters</div>
-            <p>Regulators (EU AI Act, RBI, FDA) now mandate explainable AI for high-stakes decisions. This platform gives data teams a unified audit trail — translating black-box model behaviour into human-readable reports — reducing compliance risk in regulated sectors.</p>
+          <p class="project-teaser">Explainability dashboard combining SHAP, LIME, and LLM-generated reports to make model behaviour human-readable.</p>
+
+          <div class="card-expand-panel">
+            <p class="project-description">Comprehensive dashboard for ML model performance analysis using SHAP, LIME, and LLM-powered explainability reports.</p>
+            <div class="project-impact">
+              <div class="project-impact-label">Why it matters</div>
+              <p>Regulators (EU AI Act, RBI, FDA) now mandate explainable AI for high-stakes decisions. This platform gives data teams a unified audit trail — translating black-box model behaviour into human-readable reports — reducing compliance risk in regulated sectors.</p>
+            </div>
+            <div class="tech-stack">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">SHAP</span>
+              <span class="tech-tag">LIME</span>
+              <span class="tech-tag">FastAPI</span>
+              <span class="tech-tag">LLM</span>
+            </div>
+            <div class="project-actions">
+              <a href="https://github.com/garvitwork/dashboard" class="project-link" target="_blank" rel="noopener noreferrer">GitHub <i class="fas fa-arrow-right"></i></a>
+              <a href="https://garvitwork.github.io/UI_explain/" class="project-link" target="_blank" rel="noopener noreferrer">Live Demo <i class="fas fa-arrow-right"></i></a>
+            </div>
           </div>
-          <div class="tech-stack">
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">SHAP</span>
-            <span class="tech-tag">LIME</span>
-            <span class="tech-tag">FastAPI</span>
-            <span class="tech-tag">LLM</span>
-          </div>
-          <div class="project-actions">
-            <a href="https://github.com/garvitwork/dashboard" class="project-link" target="_blank" rel="noopener noreferrer">GitHub <i class="fas fa-arrow-right"></i></a>
-            <a href="https://garvitwork.github.io/UI_explain/" class="project-link" target="_blank" rel="noopener noreferrer">Live Demo <i class="fas fa-arrow-right"></i></a>
-          </div>
+
+          <button type="button" class="card-expand-btn" aria-expanded="false">
+            <span class="expand-label-more">View details</span>
+            <span class="expand-label-less">Hide details</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
         </div>
         <div class="project-video-panel">
           <span class="video-label">Live Demo</span>
@@ -363,29 +403,39 @@
       </article>
 
       <!-- Project 5 — Trust Scoring -->
-      <article class="fx-card project-card reveal" id="proj-trust">
+      <article class="fx-card project-card reveal" id="proj-trust" data-expand>
         <div class="project-content">
           <div class="project-card-top">
             <span class="project-num mono">05</span>
             <span class="project-category">ML Explainability</span>
           </div>
           <h3 class="project-title">Machine Learning Models' Trust Scoring Platform</h3>
-          <p class="project-description">Comprehensive platform for scoring ML models' trustworthiness across 5 dimensions — Confidence Consistency, Data Familiarity, Agreement Score, Explanation Stability, and Historical Error Rate.</p>
-          <div class="project-impact">
-            <div class="project-impact-label">Why it matters</div>
-            <p>Before deploying an ML model in banking, healthcare, or autonomous systems, organisations need to know: can we trust it? This platform quantifies that answer across five rigorous axes — an objective standard for model governance.</p>
+          <p class="project-teaser">Scores ML model trustworthiness across five rigorous dimensions — from confidence consistency to historical error rate.</p>
+
+          <div class="card-expand-panel">
+            <p class="project-description">Comprehensive platform for scoring ML models' trustworthiness across 5 dimensions — Confidence Consistency, Data Familiarity, Agreement Score, Explanation Stability, and Historical Error Rate.</p>
+            <div class="project-impact">
+              <div class="project-impact-label">Why it matters</div>
+              <p>Before deploying an ML model in banking, healthcare, or autonomous systems, organisations need to know: can we trust it? This platform quantifies that answer across five rigorous axes — an objective standard for model governance.</p>
+            </div>
+            <div class="tech-stack">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">Trust Scoring</span>
+              <span class="tech-tag">JavaScript</span>
+              <span class="tech-tag">FastAPI</span>
+              <span class="tech-tag">MLOps</span>
+            </div>
+            <div class="project-actions">
+              <a href="https://github.com/garvitwork/Trustworthiness-Scoring-Web-App" class="project-link" target="_blank" rel="noopener noreferrer">GitHub <i class="fas fa-arrow-right"></i></a>
+              <a href="https://garvitwork.github.io/TrustWebLink/" class="project-link" target="_blank" rel="noopener noreferrer">Live Demo <i class="fas fa-arrow-right"></i></a>
+            </div>
           </div>
-          <div class="tech-stack">
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">Trust Scoring</span>
-            <span class="tech-tag">JavaScript</span>
-            <span class="tech-tag">FastAPI</span>
-            <span class="tech-tag">MLOps</span>
-          </div>
-          <div class="project-actions">
-            <a href="https://github.com/garvitwork/Trustworthiness-Scoring-Web-App" class="project-link" target="_blank" rel="noopener noreferrer">GitHub <i class="fas fa-arrow-right"></i></a>
-            <a href="https://garvitwork.github.io/TrustWebLink/" class="project-link" target="_blank" rel="noopener noreferrer">Live Demo <i class="fas fa-arrow-right"></i></a>
-          </div>
+
+          <button type="button" class="card-expand-btn" aria-expanded="false">
+            <span class="expand-label-more">View details</span>
+            <span class="expand-label-less">Hide details</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
         </div>
         <div class="project-video-panel">
           <span class="video-label">Live Demo</span>
@@ -407,7 +457,7 @@
     </div>
     <p class="research-intro reveal">This project is proprietary research — the source code and full implementation are protected. Get in touch to discuss collaboration or licensing.</p>
 
-    <article class="fx-card project-card reverse research-card reveal" id="proj-stock">
+    <article class="fx-card project-card reverse research-card reveal" id="proj-stock" data-expand>
       <div class="project-content">
         <div class="project-card-top">
           <span class="project-num mono">06</span>
@@ -415,21 +465,31 @@
         </div>
         <div class="locked-badge"><i class="fas fa-lock"></i> Copyrighted — contact for collaboration</div>
         <h3 class="project-title">AI-Powered Stock Prediction System</h3>
-        <p class="project-description">Research-grade application with a financial chatbot, sentiment analysis, and ML-based predictions using technical indicators.</p>
-        <div class="project-impact">
-          <div class="project-impact-label">Why it matters</div>
-          <p>Retail investors lack the quantitative tools hedge funds use daily. This system combines NLP-driven news sentiment with technical indicators to surface actionable signals, while an integrated chatbot lowers the barrier for non-technical users.</p>
+        <p class="project-teaser">Research-grade trading assistant blending sentiment analysis, technical indicators, and an ML forecasting chatbot.</p>
+
+        <div class="card-expand-panel">
+          <p class="project-description">Research-grade application with a financial chatbot, sentiment analysis, and ML-based predictions using technical indicators.</p>
+          <div class="project-impact">
+            <div class="project-impact-label">Why it matters</div>
+            <p>Retail investors lack the quantitative tools hedge funds use daily. This system combines NLP-driven news sentiment with technical indicators to surface actionable signals, while an integrated chatbot lowers the barrier for non-technical users.</p>
+          </div>
+          <div class="tech-stack">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">LLM</span>
+            <span class="tech-tag">Deep Learning</span>
+            <span class="tech-tag">NLP</span>
+            <span class="tech-tag">Streamlit</span>
+          </div>
+          <div class="project-actions">
+            <span class="project-link disabled">Copyrighted application <i class="fas fa-clock"></i></span>
+          </div>
         </div>
-        <div class="tech-stack">
-          <span class="tech-tag">Python</span>
-          <span class="tech-tag">LLM</span>
-          <span class="tech-tag">Deep Learning</span>
-          <span class="tech-tag">NLP</span>
-          <span class="tech-tag">Streamlit</span>
-        </div>
-        <div class="project-actions">
-          <span class="project-link disabled">Copyrighted application <i class="fas fa-clock"></i></span>
-        </div>
+
+        <button type="button" class="card-expand-btn" aria-expanded="false">
+          <span class="expand-label-more">View details</span>
+          <span class="expand-label-less">Hide details</span>
+          <i class="fas fa-chevron-down"></i>
+        </button>
       </div>
 
       <div class="project-video-panel stock-panel">
@@ -500,7 +560,7 @@
 
     <div class="projects-list">
 
-      <article class="fx-card project-card no-video reveal" id="da-medipulse">
+      <article class="fx-card project-card no-video reveal" id="da-medipulse" data-expand>
         <div class="project-content">
           <div class="project-card-top">
             <span class="project-num mono">01</span>
@@ -508,106 +568,146 @@
             <span class="flagship-badge"><i class="fas fa-star"></i> Flagship</span>
           </div>
           <h3 class="project-title">MediPulse AI — Hospital Operations &amp; Patient Risk Intelligence Platform</h3>
-          <p class="project-description">Full-stack analytics platform spanning a MySQL data warehouse, Python ETL, five machine learning models, an LLM narrative layer, and a 7-page Power BI dashboard — predicting patient readmission risk, bed demand, supply stockouts, and staff burnout across a hospital network, then having an AI write the weekly executive briefing.</p>
-          <div class="project-impact">
-            <div class="project-impact-label">Why it matters</div>
-            <p>Most healthcare analytics projects predict one thing in isolation. MediPulse AI connects four domains through one shared warehouse — a bad flu season raises occupancy, which raises overtime, which raises burnout risk, which feeds back into readmissions — and reasons across all of them instead of four spreadsheets that never talk to each other. Every threshold is percentile-based relative to the model's own score distribution rather than a fixed cutoff, so segmentation stays meaningful as the underlying data shifts.</p>
+          <p class="project-teaser">Hospital operations platform predicting readmission risk, bed demand, stockouts, and burnout — with an AI-written weekly briefing.</p>
+
+          <div class="card-expand-panel">
+            <p class="project-description">Full-stack analytics platform spanning a MySQL data warehouse, Python ETL, five machine learning models, an LLM narrative layer, and a 7-page Power BI dashboard — predicting patient readmission risk, bed demand, supply stockouts, and staff burnout across a hospital network, then having an AI write the weekly executive briefing.</p>
+            <div class="project-impact">
+              <div class="project-impact-label">Why it matters</div>
+              <p>Most healthcare analytics projects predict one thing in isolation. MediPulse AI connects four domains through one shared warehouse — a bad flu season raises occupancy, which raises overtime, which raises burnout risk, which feeds back into readmissions — and reasons across all of them instead of four spreadsheets that never talk to each other. Every threshold is percentile-based relative to the model's own score distribution rather than a fixed cutoff, so segmentation stays meaningful as the underlying data shifts.</p>
+            </div>
+            <div class="tech-stack">
+              <span class="tech-tag">MySQL</span>
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">XGBoost</span>
+              <span class="tech-tag">Random Forest</span>
+              <span class="tech-tag">Holt-Winters</span>
+              <span class="tech-tag">Groq</span>
+              <span class="tech-tag">LLM (Llama 3.3)</span>
+              <span class="tech-tag">Power BI</span>
+              <span class="tech-tag">DAX</span>
+            </div>
+            <div class="project-actions">
+              <a href="https://github.com/garvitwork/HealthCare" class="project-link" target="_blank" rel="noopener noreferrer">GitHub <i class="fas fa-arrow-right"></i></a>
+            </div>
           </div>
-          <div class="tech-stack">
-            <span class="tech-tag">MySQL</span>
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">XGBoost</span>
-            <span class="tech-tag">Random Forest</span>
-            <span class="tech-tag">Holt-Winters</span>
-            <span class="tech-tag">Groq</span>
-            <span class="tech-tag">LLM (Llama 3.3)</span>
-            <span class="tech-tag">Power BI</span>
-            <span class="tech-tag">DAX</span>
-          </div>
-          <div class="project-actions">
-            <a href="https://github.com/garvitwork/HealthCare" class="project-link" target="_blank" rel="noopener noreferrer">GitHub <i class="fas fa-arrow-right"></i></a>
-          </div>
+
+          <button type="button" class="card-expand-btn" aria-expanded="false">
+            <span class="expand-label-more">View details</span>
+            <span class="expand-label-less">Hide details</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
         </div>
       </article>
 
-      <article class="fx-card project-card no-video reveal" id="da-aegis">
+      <article class="fx-card project-card no-video reveal" id="da-aegis" data-expand>
         <div class="project-content">
           <div class="project-card-top">
             <span class="project-num mono">02</span>
             <span class="project-category">Data Engineering · BI · ML</span>
           </div>
           <h3 class="project-title">AEGIS — AI-Driven Planetary Defense Intelligence Platform</h3>
-          <p class="project-description">End-to-end data engineering + AI + BI system that prioritizes which near-Earth asteroids need urgent re-observation, using real NASA/JPL data, a MySQL star schema, Isolation Forest anomaly detection, and an interactive Power BI drillthrough report.</p>
-          <div class="project-impact">
-            <div class="project-impact-label">Why it matters</div>
-            <p>Telescope observation time for tracking near-Earth objects is scarce and expensive. AEGIS combines impact risk, orbital uncertainty, and orbital anomaly into a single prioritized watchlist for planetary defense teams.</p>
+          <p class="project-teaser">AI-driven planetary defense system prioritizing near-Earth asteroid re-observation using NASA/JPL data and anomaly detection.</p>
+
+          <div class="card-expand-panel">
+            <p class="project-description">End-to-end data engineering + AI + BI system that prioritizes which near-Earth asteroids need urgent re-observation, using real NASA/JPL data, a MySQL star schema, Isolation Forest anomaly detection, and an interactive Power BI drillthrough report.</p>
+            <div class="project-impact">
+              <div class="project-impact-label">Why it matters</div>
+              <p>Telescope observation time for tracking near-Earth objects is scarce and expensive. AEGIS combines impact risk, orbital uncertainty, and orbital anomaly into a single prioritized watchlist for planetary defense teams.</p>
+            </div>
+            <div class="tech-stack">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">MySQL</span>
+              <span class="tech-tag">scikit-learn</span>
+              <span class="tech-tag">Isolation Forest</span>
+              <span class="tech-tag">Power BI</span>
+              <span class="tech-tag">DAX</span>
+              <span class="tech-tag">NASA / JPL APIs</span>
+            </div>
+            <div class="project-actions">
+              <a href="https://github.com/garvitwork/AEGIS" class="project-link" target="_blank" rel="noopener noreferrer">GitHub <i class="fas fa-arrow-right"></i></a>
+            </div>
           </div>
-          <div class="tech-stack">
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">MySQL</span>
-            <span class="tech-tag">scikit-learn</span>
-            <span class="tech-tag">Isolation Forest</span>
-            <span class="tech-tag">Power BI</span>
-            <span class="tech-tag">DAX</span>
-            <span class="tech-tag">NASA / JPL APIs</span>
-          </div>
-          <div class="project-actions">
-            <a href="https://github.com/garvitwork/AEGIS" class="project-link" target="_blank" rel="noopener noreferrer">GitHub <i class="fas fa-arrow-right"></i></a>
-          </div>
+
+          <button type="button" class="card-expand-btn" aria-expanded="false">
+            <span class="expand-label-more">View details</span>
+            <span class="expand-label-less">Hide details</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
         </div>
       </article>
 
-      <article class="fx-card project-card no-video reveal" id="da-retail">
+      <article class="fx-card project-card no-video reveal" id="da-retail" data-expand>
         <div class="project-content">
           <div class="project-card-top">
             <span class="project-num mono">03</span>
             <span class="project-category">Demand Forecasting · Retail Analytics</span>
           </div>
           <h3 class="project-title">AI-Powered Retail Demand Forecasting &amp; Inventory Optimization</h3>
-          <p class="project-description">End-to-end pipeline predicting product-level demand for a real UK-based online retailer and flagging restock risk — built with Python (XGBoost), a MySQL storage layer, and a Power BI dashboard with 20+ DAX measures and AI visuals.</p>
-          <div class="project-impact">
-            <div class="project-impact-label">Why it matters</div>
-            <p>Retailers routinely lose revenue to stockouts and overstock when reorder decisions are made on gut feel. This pipeline replaces that with a demand-driven forecast-to-decision workflow, reaching 87%+ forecast accuracy on real transactional data.</p>
+          <p class="project-teaser">Demand-forecasting pipeline for a real UK retailer, flagging restock risk with 87%+ forecast accuracy.</p>
+
+          <div class="card-expand-panel">
+            <p class="project-description">End-to-end pipeline predicting product-level demand for a real UK-based online retailer and flagging restock risk — built with Python (XGBoost), a MySQL storage layer, and a Power BI dashboard with 20+ DAX measures and AI visuals.</p>
+            <div class="project-impact">
+              <div class="project-impact-label">Why it matters</div>
+              <p>Retailers routinely lose revenue to stockouts and overstock when reorder decisions are made on gut feel. This pipeline replaces that with a demand-driven forecast-to-decision workflow, reaching 87%+ forecast accuracy on real transactional data.</p>
+            </div>
+            <div class="tech-stack">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">XGBoost</span>
+              <span class="tech-tag">scikit-learn</span>
+              <span class="tech-tag">MySQL</span>
+              <span class="tech-tag">SQLAlchemy</span>
+              <span class="tech-tag">Power BI</span>
+              <span class="tech-tag">DAX</span>
+            </div>
+            <div class="project-actions">
+              <a href="https://github.com/garvitwork/retail-demand-ai" class="project-link" target="_blank" rel="noopener noreferrer">GitHub <i class="fas fa-arrow-right"></i></a>
+            </div>
           </div>
-          <div class="tech-stack">
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">XGBoost</span>
-            <span class="tech-tag">scikit-learn</span>
-            <span class="tech-tag">MySQL</span>
-            <span class="tech-tag">SQLAlchemy</span>
-            <span class="tech-tag">Power BI</span>
-            <span class="tech-tag">DAX</span>
-          </div>
-          <div class="project-actions">
-            <a href="https://github.com/garvitwork/retail-demand-ai" class="project-link" target="_blank" rel="noopener noreferrer">GitHub <i class="fas fa-arrow-right"></i></a>
-          </div>
+
+          <button type="button" class="card-expand-btn" aria-expanded="false">
+            <span class="expand-label-more">View details</span>
+            <span class="expand-label-less">Hide details</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
         </div>
       </article>
 
-      <article class="fx-card project-card no-video reveal" id="da-churn">
+      <article class="fx-card project-card no-video reveal" id="da-churn" data-expand>
         <div class="project-content">
           <div class="project-card-top">
             <span class="project-num mono">04</span>
             <span class="project-category">Churn Prediction · CLV · Power BI</span>
           </div>
           <h3 class="project-title">AI-Powered Customer Retention &amp; Revenue Intelligence Platform</h3>
-          <p class="project-description">Predicts customer churn, estimates customer lifetime value, and surfaces AI-driven retention insights on the Olist Brazilian e-commerce dataset (~100K real orders) — built with Python (Random Forest, sentiment analysis) and Power BI, with an optional MySQL warehouse layer.</p>
-          <div class="project-impact">
-            <div class="project-impact-label">Why it matters</div>
-            <p>Retention teams typically learn about churn only after revenue has already dropped. This platform gives them a predictive signal instead — flagging ~56K high-risk customers and estimated CLV so retention effort can be prioritized before it's too late.</p>
+          <p class="project-teaser">Predicts customer churn and lifetime value on ~100K real orders, flagging ~56K high-risk customers for retention.</p>
+
+          <div class="card-expand-panel">
+            <p class="project-description">Predicts customer churn, estimates customer lifetime value, and surfaces AI-driven retention insights on the Olist Brazilian e-commerce dataset (~100K real orders) — built with Python (Random Forest, sentiment analysis) and Power BI, with an optional MySQL warehouse layer.</p>
+            <div class="project-impact">
+              <div class="project-impact-label">Why it matters</div>
+              <p>Retention teams typically learn about churn only after revenue has already dropped. This platform gives them a predictive signal instead — flagging ~56K high-risk customers and estimated CLV so retention effort can be prioritized before it's too late.</p>
+            </div>
+            <div class="tech-stack">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">scikit-learn</span>
+              <span class="tech-tag">Random Forest</span>
+              <span class="tech-tag">TextBlob</span>
+              <span class="tech-tag">MySQL</span>
+              <span class="tech-tag">Power BI</span>
+              <span class="tech-tag">DAX</span>
+            </div>
+            <div class="project-actions">
+              <a href="https://github.com/garvitwork/PowerBI-Churn-Project" class="project-link" target="_blank" rel="noopener noreferrer">GitHub <i class="fas fa-arrow-right"></i></a>
+            </div>
           </div>
-          <div class="tech-stack">
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">scikit-learn</span>
-            <span class="tech-tag">Random Forest</span>
-            <span class="tech-tag">TextBlob</span>
-            <span class="tech-tag">MySQL</span>
-            <span class="tech-tag">Power BI</span>
-            <span class="tech-tag">DAX</span>
-          </div>
-          <div class="project-actions">
-            <a href="https://github.com/garvitwork/PowerBI-Churn-Project" class="project-link" target="_blank" rel="noopener noreferrer">GitHub <i class="fas fa-arrow-right"></i></a>
-          </div>
+
+          <button type="button" class="card-expand-btn" aria-expanded="false">
+            <span class="expand-label-more">View details</span>
+            <span class="expand-label-less">Hide details</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
         </div>
       </article>
     </div>
@@ -624,76 +724,118 @@
     </div>
 
     <div class="expertise-grid">
-      <div class="fx-card expertise-card reveal">
+      <div class="fx-card expertise-card reveal" data-expand>
         <div class="expertise-icon"><i class="fas fa-brain"></i></div>
         <h3 class="expertise-title">Deep Learning</h3>
         <p class="expertise-description">Advanced neural network architectures for complex pattern recognition and prediction.</p>
-        <ul class="expertise-skills">
-          <li>CNNs &amp; Computer Vision</li>
-          <li>RNNs &amp; LSTM Networks</li>
-          <li>Transformers &amp; Attention</li>
-          <li>GANs &amp; Generative Models</li>
-        </ul>
+        <div class="card-expand-panel">
+          <ul class="expertise-skills">
+            <li>CNNs &amp; Computer Vision</li>
+            <li>RNNs &amp; LSTM Networks</li>
+            <li>Transformers &amp; Attention</li>
+            <li>GANs &amp; Generative Models</li>
+          </ul>
+        </div>
+        <button type="button" class="card-expand-btn" aria-expanded="false">
+          <span class="expand-label-more">View skills</span>
+          <span class="expand-label-less">Hide skills</span>
+          <i class="fas fa-chevron-down"></i>
+        </button>
       </div>
 
-      <div class="fx-card expertise-card reveal">
+      <div class="fx-card expertise-card reveal" data-expand>
         <div class="expertise-icon"><i class="fas fa-robot"></i></div>
         <h3 class="expertise-title">Machine Learning</h3>
         <p class="expertise-description">Classical ML algorithms and modern techniques for diverse analytical challenges.</p>
-        <ul class="expertise-skills">
-          <li>Supervised Learning</li>
-          <li>Unsupervised Learning</li>
-          <li>Ensemble Methods</li>
-          <li>Feature Engineering</li>
-        </ul>
+        <div class="card-expand-panel">
+          <ul class="expertise-skills">
+            <li>Supervised Learning</li>
+            <li>Unsupervised Learning</li>
+            <li>Ensemble Methods</li>
+            <li>Feature Engineering</li>
+          </ul>
+        </div>
+        <button type="button" class="card-expand-btn" aria-expanded="false">
+          <span class="expand-label-more">View skills</span>
+          <span class="expand-label-less">Hide skills</span>
+          <i class="fas fa-chevron-down"></i>
+        </button>
       </div>
 
-      <div class="fx-card expertise-card reveal">
+      <div class="fx-card expertise-card reveal" data-expand>
         <div class="expertise-icon"><i class="fas fa-cogs"></i></div>
         <h3 class="expertise-title">MLOps &amp; Deployment</h3>
         <p class="expertise-description">End-to-end pipeline management from model training to production deployment.</p>
-        <ul class="expertise-skills">
-          <li>CI/CD Pipelines</li>
-          <li>Model Monitoring</li>
-          <li>DagsHub &amp; MLflow</li>
-          <li>Containerization</li>
-        </ul>
+        <div class="card-expand-panel">
+          <ul class="expertise-skills">
+            <li>CI/CD Pipelines</li>
+            <li>Model Monitoring</li>
+            <li>DagsHub &amp; MLflow</li>
+            <li>Containerization</li>
+          </ul>
+        </div>
+        <button type="button" class="card-expand-btn" aria-expanded="false">
+          <span class="expand-label-more">View skills</span>
+          <span class="expand-label-less">Hide skills</span>
+          <i class="fas fa-chevron-down"></i>
+        </button>
       </div>
 
-      <div class="fx-card expertise-card reveal">
+      <div class="fx-card expertise-card reveal" data-expand>
         <div class="expertise-icon"><i class="fas fa-language"></i></div>
         <h3 class="expertise-title">Natural Language Processing</h3>
         <p class="expertise-description">Text analysis and language understanding using state-of-the-art NLP techniques.</p>
-        <ul class="expertise-skills">
-          <li>Sentiment Analysis</li>
-          <li>Text Classification</li>
-          <li>LLM Integration</li>
-          <li>Named Entity Recognition</li>
-        </ul>
+        <div class="card-expand-panel">
+          <ul class="expertise-skills">
+            <li>Sentiment Analysis</li>
+            <li>Text Classification</li>
+            <li>LLM Integration</li>
+            <li>Named Entity Recognition</li>
+          </ul>
+        </div>
+        <button type="button" class="card-expand-btn" aria-expanded="false">
+          <span class="expand-label-more">View skills</span>
+          <span class="expand-label-less">Hide skills</span>
+          <i class="fas fa-chevron-down"></i>
+        </button>
       </div>
 
-      <div class="fx-card expertise-card reveal">
+      <div class="fx-card expertise-card reveal" data-expand>
         <div class="expertise-icon"><i class="fas fa-balance-scale"></i></div>
         <h3 class="expertise-title">AI Fairness &amp; Ethics</h3>
         <p class="expertise-description">Building responsible AI systems with bias detection and mitigation strategies.</p>
-        <ul class="expertise-skills">
-          <li>Bias Detection</li>
-          <li>Fairness Metrics</li>
-          <li>Model Explainability</li>
-          <li>Ethical AI Practices</li>
-        </ul>
+        <div class="card-expand-panel">
+          <ul class="expertise-skills">
+            <li>Bias Detection</li>
+            <li>Fairness Metrics</li>
+            <li>Model Explainability</li>
+            <li>Ethical AI Practices</li>
+          </ul>
+        </div>
+        <button type="button" class="card-expand-btn" aria-expanded="false">
+          <span class="expand-label-more">View skills</span>
+          <span class="expand-label-less">Hide skills</span>
+          <i class="fas fa-chevron-down"></i>
+        </button>
       </div>
 
-      <div class="fx-card expertise-card reveal">
+      <div class="fx-card expertise-card reveal" data-expand>
         <div class="expertise-icon"><i class="fas fa-chart-line"></i></div>
         <h3 class="expertise-title">Data Science &amp; Analytics</h3>
         <p class="expertise-description">Statistical analysis and data visualization for actionable business insights.</p>
-        <ul class="expertise-skills">
-          <li>Statistical Modeling</li>
-          <li>Data Visualization</li>
-          <li>A/B Testing</li>
-          <li>Predictive Analytics</li>
-        </ul>
+        <div class="card-expand-panel">
+          <ul class="expertise-skills">
+            <li>Statistical Modeling</li>
+            <li>Data Visualization</li>
+            <li>A/B Testing</li>
+            <li>Predictive Analytics</li>
+          </ul>
+        </div>
+        <button type="button" class="card-expand-btn" aria-expanded="false">
+          <span class="expand-label-more">View skills</span>
+          <span class="expand-label-less">Hide skills</span>
+          <i class="fas fa-chevron-down"></i>
+        </button>
       </div>
     </div>
 
@@ -855,6 +997,6 @@
   <i class="fas fa-arrow-up"></i>
 </button>
 
-<script src="script.js?v=3" defer></script>
+<script src="script.js?v=5" defer></script>
 </body>
 </html>
