@@ -248,6 +248,37 @@
   }
 
   /* ---------------------------------------------------------------- */
+  /* Branch-select panels: same cursor-tracked spotlight as .fx-card,   */
+  /* scoped to the two big "AI/ML" vs "Data & BI" choice panels.        */
+  /* ---------------------------------------------------------------- */
+  function initBranchPanels() {
+    if (reduceMotion || window.matchMedia('(pointer: coarse)').matches) return;
+
+    var panels = Array.prototype.slice.call(document.querySelectorAll('[data-branch-panel]'));
+    if (!panels.length) return;
+
+    panels.forEach(function (panel) {
+      var rect = null;
+
+      panel.addEventListener('pointerenter', function () {
+        rect = panel.getBoundingClientRect();
+      });
+      panel.addEventListener('pointermove', function (e) {
+        if (!rect) rect = panel.getBoundingClientRect();
+        var px = ((e.clientX - rect.left) / rect.width) * 100;
+        var py = ((e.clientY - rect.top) / rect.height) * 100;
+        panel.style.setProperty('--mx', px.toFixed(2) + '%');
+        panel.style.setProperty('--my', py.toFixed(2) + '%');
+      });
+      panel.addEventListener('pointerleave', function () {
+        rect = null;
+        panel.style.removeProperty('--mx');
+        panel.style.removeProperty('--my');
+      });
+    });
+  }
+
+  /* ---------------------------------------------------------------- */
   /* Magnetic buttons: primary CTAs drift gently toward the cursor      */
   /* while it's nearby, and spring back on leave.                       */
   /* ---------------------------------------------------------------- */
