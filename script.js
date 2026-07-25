@@ -26,8 +26,6 @@
     initBranchPanels();
     initStatCounters();
     initBackToTop();
-    initMobileFabCta();
-    initTouchCardGlow();
     hardenExternalLinks();
   });
 
@@ -40,8 +38,6 @@
     var navbar = document.getElementById('navbar');
     var progress = document.getElementById('scrollProgress');
     var backToTop = document.getElementById('backToTop');
-    var fabCta = document.getElementById('mobileFabCta');
-    var footer = document.querySelector('.footer');
     if (!navbar) return;
 
     var ticking = false;
@@ -56,13 +52,6 @@
       }
 
       if (backToTop) backToTop.classList.toggle('show', y > 600);
-
-      // Keep the persistent mobile CTA out of the way once the real
-      // contact section (and its own links) has scrolled into view.
-      if (fabCta) {
-        var nearFooter = footer ? footer.getBoundingClientRect().top < window.innerHeight : false;
-        fabCta.classList.toggle('show', y > 400 && !nearFooter);
-      }
 
       ticking = false;
     }
@@ -201,43 +190,6 @@
       card.addEventListener('pointerenter', handleEnter);
       card.addEventListener('pointermove', handleMove);
       card.addEventListener('pointerleave', handleLeave);
-    });
-  }
-
-  /* ---------------------------------------------------------------- */
-  /* Touch tap glow: the pointer-tracked spotlight in initCardEffects   */
-  /* is skipped on touch (no meaningful hover position), but a brief    */
-  /* centred glow + soft lift on tap keeps cards feeling tactile and    */
-  /* alive rather than flat on phones — the same kind of feedback CRED  */
-  /* gives every card and row it renders.                               */
-  /* ---------------------------------------------------------------- */
-  function initTouchCardGlow() {
-    if (!window.matchMedia('(pointer: coarse)').matches) return;
-
-    var cards = Array.prototype.slice.call(document.querySelectorAll('.fx-card'));
-    if (!cards.length) return;
-
-    cards.forEach(function (card) {
-      var timeout = null;
-      card.addEventListener(
-        'touchstart',
-        function () {
-          card.style.setProperty('--mx', '50%');
-          card.style.setProperty('--my', '35%');
-          card.classList.add('fx-active');
-          if (timeout) window.clearTimeout(timeout);
-        },
-        { passive: true }
-      );
-      card.addEventListener(
-        'touchend',
-        function () {
-          timeout = window.setTimeout(function () {
-            card.classList.remove('fx-active');
-          }, 500);
-        },
-        { passive: true }
-      );
     });
   }
 
@@ -455,29 +407,6 @@
     );
 
     stats.forEach(function (el) { observer.observe(el); });
-  }
-
-  /* ---------------------------------------------------------------- */
-  /* Mobile floating CTA: visibility is driven by initNavbarScrollState;  */
-  /* this just closes the mobile menu first if it happens to be open,    */
-  /* so tapping the FAB always lands the person on #contact cleanly.     */
-  /* ---------------------------------------------------------------- */
-  function initMobileFabCta() {
-    var fab = document.getElementById('mobileFabCta');
-    var navLinks = document.getElementById('navLinks');
-    var hamburger = document.getElementById('navHamburger');
-    if (!fab) return;
-
-    fab.addEventListener('click', function () {
-      if (navLinks && navLinks.classList.contains('open')) {
-        navLinks.classList.remove('open');
-        if (hamburger) {
-          hamburger.classList.remove('open');
-          hamburger.setAttribute('aria-expanded', 'false');
-        }
-        document.body.style.overflow = '';
-      }
-    });
   }
 
   /* ---------------------------------------------------------------- */
