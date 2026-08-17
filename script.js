@@ -20,6 +20,7 @@
     initEmailCopy();
     initCardEffects();
     initExpandableCards();
+    initCoverCards();
     initMagneticButtons();
     initHeroGlow();
     initHeroSignal();
@@ -253,7 +254,7 @@
     var cards = Array.prototype.slice.call(document.querySelectorAll('[data-expand]'));
     if (!cards.length) return;
 
-    var IGNORE_SELECTOR = 'a, .video-fullscreen-btn, .tech-tag, video, .project-video-panel';
+    var IGNORE_SELECTOR = 'a, .video-fullscreen-btn, .tech-tag, video, .project-video-panel, .project-cover';
 
     cards.forEach(function (card) {
       var panel = card.querySelector('.card-expand-panel');
@@ -292,6 +293,49 @@
         },
         { passive: true }
       );
+    });
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* Cover-reveal cards: the MediPulse AI card leads with a poster      */
+  /* image instead of its usual always-visible copy. Clicking the      */
+  /* image toggles the same content every other card shows by default  */
+  /* — the reveal itself is pure CSS (grid-template-rows 0fr -> 1fr),   */
+  /* so it keeps sizing correctly even while the nested expand panel    */
+  /* grows inside it. This click is intercepted before it reaches       */
+  /* initExpandableCards' card-wide handler (.project-cover is in that  */
+  /* handler's ignore list) so the two reveals never fight each other.  */
+  /* ---------------------------------------------------------------- */
+  function initCoverCards() {
+    var covers = Array.prototype.slice.call(document.querySelectorAll('.project-card.has-cover .project-cover'));
+    if (!covers.length) return;
+
+    covers.forEach(function (cover) {
+      var card = cover.closest('.project-card');
+      var wrap = card && card.querySelector('.project-cover-wrap');
+      if (!card || !wrap) return;
+
+      function syncWrapHeight() {
+        if (card.classList.contains('is-revealed')) {
+          wrap.style.maxHeight = wrap.scrollHeight + 'px';
+        }
+      }
+
+      cover.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var revealed = card.classList.toggle('is-revealed');
+        wrap.style.maxHeight = revealed ? wrap.scrollHeight + 'px' : '0px';
+      });
+
+      // The nested "View details" panel inside the content can grow or
+      // shrink after the cover is revealed — keep this outer wrapper's
+      // measured height in sync whenever that happens, or the newly
+      // grown content would get clipped.
+      card.addEventListener('click', function () {
+        window.requestAnimationFrame(syncWrapHeight);
+      });
+
+      window.addEventListener('resize', syncWrapHeight, { passive: true });
     });
   }
 
