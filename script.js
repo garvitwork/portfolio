@@ -635,7 +635,7 @@
       var panel = video.closest('.project-video-panel');
       if (!panel) return;
 
-      var play = function () { video.play().catch(function () {}); };
+      var play = function () { video.play().catch(function () { }); };
       var pause = function () { video.pause(); };
 
       panel.addEventListener('mouseenter', play);
@@ -646,7 +646,7 @@
       var fsBtn = panel.querySelector('.video-fullscreen-btn');
       if (fsBtn) {
         fsBtn.addEventListener('click', function () {
-          if (video.requestFullscreen) video.requestFullscreen().catch(function () {});
+          if (video.requestFullscreen) video.requestFullscreen().catch(function () { });
         });
       }
     });
@@ -692,7 +692,7 @@
       }
 
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(address).then(showCopied).catch(function () {});
+        navigator.clipboard.writeText(address).then(showCopied).catch(function () { });
       }
     });
   }
