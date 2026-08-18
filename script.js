@@ -23,6 +23,7 @@
     initCoverCards();
     initMagneticButtons();
     initHeroGlow();
+    initHeroDepth();
     initHeroSignal();
     initBranchPanels();
     initStatCounters();
@@ -394,6 +395,39 @@
 
       btn.addEventListener('pointermove', move);
       btn.addEventListener('pointerleave', reset);
+    });
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* Hero depth orbs: gentle parallax drift tied to cursor position.   */
+  /* ---------------------------------------------------------------- */
+  function initHeroDepth() {
+    if (reduceMotion || window.matchMedia('(pointer: coarse)').matches) return;
+
+    var hero = document.getElementById('heroSurface');
+    var depth = document.getElementById('heroDepth');
+    if (!hero || !depth) return;
+
+    var orbs = Array.prototype.slice.call(depth.querySelectorAll('.hero-orb'));
+    var raf = null;
+
+    hero.addEventListener('pointermove', function (e) {
+      var rect = hero.getBoundingClientRect();
+      var px = (e.clientX - rect.left) / rect.width - 0.5;
+      var py = (e.clientY - rect.top) / rect.height - 0.5;
+
+      if (raf) window.cancelAnimationFrame(raf);
+      raf = window.requestAnimationFrame(function () {
+        orbs.forEach(function (orb, i) {
+          var strength = 16 + i * 8;
+          orb.style.transform =
+            'translate3d(' + (px * strength).toFixed(1) + 'px,' + (py * strength).toFixed(1) + 'px, 0)';
+        });
+      });
+    });
+
+    hero.addEventListener('pointerleave', function () {
+      orbs.forEach(function (orb) { orb.style.transform = ''; });
     });
   }
 
