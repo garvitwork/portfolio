@@ -990,8 +990,8 @@ h4 {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 28px;
-  padding: 44px 44px 36px;
+  gap: 24px;
+  padding: 40px 32px 32px;
   overflow: hidden;
   color: inherit;
   text-decoration: none;
@@ -1013,6 +1013,11 @@ h4 {
   --branch-c-rgb: var(--coral-rgb);
 }
 
+.branch-panel--agents {
+  --branch-c: var(--violet);
+  --branch-c-rgb: var(--violet-rgb);
+}
+
 /* base tint so each side reads as its own territory even before hover */
 .branch-panel--ml {
   background: linear-gradient(160deg, rgba(76, 111, 255, 0.05), transparent 55%);
@@ -1020,6 +1025,10 @@ h4 {
 
 .branch-panel--bi {
   background: linear-gradient(200deg, rgba(255, 93, 115, 0.05), transparent 55%);
+}
+
+.branch-panel--agents {
+  background: linear-gradient(180deg, rgba(157, 140, 255, 0.05), transparent 55%);
 }
 
 .branch-panels:hover .branch-panel {
@@ -1059,8 +1068,8 @@ h4 {
 }
 
 .branch-panel-icon {
-  width: 56px;
-  height: 56px;
+  width: 48px;
+  height: 48px;
   flex-shrink: 0;
   opacity: 0.9;
 }
@@ -1135,10 +1144,10 @@ h4 {
 }
 
 .branch-panel-desc {
-  font-size: 14px;
+  font-size: 13.5px;
   color: var(--text-dim);
-  line-height: 1.65;
-  max-width: 34ch;
+  line-height: 1.62;
+  max-width: 30ch;
 }
 
 .branch-panel-meta {
@@ -1211,6 +1220,14 @@ h4 {
 
 .branch-center-badge .m-yellow {
   color: var(--violet);
+}
+
+.branch-center-badge--small {
+  width: 34px;
+  height: 34px;
+  font-size: 12px;
+  box-shadow: 0 0 0 6px var(--surface-solid), var(--shadow-lift), 0 0 24px -8px rgba(77, 232, 212, 0.4);
+  color: var(--cyan);
 }
 
 @media (max-width: 860px) {

@@ -34,7 +34,7 @@
     integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
     crossorigin="anonymous" referrerpolicy="no-referrer">
 
-  <link rel="stylesheet" href="style.css?v=8">
+  <link rel="stylesheet" href="style.css?v=9">
 </head>
 
 <body>
@@ -663,21 +663,27 @@
                 </div>
                 <h3 class="project-title">AI Agent Scout — Supply Chain Disruption Early-Warning Agent</h3>
                 <p class="project-teaser">Multi-agent LangGraph pipeline that scores shipment disruption risk with
-                  XGBoost and turns it into a plain-language, explainable recommendation via Gemini.</p>
+                  XGBoost and turns it into a plain-language, explainable recommendation via Gemini — deployed
+                  end-to-end as a live API and frontend.</p>
 
                 <p class="project-description">An agentic AI system that monitors shipments, scores disruption risk
                   and predicted delay using ML models tracked via MLflow/DagsHub, and generates explainable
                   recommendations through a 3-agent LangGraph pipeline — a MonitorAgent that pulls shipment and
-                  supplier context from MySQL, a RiskAgent that scores the shipment from the latest MLflow-registered
-                  XGBoost models, and a RecoAgent that turns the scores into an action-oriented recommendation with
-                  Gemini. Live weather and news signals feed the feature pipeline alongside a 180K+ record historical
-                  shipment dataset, with a Streamlit dashboard for batch review.</p>
+                  supplier context from a cloud MySQL instance (Aiven, SSL-enforced), a RiskAgent that scores the
+                  shipment from the latest MLflow-registered XGBoost models using a lightweight, single-shipment
+                  SQL feature build built for memory-constrained cloud inference, and a RecoAgent that turns the
+                  scores into an action-oriented recommendation with Gemini. The full data-to-model path is
+                  orchestrated as a versioned DVC pipeline DAG, live weather and news signals feed the feature
+                  pipeline alongside a 180K+ record historical shipment dataset, and the agent pipeline is served
+                  through a FastAPI backend on Render with a Streamlit ops dashboard for batch review.</p>
                 <div class="project-impact">
                   <div class="project-impact-label">Why it matters</div>
                   <p>Enterprise supply-chain risk platforms are built for six-figure budgets, leaving mid-market
                     manufacturers and distributors — who need early warning the most — reliant on spreadsheets and
                     reactive firefighting. This system flags at-risk shipments before they're late, with every
-                    recommendation grounded in the model's own top contributing features for full auditability.</p>
+                    recommendation grounded in the model's own top contributing features for full auditability. The
+                    risk classifier reaches 70.2% accuracy (ROC-AUC 0.757) and the delay forecaster runs at 0.98
+                    days MAE — both versioned in the MLflow model registry with a fully reproducible pipeline.</p>
                 </div>
                 <div class="tech-stack">
                   <span class="tech-tag">Python</span>
@@ -686,16 +692,17 @@
                   <span class="tech-tag">XGBoost</span>
                   <span class="tech-tag">MLflow</span>
                   <span class="tech-tag">DagsHub</span>
+                  <span class="tech-tag">DVC</span>
+                  <span class="tech-tag">FastAPI</span>
                   <span class="tech-tag">MySQL</span>
-                  <span class="tech-tag">Streamlit</span>
                 </div>
                 <div class="project-actions">
                   <a href="https://github.com/garvitwork/AI_AGENT_SCOUT" class="project-link" target="_blank"
                     rel="noopener noreferrer">GitHub <i class="fas fa-arrow-right"></i></a>
                   <a href="https://garvitwork.github.io/frontend_scout/" class="project-link" target="_blank"
                     rel="noopener noreferrer">Live Demo <i class="fas fa-arrow-right"></i></a>
-                  <a href="https://dagshub.com/garvitwork/AI_AGENT_SCOUT" class="project-link" target="_blank"
-                    rel="noopener noreferrer">DagsHub <i class="fas fa-arrow-right"></i></a>
+                  <a href="https://ai-agent-scout.onrender.com/docs" class="project-link" target="_blank"
+                    rel="noopener noreferrer">API Docs <i class="fas fa-arrow-right"></i></a>
                 </div>
               </div>
             </div>
