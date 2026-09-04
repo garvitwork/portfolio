@@ -311,6 +311,98 @@
   color: var(--text-faint);
 }
 
+/* ---- Agent Exchange specialization widget (shares .circuit-widget shell) ---- */
+.market-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  margin: 14px 0 10px;
+}
+
+.market-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--text-faint);
+}
+
+.market-legend-swatch {
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.market-chart-wrap {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--glass);
+  padding: 8px 6px 4px;
+}
+
+.market-chart-wrap svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.market-bar {
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.market-gridline {
+  stroke: var(--border);
+  stroke-width: 1;
+}
+
+.market-axis-label {
+  fill: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: 7px;
+}
+
+.market-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.market-play-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text);
+  background: rgba(var(--accent-rgb), 0.14);
+  border: 1px solid rgba(var(--accent-rgb), 0.3);
+  border-radius: 999px;
+  padding: 7px 14px;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.market-play-btn:hover {
+  background: rgba(var(--accent-rgb), 0.24);
+}
+
+.market-controls input[type="range"] {
+  flex: 1;
+  accent-color: var(--accent);
+}
+
+.market-scrub-readout {
+  font-size: 10.5px;
+  color: var(--text-faint);
+  margin-top: 8px;
+}
+
 .research-more-note {
   display: flex;
   align-items: center;

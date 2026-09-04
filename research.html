@@ -193,6 +193,128 @@
           </div>
         </article>
 
+        <!-- Entry 2 — The Agent Exchange -->
+        <article class="research-entry reveal" id="research-agent-exchange">
+          <div class="research-entry-main">
+            <div class="research-entry-top">
+              <span class="project-category">Agentic AI · Multi-Agent Market Simulation</span>
+            </div>
+            <h2 class="research-entry-title">The Agent Exchange: Specialization Without Assignment</h2>
+            <p class="research-entry-teaser">
+              Five identical agents, each with a hidden skill profile <em>they don't know
+              themselves</em>, bid for incoming work in an auction. No agent is ever told what
+              it's good at. Does the market alone route each task to the agent that's actually
+              best at it?
+            </p>
+
+            <div class="research-question">
+              <span class="research-question-label">Question</span>
+              <p>Can a cost-weighted-by-reputation auction produce emergent task specialization
+                from outcome feedback alone — and does it beat naive static routing?</p>
+            </div>
+
+            <h3 class="research-subhead">Method</h3>
+            <ol class="research-method-list">
+              <li><strong>Hidden-skill agents</strong> — 5 agents, each with a randomly generated,
+                undisclosed competence vector across 4 task types (code fix, summarization, math,
+                research lookup). The market never sees this vector.</li>
+              <li><strong>Cost-weighted auction</strong> — each agent bids a self-estimated price
+                derived from its <em>own</em> reputation, not its true skill; the winner is chosen
+                by price divided by reputation, so an unproven agent must underbid to earn a
+                chance to build trust.</li>
+              <li><strong>Asymmetric reputation update</strong> — an Elo-style rule where failures
+                move reputation down faster than successes move it up, so the market can't be
+                fooled by a lucky streak.</li>
+              <li><strong>Static baseline</strong> — the identical agents and task stream, routed
+                by round-robin instead of the auction, to isolate what the market mechanism itself
+                contributes.</li>
+            </ol>
+
+            <h3 class="research-subhead">Findings</h3>
+            <p>
+              By the final 100-task window, the true specialist in each domain wins effectively
+              all of it — <strong>code_fix</strong>, <strong>math</strong> and
+              <strong>summarization</strong> each collapse to a single winning agent, purely from
+              bidding and reputation feedback, with no agent ever told its own skill. The market
+              beat the round-robin baseline <strong>35.7% vs 31.9%</strong> success rate.
+              <strong>Research lookup</strong> — the one task type with no standout specialist —
+              stays contested instead of collapsing, which is itself evidence the market tracks
+              real competence rather than noise.
+            </p>
+
+            <div class="tech-stack">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">NumPy</span>
+              <span class="tech-tag">Auction Mechanism Design</span>
+              <span class="tech-tag">Reputation Systems</span>
+              <span class="tech-tag">Multi-Agent Simulation</span>
+            </div>
+
+            <div class="project-actions research-actions">
+              <a href="https://github.com/garvitwork/AGENT_EXCHANGE" class="project-link"
+                target="_blank" rel="noopener noreferrer">GitHub repo <i class="fas fa-arrow-right"></i></a>
+              <a href="research/agent-exchange-downloads/simulate.py" class="project-link" download>
+                Simulation (.py) <i class="fas fa-download"></i></a>
+              <a href="research/agent-exchange-downloads/dashboard_data.json" class="project-link" download>
+                Run data (.json) <i class="fas fa-download"></i></a>
+              <a href="research/agent-exchange-downloads/RESULTS.md" class="project-link" download>
+                Full write-up (.md) <i class="fas fa-download"></i></a>
+            </div>
+          </div>
+
+          <!-- Interactive specialization explorer -->
+          <div class="circuit-widget market-widget" data-market-widget>
+            <div class="circuit-widget-head">
+              <span class="circuit-widget-label">Interactive specialization explorer</span>
+              <div class="circuit-toggle" role="tablist" aria-label="Choose task type">
+                <button type="button" class="circuit-toggle-btn is-active" data-task="code_fix"
+                  role="tab" aria-selected="true">Code fix</button>
+                <button type="button" class="circuit-toggle-btn" data-task="math" role="tab"
+                  aria-selected="false">Math</button>
+                <button type="button" class="circuit-toggle-btn" data-task="summarization"
+                  role="tab" aria-selected="false">Summarization</button>
+                <button type="button" class="circuit-toggle-btn" data-task="research_lookup"
+                  role="tab" aria-selected="false">Research lookup</button>
+              </div>
+            </div>
+
+            <div class="market-legend" data-market-legend aria-hidden="true"></div>
+
+            <div class="market-chart-wrap">
+              <svg viewBox="0 0 320 130" preserveAspectRatio="none" data-market-svg role="img"
+                aria-label="Stacked win share per agent across training windows"></svg>
+            </div>
+
+            <div class="market-controls">
+              <button type="button" class="market-play-btn" data-market-play>
+                <i class="fas fa-play"></i> Play
+              </button>
+              <input type="range" min="0" max="14" value="14" step="1" data-market-scrub
+                aria-label="Training window">
+            </div>
+            <div class="market-scrub-readout mono" data-market-readout></div>
+
+            <div class="circuit-tooltip" data-market-tooltip hidden></div>
+
+            <div class="circuit-stats">
+              <div class="circuit-stat">
+                <span class="circuit-stat-value" data-stat-leader>—</span>
+                <span class="circuit-stat-label">Leading agent, this window</span>
+              </div>
+              <div class="circuit-stat">
+                <span class="circuit-stat-value" data-stat-share>—</span>
+                <span class="circuit-stat-label">Leader's win share</span>
+              </div>
+              <div class="circuit-stat">
+                <span class="circuit-stat-value">+3.8pts</span>
+                <span class="circuit-stat-label">Market vs baseline success</span>
+                <a href="https://garvitwork.github.io/SELF_EXPLAIN_AGENTS/" class="project-link"
+                target="_blank" rel="noopener noreferrer">WIDE USE CASE <i class="fas fa-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+        </article>
+
         <div class="research-more-note reveal">
           <i class="fas fa-flask"></i>
           <p>More research entries land here as they're finished — each one shipped with its own

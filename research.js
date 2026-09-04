@@ -162,9 +162,181 @@ var SUSPECT_HEADS = [[10, 9], [10, 4], [10, 11], [9, 10], [0, 11], [6, 5], [7, 6
     render('patching');
   }
 
+  /* ==================================================================
+     Agent Exchange — specialization-emergence widget.
+     Data below is the actual output of the simulation (5 agents, 1500
+     tasks, seed 42 — see research/agent-exchange-downloads/RESULTS.md).
+     Each window covers 100 tasks; "shares" is each agent's fraction of
+     wins within that window, per task type.
+     ================================================================== */
+  var MARKET_WINDOWS = [
+    {"step":0,"shares":{"code_fix":{"0":0.129,"1":0.226,"2":0.065,"3":0.355,"4":0.226},"math":{"0":0.346,"1":0.346,"2":0.077,"3":0.077,"4":0.154},"research_lookup":{"0":0.409,"1":0.227,"2":0.091,"3":0.182,"4":0.091},"summarization":{"0":0.286,"1":0.19,"2":0.238,"3":0.143,"4":0.143}}},
+    {"step":100,"shares":{"code_fix":{"0":0.12,"1":0.12,"2":0.2,"3":0.36,"4":0.2},"math":{"0":0.071,"1":0.536,"2":0.107,"3":0.071,"4":0.214},"research_lookup":{"0":0.208,"1":0.333,"2":0.083,"3":0.25,"4":0.125},"summarization":{"0":0.043,"1":0.217,"2":0.478,"3":0.087,"4":0.174}}},
+    {"step":200,"shares":{"code_fix":{"0":0.278,"1":0.278,"2":0.222,"3":0.111,"4":0.111},"math":{"0":0.304,"1":0.435,"2":0.13,"3":0.087,"4":0.043},"research_lookup":{"0":0.19,"1":0.476,"2":0.19,"3":0.048,"4":0.095},"summarization":{"0":0.053,"1":0.053,"2":0.737,"3":0.026,"4":0.132}}},
+    {"step":300,"shares":{"code_fix":{"0":0.346,"1":0.077,"2":0.115,"3":0.385,"4":0.077},"math":{"0":0.333,"1":0.167,"2":0.111,"3":0.111,"4":0.278},"research_lookup":{"0":0.423,"1":0.385,"2":0.038,"3":0.077,"4":0.077},"summarization":{"0":0.1,"1":0.267,"2":0.167,"3":0.367,"4":0.1}}},
+    {"step":400,"shares":{"code_fix":{"0":0.833,"1":0.0,"2":0.167,"3":0.0,"4":0.0},"math":{"0":0.042,"1":0.625,"2":0.208,"3":0.042,"4":0.083},"research_lookup":{"0":0.692,"1":0.077,"2":0.077,"3":0.077,"4":0.077},"summarization":{"0":0.0,"1":0.0,"2":0.038,"3":0.0,"4":0.962}}},
+    {"step":500,"shares":{"code_fix":{"0":0.913,"1":0.0,"2":0.0,"3":0.087,"4":0.0},"math":{"0":0.0,"1":0.042,"2":0.167,"3":0.0,"4":0.792},"research_lookup":{"0":0.955,"1":0.0,"2":0.0,"3":0.0,"4":0.045},"summarization":{"0":0.0,"1":0.0,"2":0.065,"3":0.0,"4":0.935}}},
+    {"step":600,"shares":{"code_fix":{"0":0.059,"1":0.059,"2":0.235,"3":0.647,"4":0.0},"math":{"0":0.0,"1":0.351,"2":0.054,"3":0.0,"4":0.595},"research_lookup":{"0":0.957,"1":0.043,"2":0.0,"3":0.0,"4":0.0},"summarization":{"0":0.0,"1":0.609,"2":0.043,"3":0.0,"4":0.348}}},
+    {"step":700,"shares":{"code_fix":{"0":0.333,"1":0.3,"2":0.333,"3":0.0,"4":0.033},"math":{"0":0.087,"1":0.217,"2":0.087,"3":0.087,"4":0.522},"research_lookup":{"0":0.455,"1":0.091,"2":0.091,"3":0.318,"4":0.045},"summarization":{"0":0.08,"1":0.24,"2":0.6,"3":0.04,"4":0.04}}},
+    {"step":800,"shares":{"code_fix":{"0":0.111,"1":0.778,"2":0.074,"3":0.0,"4":0.037},"math":{"0":0.0,"1":0.0,"2":0.0,"3":0.0,"4":1.0},"research_lookup":{"0":0.917,"1":0.0,"2":0.042,"3":0.0,"4":0.042},"summarization":{"0":0.0,"1":0.0,"2":1.0,"3":0.0,"4":0.0}}},
+    {"step":900,"shares":{"code_fix":{"0":0.105,"1":0.368,"2":0.053,"3":0.105,"4":0.368},"math":{"0":0.0,"1":0.0,"2":0.0,"3":0.0,"4":1.0},"research_lookup":{"0":0.44,"1":0.0,"2":0.52,"3":0.04,"4":0.0},"summarization":{"0":0.0,"1":0.0,"2":1.0,"3":0.0,"4":0.0}}},
+    {"step":1000,"shares":{"code_fix":{"0":0.897,"1":0.034,"2":0.034,"3":0.034,"4":0.0},"math":{"0":0.0,"1":0.0,"2":0.0,"3":0.0,"4":1.0},"research_lookup":{"0":0.1,"1":0.0,"2":0.9,"3":0.0,"4":0.0},"summarization":{"0":0.0,"1":0.0,"2":1.0,"3":0.0,"4":0.0}}},
+    {"step":1100,"shares":{"code_fix":{"0":0.5,"1":0.3,"2":0.2,"3":0.0,"4":0.0},"math":{"0":0.0,"1":0.0,"2":0.0,"3":0.0,"4":1.0},"research_lookup":{"0":0.214,"1":0.036,"2":0.643,"3":0.036,"4":0.071},"summarization":{"0":0.0,"1":0.0,"2":1.0,"3":0.0,"4":0.0}}},
+    {"step":1200,"shares":{"code_fix":{"0":1.0,"1":0.0,"2":0.0,"3":0.0,"4":0.0},"math":{"0":0.0,"1":0.0,"2":0.038,"3":0.0,"4":0.962},"research_lookup":{"0":0.0,"1":0.038,"2":0.885,"3":0.038,"4":0.038},"summarization":{"0":0.0,"1":0.0,"2":1.0,"3":0.0,"4":0.0}}},
+    {"step":1300,"shares":{"code_fix":{"0":0.724,"1":0.0,"2":0.034,"3":0.207,"4":0.034},"math":{"0":0.0,"1":0.0,"2":0.0,"3":0.0,"4":1.0},"research_lookup":{"0":0.0,"1":0.0,"2":0.0,"3":1.0,"4":0.0},"summarization":{"0":0.0,"1":0.0,"2":1.0,"3":0.0,"4":0.0}}},
+    {"step":1400,"shares":{"code_fix":{"0":0.0,"1":0.0,"2":0.0,"3":1.0,"4":0.0},"math":{"0":0.0,"1":0.0,"2":0.0,"3":0.0,"4":1.0},"research_lookup":{"0":0.0,"1":0.154,"2":0.0,"3":0.808,"4":0.038},"summarization":{"0":0.0,"1":0.0,"2":1.0,"3":0.0,"4":0.0}}}
+  ];
+
+  var MARKET_TASK_TYPES = ["code_fix", "math", "summarization", "research_lookup"];
+  var MARKET_TASK_LABELS = { code_fix: "Code fix", math: "Math", summarization: "Summarization", research_lookup: "Research lookup" };
+  // reuses the site's own accent palette — no new colors introduced
+  var MARKET_AGENT_COLORS = ["#5b7aff", "#9d8cff", "#ff6b82", "#f7c04a", "#4de8d4"];
+  var MARKET_N_AGENTS = 5;
+
+  function initMarketWidget(widget) {
+    var svg = widget.querySelector('[data-market-svg]');
+    var legend = widget.querySelector('[data-market-legend]');
+    var scrub = widget.querySelector('[data-market-scrub]');
+    var readout = widget.querySelector('[data-market-readout]');
+    var playBtn = widget.querySelector('[data-market-play]');
+    var tooltip = widget.querySelector('[data-market-tooltip]');
+    var toggleBtns = Array.prototype.slice.call(widget.querySelectorAll('.circuit-toggle-btn'));
+    var statLeader = widget.querySelector('[data-stat-leader]');
+    var statShare = widget.querySelector('[data-stat-share]');
+    if (!svg || !scrub) return;
+
+    var currentTask = 'code_fix';
+    var playing = false, playTimer = null;
+
+    // legend, built once
+    legend.innerHTML = '';
+    for (var a = 0; a < MARKET_N_AGENTS; a++) {
+      var item = document.createElement('span');
+      item.className = 'market-legend-item';
+      item.innerHTML = '<span class="market-legend-swatch" style="background:' +
+        MARKET_AGENT_COLORS[a] + '"></span>Agent ' + a;
+      legend.appendChild(item);
+    }
+
+    var W = 320, H = 130, LEFT = 18, BAR_GAP = 1.5;
+
+    function render(upToIdx) {
+      var slice = MARKET_WINDOWS.slice(0, upToIdx + 1);
+      var plotW = W - LEFT;
+      var barW = (plotW / MARKET_WINDOWS.length) - BAR_GAP;
+      var bars = '';
+
+      slice.forEach(function (w, wi) {
+        var shares = w.shares[currentTask];
+        var yOff = 0;
+        var x = LEFT + wi * (plotW / MARKET_WINDOWS.length);
+        for (var a = 0; a < MARKET_N_AGENTS; a++) {
+          var frac = shares[String(a)] || 0;
+          var h = frac * H;
+          var y = H - yOff - h;
+          if (h > 0.4) {
+            bars += '<rect class="market-bar" x="' + x.toFixed(1) + '" y="' + y.toFixed(1) +
+              '" width="' + barW.toFixed(1) + '" height="' + h.toFixed(1) + '" fill="' +
+              MARKET_AGENT_COLORS[a] + '" data-agent="' + a + '" data-window="' + wi +
+              '" data-frac="' + frac.toFixed(3) + '"></rect>';
+          }
+          yOff += h;
+        }
+      });
+
+      var grid = [0, 0.5, 1].map(function (f) {
+        var y = H - f * H;
+        return '<line class="market-gridline" x1="' + LEFT + '" y1="' + y + '" x2="' + W + '" y2="' + y + '"/>' +
+          '<text class="market-axis-label" x="0" y="' + (y + 3) + '">' + Math.round(f * 100) + '%</text>';
+      }).join('');
+
+      svg.innerHTML = grid + bars;
+
+      Array.prototype.slice.call(svg.querySelectorAll('.market-bar')).forEach(function (rect) {
+        rect.addEventListener('mouseenter', function () { showTooltip(this); });
+        rect.addEventListener('focus', function () { showTooltip(this); });
+      });
+
+      // stats for the current (rightmost visible) window
+      var w = MARKET_WINDOWS[upToIdx];
+      var shares = w.shares[currentTask];
+      var bestAgent = 0, bestFrac = -1;
+      for (var a2 = 0; a2 < MARKET_N_AGENTS; a2++) {
+        var f2 = shares[String(a2)] || 0;
+        if (f2 > bestFrac) { bestFrac = f2; bestAgent = a2; }
+      }
+      if (statLeader) statLeader.textContent = 'Agent ' + bestAgent;
+      if (statLeader) statLeader.style.color = MARKET_AGENT_COLORS[bestAgent];
+      if (statShare) statShare.textContent = Math.round(bestFrac * 100) + '%';
+
+      if (readout) {
+        readout.textContent = 'tasks 0–' + (w.step + 100) + ' of 1,500 · ' + MARKET_TASK_LABELS[currentTask];
+      }
+    }
+
+    function showTooltip(rect) {
+      var a = rect.dataset.agent;
+      var wi = parseInt(rect.dataset.window, 10);
+      var frac = parseFloat(rect.dataset.frac);
+      var w = MARKET_WINDOWS[wi];
+      tooltip.hidden = false;
+      tooltip.innerHTML = '<strong style="color:' + MARKET_AGENT_COLORS[a] + '">Agent ' + a +
+        '</strong> — ' + MARKET_TASK_LABELS[currentTask] + ', tasks ' + w.step + '–' + (w.step + 99) +
+        ': won <strong>' + Math.round(frac * 100) + '%</strong>';
+    }
+
+    scrub.addEventListener('input', function (e) {
+      render(parseInt(e.target.value, 10));
+    });
+
+    toggleBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        toggleBtns.forEach(function (b) {
+          b.classList.remove('is-active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        btn.classList.add('is-active');
+        btn.setAttribute('aria-selected', 'true');
+        currentTask = btn.dataset.task;
+        tooltip.hidden = true;
+        render(parseInt(scrub.value, 10));
+      });
+    });
+
+    if (playBtn) {
+      playBtn.addEventListener('click', function () {
+        playing = !playing;
+        playBtn.innerHTML = playing
+          ? '<i class="fas fa-pause"></i> Pause'
+          : '<i class="fas fa-play"></i> Play';
+        if (playing) {
+          if (parseInt(scrub.value, 10) >= MARKET_WINDOWS.length - 1) scrub.value = 0;
+          playTimer = setInterval(function () {
+            var v = parseInt(scrub.value, 10) + 1;
+            if (v > MARKET_WINDOWS.length - 1) {
+              v = MARKET_WINDOWS.length - 1;
+              playing = false;
+              playBtn.innerHTML = '<i class="fas fa-play"></i> Play';
+              clearInterval(playTimer);
+            }
+            scrub.value = v;
+            render(v);
+          }, 450);
+        } else {
+          clearInterval(playTimer);
+        }
+      });
+    }
+
+    render(MARKET_WINDOWS.length - 1);
+  }
+
   function init() {
     var widgets = Array.prototype.slice.call(document.querySelectorAll('[data-circuit-widget]'));
     widgets.forEach(initCircuitWidget);
+
+    var marketWidgets = Array.prototype.slice.call(document.querySelectorAll('[data-market-widget]'));
+    marketWidgets.forEach(initMarketWidget);
 
     var yearEl = document.getElementById('footerYear');
     if (yearEl) yearEl.textContent = new Date().getFullYear();
