@@ -823,16 +823,35 @@ h4 {
 }
 
 .btn-primary {
+  position: relative;
+  overflow: hidden;
   background: var(--gradient);
   background-size: 200% 100%;
   color: #060912;
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.28) inset, 0 10px 28px -10px rgba(157, 140, 255, 0.6);
 }
 
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  transform: skewX(-18deg);
+  transition: left 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
 .btn-primary:hover {
   transform: translateY(-3px);
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.32) inset, var(--shadow-glow);
   background-position: 100% 50%;
+}
+
+.btn-primary:hover::after {
+  left: 130%;
 }
 
 .btn-primary:hover i {
@@ -1299,7 +1318,13 @@ h4 {
   width: 16px;
   height: 1px;
   background: var(--accent);
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.15s;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.reveal.in-view .section-eyebrow::before {
+  transform: scaleX(1);
 }
 
 .section-header {
@@ -2511,6 +2536,62 @@ h4 {
 .reveal.in-view {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Cascading reveal: cards in a grid/list settle in one after another
+   instead of popping in together — pure CSS, no markup changes needed. */
+.projects-list > .reveal:nth-child(1),
+.expertise-grid > .reveal:nth-child(1) { transition-delay: 0.03s; }
+.projects-list > .reveal:nth-child(2),
+.expertise-grid > .reveal:nth-child(2) { transition-delay: 0.09s; }
+.projects-list > .reveal:nth-child(3),
+.expertise-grid > .reveal:nth-child(3) { transition-delay: 0.15s; }
+.projects-list > .reveal:nth-child(4),
+.expertise-grid > .reveal:nth-child(4) { transition-delay: 0.21s; }
+.projects-list > .reveal:nth-child(5),
+.expertise-grid > .reveal:nth-child(5) { transition-delay: 0.27s; }
+.projects-list > .reveal:nth-child(n+6),
+.expertise-grid > .reveal:nth-child(n+6) { transition-delay: 0.33s; }
+
+/* About page: fact rows slide in from the left in sequence once the
+   parent column has entered view. */
+.about-facts .about-fact {
+  opacity: 0;
+  transform: translateX(-14px);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.about-left.in-view .about-facts .about-fact { opacity: 1; transform: translateX(0); }
+.about-facts .about-fact:nth-child(1) { transition-delay: 0.06s; }
+.about-facts .about-fact:nth-child(2) { transition-delay: 0.13s; }
+.about-facts .about-fact:nth-child(3) { transition-delay: 0.2s; }
+.about-facts .about-fact:nth-child(4) { transition-delay: 0.27s; }
+.about-facts .about-fact:nth-child(5) { transition-delay: 0.34s; }
+
+/* ---------------------------------------------------------------------- */
+/* Cursor aura — a small trailing glow that spring-eases toward the       */
+/* pointer, matching the accent tone of whichever branch page it's on.    */
+/* Desktop, fine-pointer only; created and driven entirely from JS.       */
+/* ---------------------------------------------------------------------- */
+.cursor-aura {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--accent-rgb), 0.55), transparent 70%);
+  box-shadow: 0 0 12px rgba(var(--accent-rgb), 0.5);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: normal;
+  transition: opacity 0.3s ease, width 0.2s ease, height 0.2s ease;
+  will-change: transform;
+}
+
+.cursor-aura.is-hover {
+  width: 28px;
+  height: 28px;
 }
 
 /* ---------------------------------------------------------------------- */

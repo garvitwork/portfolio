@@ -25,6 +25,7 @@
     initHeroGlow();
     initHeroDepth();
     initHeroSignal();
+    initCursorAura();
     initBranchPanels();
     initStatCounters();
     initBackToTop();
@@ -488,6 +489,61 @@
       window.requestAnimationFrame(frame);
     }
     window.requestAnimationFrame(frame);
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* Cursor aura: a small glow that spring-eases toward the pointer,    */
+  /* picking up the current section's accent color automatically       */
+  /* (it reads --accent-rgb, which is already scoped per branch).      */
+  /* Desktop / fine-pointer only, and off entirely on reduced motion.  */
+  /* ---------------------------------------------------------------- */
+  function initCursorAura() {
+    if (reduceMotion || window.matchMedia('(pointer: coarse)').matches) return;
+
+    var aura = document.createElement('div');
+    aura.className = 'cursor-aura';
+    aura.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(aura);
+
+    var tx = window.innerWidth / 2;
+    var ty = window.innerHeight / 2;
+    var x = tx;
+    var y = ty;
+    var visible = false;
+
+    window.addEventListener(
+      'mousemove',
+      function (e) {
+        tx = e.clientX;
+        ty = e.clientY;
+        if (!visible) {
+          visible = true;
+          aura.style.opacity = '0.6';
+        }
+      },
+      { passive: true }
+    );
+
+    document.addEventListener('mouseleave', function () {
+      visible = false;
+      aura.style.opacity = '0';
+    });
+
+    var hoverTargets = 'a, button, .btn, [data-magnetic], .fx-card, input, textarea';
+    document.addEventListener('pointerover', function (e) {
+      if (e.target.closest(hoverTargets)) aura.classList.add('is-hover');
+    });
+    document.addEventListener('pointerout', function (e) {
+      if (e.target.closest(hoverTargets)) aura.classList.remove('is-hover');
+    });
+
+    function loop() {
+      x += (tx - x) * 0.16;
+      y += (ty - y) * 0.16;
+      aura.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0) translate(-50%,-50%)';
+      window.requestAnimationFrame(loop);
+    }
+    window.requestAnimationFrame(loop);
   }
 
   /* ---------------------------------------------------------------- */
