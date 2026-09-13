@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#060912">
+  <title>Blog — Garvit Gupta</title>
+  <meta name="description"
+    content="Short write-ups and notes from Garvit Gupta on ML, MLOps, and data science, with reader likes and comments.">
+  <meta name="author" content="Garvit Gupta">
+  <meta name="robots" content="index, follow">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Blog — Garvit Gupta">
+  <meta property="og:description" content="Notes and write-ups on ML, MLOps, and data science.">
+  <meta property="og:site_name" content="Garvit Gupta">
+
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data:; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@100;200;300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
+
+  <link rel="stylesheet" href="style.css?v=9">
+  <link rel="stylesheet" href="blog.css?v=1">
+</head>
+
+<body>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+  <a class="skip-link" href="#blog-main">Skip to content</a>
+
+  <!-- ==================== NAVIGATION ==================== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html#home" class="logo">Garvit<span class="dot"></span></a>
+
+      <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div class="nav-links-wrap">
+        <span class="nav-indicator" id="navIndicator" aria-hidden="true"></span>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html#home" class="nav-link">Home</a></li>
+          <li><a href="projects.html" class="nav-link">AI / ML Work</a></li>
+          <li><a href="ai-agents.html" class="nav-link">AI Agents &amp; RAG</a></li>
+          <li><a href="data-bi.html" class="nav-link">Data &amp; BI</a></li>
+          <li><a href="research.html" class="nav-link">Research</a></li>
+          <li><a href="blog.html" class="nav-link active">Blog</a></li>
+          <li><a href="expertise.html" class="nav-link">Expertise</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+          <li><a href="contact.html" class="nav-cta" data-magnetic>Hire me <i class="fas fa-arrow-right"></i></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main id="blog-main">
+
+    <!-- ==================== BLOG HEADER ==================== -->
+    <section id="blog-header" class="blog-header">
+      <div class="container">
+        <div class="section-eyebrow">Blog</div>
+        <h1 class="blog-title">Notes from the lab.</h1>
+        <p class="blog-lede">
+          Short write-ups and things I learn while building. Posted manually, read and discussed
+          by anyone who stops by.
+        </p>
+      </div>
+    </section>
+
+    <!-- ==================== COMPOSER ==================== -->
+    <section id="blog-composer-section" class="blog-composer-section">
+      <div class="container">
+        <form id="blogComposer" class="blog-composer">
+          <input type="text" id="blogTitleInput" placeholder="Post title" maxlength="120" required>
+          <div class="blog-composer-row">
+            <input type="text" id="blogTagInput" placeholder="Tag (optional, e.g. MLOps)" maxlength="40">
+          </div>
+          <textarea id="blogBodyInput" placeholder="Write your post…" rows="5" maxlength="4000" required></textarea>
+          <button type="submit" class="btn btn-primary"><span>Post</span> <i class="fas fa-paper-plane"></i></button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ==================== POSTS ==================== -->
+    <section id="blog-list" class="blog-list">
+      <div class="container">
+        <div class="blog-note">
+          <i class="fas fa-circle-info"></i>
+          <p>Posts, likes, and comments are saved in this browser (no backend on a static site
+            yet) — they'll show up here again on your next visit, but won't sync to other
+            devices or visitors until a backend is added.</p>
+        </div>
+
+        <div id="blogPosts" class="blog-posts"></div>
+        <p id="blogEmptyState" class="blog-empty">No posts yet — write the first one above.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <a href="index.html#home" class="logo">Garvit<span class="dot"></span></a>
+      <p>&copy; <span id="footerYear"></span> Garvit Gupta. Built from scratch, no template.</p>
+    </div>
+  </footer>
+
+  <button type="button" class="back-to-top" id="backToTop" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <script src="script.js?v=8"></script>
+  <script src="blog.js?v=2"></script>
+</body>
+
+</html>

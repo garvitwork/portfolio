@@ -338,8 +338,6 @@ var SUSPECT_HEADS = [[10, 9], [10, 4], [10, 11], [9, 10], [0, 11], [6, 5], [7, 6
     var marketWidgets = Array.prototype.slice.call(document.querySelectorAll('[data-market-widget]'));
     marketWidgets.forEach(initMarketWidget);
 
-    var yearEl = document.getElementById('footerYear');
-    if (yearEl) yearEl.textContent = new Date().getFullYear();
   }
 
   if (document.readyState === 'loading') {

@@ -2,9 +2,6 @@ document.addEventListener('DOMContentLoaded', function () {
   var POSTS_KEY = 'gg_blog_posts_v1';
   var LIKED_KEY = 'gg_blog_liked_v1';
 
-  var yearEl = document.getElementById('footerYear');
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
-
   var postsEl = document.getElementById('blogPosts');
   var emptyEl = document.getElementById('blogEmptyState');
   var composer = document.getElementById('blogComposer');
@@ -63,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function renderPost(post) {
     var article = document.createElement('article');
-    article.className = 'blog-post reveal is-visible';
+    article.className = 'blog-post reveal in-view';
     article.dataset.postId = post.id;
 
     var liked = !!likedMap[post.id];

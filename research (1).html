@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#060912">
+  <title>Research — Garvit Gupta</title>
+  <meta name="description"
+    content="Deep-dive research and reverse-engineering projects by Garvit Gupta — mechanistic interpretability, novel evaluations, and from-scratch investigations, with full code and data shared.">
+  <meta name="author" content="Garvit Gupta">
+  <meta name="robots" content="index, follow">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Research — Garvit Gupta">
+  <meta property="og:description"
+    content="Mechanistic interpretability and reverse-engineering research, with full code, data and write-ups shared.">
+  <meta property="og:site_name" content="Garvit Gupta">
+
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data:; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@100;200;300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
+
+  <link rel="stylesheet" href="style.css?v=9">
+  <link rel="stylesheet" href="research.css?v=1">
+</head>
+
+<body>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+  <a class="skip-link" href="#research-main">Skip to content</a>
+
+  <!-- ==================== NAVIGATION ==================== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html#home" class="logo">Garvit<span class="dot"></span></a>
+
+      <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div class="nav-links-wrap">
+        <span class="nav-indicator" id="navIndicator" aria-hidden="true"></span>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html#home" class="nav-link">Home</a></li>
+          <li><a href="projects.html" class="nav-link">AI / ML Work</a></li>
+          <li><a href="ai-agents.html" class="nav-link">AI Agents &amp; RAG</a></li>
+          <li><a href="data-bi.html" class="nav-link">Data &amp; BI</a></li>
+          <li><a href="research.html" class="nav-link active">Research</a></li>
+          <li><a href="blog.html" class="nav-link">Blog</a></li>
+          <li><a href="expertise.html" class="nav-link">Expertise</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+          <li><a href="contact.html" class="nav-cta" data-magnetic>Hire me <i class="fas fa-arrow-right"></i></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main id="research-main">
+
+    <!-- ==================== RESEARCH HEADER ==================== -->
+    <section id="research-header" class="research-header">
+      <div class="container">
+        <div class="section-eyebrow">Research</div>
+        <h1 class="research-title">Reverse-engineering, not just building.</h1>
+        <p class="research-lede">
+          This page holds work where the point isn't shipping a feature — it's understanding a
+          mechanism. Each entry ships with the full dataset, code, and an honest account of what
+          the results do and don't show.
+        </p>
+      </div>
+    </section>
+
+    <!-- ==================== RESEARCH ENTRIES ==================== -->
+    <section id="research-list" class="research-list">
+      <div class="container">
+
+        <!-- Entry 1 — Negation Circuit -->
+        <article class="research-entry reveal" id="research-negation-circuit">
+          <div class="research-entry-main">
+            <div class="research-entry-top">
+              <span class="project-category">Mechanistic Interpretability · GPT-2 small</span>
+            </div>
+            <h2 class="research-entry-title">The Negation Circuit in GPT-2 Small</h2>
+            <p class="research-entry-teaser">
+              GPT-2 flips its sentiment prediction under negation — "the film was really
+              <em>good</em>" becomes "did not think the film was really <em>bad</em>". Which
+              internal components cause that flip, and is it one head or a distributed circuit?
+            </p>
+
+            <div class="research-question">
+              <span class="research-question-label">Question</span>
+              <p>Which attention heads and MLP layers causally mediate negation's effect on
+                sentiment prediction — and does the effect localize to one component, or spread
+                across several?</p>
+            </div>
+
+            <h3 class="research-subhead">Method</h3>
+            <ol class="research-method-list">
+              <li><strong>Minimal-pair dataset</strong> — 960 templated prompts, each ending right
+                before a single-token adjective, so the model's prediction can be read as one clean
+                number: <code>logit_diff = logit(positive_adj) − logit(negative_adj)</code>.</li>
+              <li><strong>Activation patching</strong> — patch each of the 144 attention heads and
+                12 MLP layers from a clean (affirmative) run into a corrupted (negated) run, and
+                measure how much of the effect each one recovers.</li>
+              <li><strong>Direct logit attribution</strong> — an independent, non-patching method:
+                decompose the final prediction additively across every head via the residual
+                stream, to cross-check the first method.</li>
+              <li><strong>Ablation</strong> — zero out the implicated heads and confirm the effect
+                actually breaks, moving from correlation to causation.</li>
+            </ol>
+
+            <h3 class="research-subhead">Findings</h3>
+            <p>
+              <strong>L10H9</strong> is the strongest signal in <em>both</em> independent methods —
+              highest recovery under patching, and the single largest-magnitude score under direct
+              logit attribution. But ablating it alone barely moves the behavior. Ablating the top
+              10 implicated heads together removes 37% of the effect. The circuit is
+              <strong>distributed and redundant</strong>, not localized to one head — the same
+              "backup head" pattern documented in GPT-2's IOI circuit (Wang et al., 2022), here
+              reproduced independently for a different behavior.
+            </p>
+
+            <div class="tech-stack">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">PyTorch</span>
+              <span class="tech-tag">TransformerLens</span>
+              <span class="tech-tag">Activation Patching</span>
+              <span class="tech-tag">Direct Logit Attribution</span>
+              <span class="tech-tag">GPT-2 small</span>
+            </div>
+
+            <div class="project-actions research-actions">
+              <a href="https://github.com/garvitwork/REVERSE_ENGINEERING_GPT2" class="project-link"
+                target="_blank" rel="noopener noreferrer">GitHub repo <i class="fas fa-arrow-right"></i></a>
+              <a href="research/negation-circuit-downloads/negation_circuit.ipynb" class="project-link" download>
+                Notebook (.ipynb) <i class="fas fa-download"></i></a>
+              <a href="research/negation-circuit-downloads/train.jsonl" class="project-link" download>
+                Train set (.jsonl) <i class="fas fa-download"></i></a>
+              <a href="research/negation-circuit-downloads/test.jsonl" class="project-link" download>
+                Test set (.jsonl) <i class="fas fa-download"></i></a>
+              <a href="research/negation-circuit-downloads/RESULTS.md" class="project-link" download>
+                Full write-up (.md) <i class="fas fa-download"></i></a>
+            </div>
+          </div>
+
+          <!-- Interactive circuit explorer -->
+          <div class="circuit-widget" data-circuit-widget>
+            <div class="circuit-widget-head">
+              <span class="circuit-widget-label">Interactive circuit explorer</span>
+              <div class="circuit-toggle" role="tablist" aria-label="Choose visualization">
+                <button type="button" class="circuit-toggle-btn is-active" data-metric="patching"
+                  role="tab" aria-selected="true">Activation patching</button>
+                <button type="button" class="circuit-toggle-btn" data-metric="dla" role="tab"
+                  aria-selected="false">Direct logit attribution</button>
+              </div>
+            </div>
+
+            <div class="circuit-grid-wrap">
+              <div class="circuit-grid-labels-y" aria-hidden="true"></div>
+              <div class="circuit-grid" data-circuit-grid role="img"
+                aria-label="Heatmap of 12 layers by 12 heads showing each head's causal effect on the negation behavior">
+              </div>
+            </div>
+            <div class="circuit-grid-labels-x" aria-hidden="true">Head 0 → 11 (Layer 0 top → Layer 11 bottom)</div>
+
+            <div class="circuit-tooltip" data-circuit-tooltip hidden></div>
+
+            <div class="circuit-stats">
+              <div class="circuit-stat">
+                <span class="circuit-stat-value">L10H9</span>
+                <span class="circuit-stat-label">Top head, both methods</span>
+              </div>
+              <div class="circuit-stat">
+                <span class="circuit-stat-value">0.551</span>
+                <span class="circuit-stat-label">Patching recovery</span>
+              </div>
+              <div class="circuit-stat">
+                <span class="circuit-stat-value">37%</span>
+                <span class="circuit-stat-label">Effect removed, top-10 ablation</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Entry 2 — The Agent Exchange -->
+        <article class="research-entry reveal" id="research-agent-exchange">
+          <div class="research-entry-main">
+            <div class="research-entry-top">
+              <span class="project-category">Agentic AI · Multi-Agent Market Simulation</span>
+            </div>
+            <h2 class="research-entry-title">The Agent Exchange: Specialization Without Assignment</h2>
+            <p class="research-entry-teaser">
+              Five identical agents, each with a hidden skill profile <em>they don't know
+              themselves</em>, bid for incoming work in an auction. No agent is ever told what
+              it's good at. Does the market alone route each task to the agent that's actually
+              best at it?
+            </p>
+
+            <div class="research-question">
+              <span class="research-question-label">Question</span>
+              <p>Can a cost-weighted-by-reputation auction produce emergent task specialization
+                from outcome feedback alone — and does it beat naive static routing?</p>
+            </div>
+
+            <h3 class="research-subhead">Method</h3>
+            <ol class="research-method-list">
+              <li><strong>Hidden-skill agents</strong> — 5 agents, each with a randomly generated,
+                undisclosed competence vector across 4 task types (code fix, summarization, math,
+                research lookup). The market never sees this vector.</li>
+              <li><strong>Cost-weighted auction</strong> — each agent bids a self-estimated price
+                derived from its <em>own</em> reputation, not its true skill; the winner is chosen
+                by price divided by reputation, so an unproven agent must underbid to earn a
+                chance to build trust.</li>
+              <li><strong>Asymmetric reputation update</strong> — an Elo-style rule where failures
+                move reputation down faster than successes move it up, so the market can't be
+                fooled by a lucky streak.</li>
+              <li><strong>Static baseline</strong> — the identical agents and task stream, routed
+                by round-robin instead of the auction, to isolate what the market mechanism itself
+                contributes.</li>
+            </ol>
+
+            <h3 class="research-subhead">Findings</h3>
+            <p>
+              By the final 100-task window, the true specialist in each domain wins effectively
+              all of it — <strong>code_fix</strong>, <strong>math</strong> and
+              <strong>summarization</strong> each collapse to a single winning agent, purely from
+              bidding and reputation feedback, with no agent ever told its own skill. The market
+              beat the round-robin baseline <strong>35.7% vs 31.9%</strong> success rate.
+              <strong>Research lookup</strong> — the one task type with no standout specialist —
+              stays contested instead of collapsing, which is itself evidence the market tracks
+              real competence rather than noise.
+            </p>
+
+            <div class="tech-stack">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">NumPy</span>
+              <span class="tech-tag">Auction Mechanism Design</span>
+              <span class="tech-tag">Reputation Systems</span>
+              <span class="tech-tag">Multi-Agent Simulation</span>
+            </div>
+
+            <div class="project-actions research-actions">
+              <a href="https://github.com/garvitwork/AGENT_EXCHANGE" class="project-link"
+                target="_blank" rel="noopener noreferrer">GitHub repo <i class="fas fa-arrow-right"></i></a>
+              <a href="research/agent-exchange-downloads/simulate.py" class="project-link" download>
+                Simulation (.py) <i class="fas fa-download"></i></a>
+              <a href="research/agent-exchange-downloads/dashboard_data.json" class="project-link" download>
+                Run data (.json) <i class="fas fa-download"></i></a>
+              <a href="research/agent-exchange-downloads/RESULTS.md" class="project-link" download>
+                Full write-up (.md) <i class="fas fa-download"></i></a>
+            </div>
+          </div>
+
+          <!-- Interactive specialization explorer -->
+          <div class="circuit-widget market-widget" data-market-widget>
+            <div class="circuit-widget-head">
+              <span class="circuit-widget-label">Interactive specialization explorer</span>
+              <div class="circuit-toggle" role="tablist" aria-label="Choose task type">
+                <button type="button" class="circuit-toggle-btn is-active" data-task="code_fix"
+                  role="tab" aria-selected="true">Code fix</button>
+                <button type="button" class="circuit-toggle-btn" data-task="math" role="tab"
+                  aria-selected="false">Math</button>
+                <button type="button" class="circuit-toggle-btn" data-task="summarization"
+                  role="tab" aria-selected="false">Summarization</button>
+                <button type="button" class="circuit-toggle-btn" data-task="research_lookup"
+                  role="tab" aria-selected="false">Research lookup</button>
+              </div>
+            </div>
+
+            <div class="market-legend" data-market-legend aria-hidden="true"></div>
+
+            <div class="market-chart-wrap">
+              <svg viewBox="0 0 320 130" preserveAspectRatio="none" data-market-svg role="img"
+                aria-label="Stacked win share per agent across training windows"></svg>
+            </div>
+
+            <div class="market-controls">
+              <button type="button" class="market-play-btn" data-market-play>
+                <i class="fas fa-play"></i> Play
+              </button>
+              <input type="range" min="0" max="14" value="14" step="1" data-market-scrub
+                aria-label="Training window">
+            </div>
+            <div class="market-scrub-readout mono" data-market-readout></div>
+
+            <div class="circuit-tooltip" data-market-tooltip hidden></div>
+
+            <div class="circuit-stats">
+              <div class="circuit-stat">
+                <span class="circuit-stat-value" data-stat-leader>—</span>
+                <span class="circuit-stat-label">Leading agent, this window</span>
+              </div>
+              <div class="circuit-stat">
+                <span class="circuit-stat-value" data-stat-share>—</span>
+                <span class="circuit-stat-label">Leader's win share</span>
+              </div>
+              <div class="circuit-stat">
+                <span class="circuit-stat-value">+3.8pts</span>
+                <span class="circuit-stat-label">Market vs baseline success</span>
+                <a href="https://garvitwork.github.io/SELF_EXPLAIN_AGENTS/" class="project-link"
+                target="_blank" rel="noopener noreferrer">WIDE USE CASE <i class="fas fa-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <div class="research-more-note reveal">
+          <i class="fas fa-flask"></i>
+          <p>More research entries land here as they're finished — each one shipped with its own
+            dataset, notebook, and write-up, same as this one.</p>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <a href="index.html#home" class="logo">Garvit<span class="dot"></span></a>
+      <p>&copy; <span id="footerYear"></span> Garvit Gupta. Built from scratch, no template.</p>
+    </div>
+  </footer>
+
+  <button type="button" class="back-to-top" id="backToTop" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <script src="script.js?v=8"></script>
+  <script src="research.js?v=2"></script>
+</body>
+
+</html>

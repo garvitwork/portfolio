@@ -31,6 +31,7 @@
     initMobileFabCta();
     initTouchCardGlow();
     hardenExternalLinks();
+    initFooterYear();
   });
 
   /* ---------------------------------------------------------------- */
@@ -710,5 +711,13 @@
       });
       link.setAttribute('rel', rel.join(' '));
     });
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* Footer copyright year                                              */
+  /* ---------------------------------------------------------------- */
+  function initFooterYear() {
+    var yearEl = document.getElementById('footerYear');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
   }
 })();
