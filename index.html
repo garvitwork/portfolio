@@ -15,7 +15,7 @@
   <meta property="og:description" content="Garvit Gupta is a Data Science and Machine Learning researcher specializing in MLOps, model explainability, AI fairness, and production ML systems. 10+ deployed projects, 2+ years of research experience.">
   <meta property="og:site_name" content="Garvit Gupta">
 
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https://www.google-analytics.com; media-src 'self'; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https://www.google-analytics.com; media-src 'self'; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://formspree.io; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-N338FSJ1CG"></script>
@@ -115,8 +115,8 @@
               <a href="projects.html" class="btn btn-primary" data-magnetic><span>View Projects</span> <i
                   class="fas fa-arrow-right"></i></a>
               <a href="contact.html" class="btn btn-secondary" data-magnetic><span>Get in Touch</span></a>
-              <a href="GARVIT_GUPTA_RESUME.pdf" class="btn btn-secondary" data-magnetic download><span>Download Resume</span> <i
-                  class="fas fa-arrow-down"></i></a>
+              <button type="button" class="btn btn-secondary" data-magnetic id="resumeGateBtn"><span>Download Resume</span> <i
+                  class="fas fa-arrow-down"></i></button>
             </div>
 
             <div class="hero-divider hero-rise" style="--rise-delay:0.44s">
@@ -316,6 +316,22 @@
   <button type="button" class="back-to-top" id="backToTop" aria-label="Back to top">
     <i class="fas fa-arrow-up"></i>
   </button>
+
+  <div class="resume-gate" id="resumeGate" aria-hidden="true">
+    <div class="resume-gate-backdrop" data-gate-close></div>
+    <div class="resume-gate-panel" role="dialog" aria-modal="true" aria-labelledby="resumeGateTitle">
+      <button type="button" class="resume-gate-close" data-gate-close aria-label="Close">&times;</button>
+      <h3 id="resumeGateTitle">Get my resume</h3>
+      <p>Quick intro before you download — takes 5 seconds.</p>
+      <form id="resumeGateForm">
+        <input type="text" name="name" placeholder="Your name" required>
+        <input type="email" name="email" placeholder="Your email" required>
+        <button type="submit" class="btn btn-primary" id="resumeGateSubmit"><span>Get Resume</span> <i
+            class="fas fa-arrow-down"></i></button>
+        <p class="resume-gate-status" id="resumeGateStatus" role="status"></p>
+      </form>
+    </div>
+  </div>
 
   <a href="contact.html" class="mobile-fab-cta" id="mobileFabCta" data-magnetic>
     <span>Hire me</span> <i class="fas fa-arrow-right"></i>

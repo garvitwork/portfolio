@@ -22,6 +22,7 @@
     initExpandableCards();
     initCoverCards();
     initMagneticButtons();
+    initResumeGate();
     initHeroGlow();
     initHeroDepth();
     initHeroSignal();
@@ -370,6 +371,83 @@
         panel.style.removeProperty('--mx');
         panel.style.removeProperty('--my');
       });
+    });
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* Resume gate: collects name + email via Formspree before releasing  */
+  /* the actual resume download.                                        */
+  /* ---------------------------------------------------------------- */
+  function initResumeGate() {
+    var trigger = document.getElementById('resumeGateBtn');
+    var gate = document.getElementById('resumeGate');
+    if (!trigger || !gate) return;
+
+    var form = document.getElementById('resumeGateForm');
+    var submitBtn = document.getElementById('resumeGateSubmit');
+    var status = document.getElementById('resumeGateStatus');
+    var RESUME_URL = 'GARVIT_GUPTA_RESUME.pdf';
+    var FORM_ENDPOINT = 'https://formspree.io/f/mvkglbww';
+
+    function open() {
+      gate.classList.add('is-open');
+      gate.setAttribute('aria-hidden', 'false');
+      var firstInput = form.querySelector('input');
+      if (firstInput) firstInput.focus();
+    }
+
+    function close() {
+      gate.classList.remove('is-open');
+      gate.setAttribute('aria-hidden', 'true');
+    }
+
+    function downloadResume() {
+      var a = document.createElement('a');
+      a.href = RESUME_URL;
+      a.download = '';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    }
+
+    trigger.addEventListener('click', open);
+    gate.querySelectorAll('[data-gate-close]').forEach(function (el) {
+      el.addEventListener('click', close);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && gate.classList.contains('is-open')) close();
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      status.textContent = '';
+      status.className = 'resume-gate-status';
+      submitBtn.disabled = true;
+
+      fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(form)
+      })
+        .then(function (res) {
+          if (res.ok) {
+            status.textContent = 'Thanks! Downloading…';
+            status.className = 'resume-gate-status is-success';
+            downloadResume();
+            setTimeout(close, 1200);
+            form.reset();
+          } else {
+            status.textContent = 'Something went wrong — try again.';
+            status.className = 'resume-gate-status is-error';
+          }
+        })
+        .catch(function () {
+          status.textContent = 'Network error — try again.';
+          status.className = 'resume-gate-status is-error';
+        })
+        .finally(function () {
+          submitBtn.disabled = false;
+        });
     });
   }
 
