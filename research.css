@@ -449,3 +449,97 @@
     transition: none;
   }
 }
+
+/* ---- Mobile overflow fixes ----
+   Causes: (1) grid column "1fr" = minmax(auto,1fr), so wide children (tags,
+   12-col heatmap, nowrap tabs) stretched the page sideways; (2) heatmap cells
+   are <button>s that kept the browser's default border/padding; (3) tab
+   pills couldn't wrap. */
+.research-entry-main,
+.circuit-widget {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.circuit-grid {
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-rows: repeat(12, minmax(0, 1fr));
+  min-width: 0;
+}
+
+.circuit-cell {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+  min-height: 0;
+  border-radius: 2px;
+}
+
+.circuit-grid-wrap {
+  min-width: 0;
+}
+
+@media (max-width: 900px) {
+  .research-entry {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .research-entry {
+    padding: 18px;
+    gap: 24px;
+  }
+
+  .research-title {
+    max-width: none;
+  }
+
+  .research-question {
+    padding: 14px;
+  }
+
+  .circuit-widget {
+    padding: 14px;
+  }
+
+  .circuit-toggle {
+    flex-wrap: wrap;
+    border-radius: 16px;
+  }
+
+  .circuit-toggle-btn {
+    flex: 1 1 calc(50% - 6px);
+    min-height: 40px;
+    padding: 8px 10px;
+    white-space: normal;
+    line-height: 1.25;
+  }
+
+  .circuit-cell:hover {
+    transform: none;
+  }
+
+  .circuit-stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .market-controls {
+    gap: 10px;
+  }
+
+  .research-more-note {
+    padding: 16px;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 380px) {
+  .circuit-stats {
+    grid-template-columns: 1fr;
+  }
+}

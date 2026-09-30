@@ -91,23 +91,43 @@
   function initMobileMenu() {
     var hamburger = document.getElementById('navHamburger');
     var navLinks = document.getElementById('navLinks');
+    var navbar = document.getElementById('navbar');
     if (!hamburger || !navLinks) return;
 
+    hamburger.setAttribute('aria-controls', 'navLinks');
+
+    function setOpen(open) {
+      navLinks.classList.toggle('open', open);
+      hamburger.classList.toggle('open', open);
+      if (navbar) navbar.classList.toggle('menu-open', open);
+      document.body.classList.toggle('menu-open', open);
+      hamburger.setAttribute('aria-expanded', String(open));
+      hamburger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+
     hamburger.addEventListener('click', function () {
-      var isOpen = navLinks.classList.toggle('open');
-      hamburger.classList.toggle('open', isOpen);
-      hamburger.setAttribute('aria-expanded', String(isOpen));
-      document.body.style.overflow = isOpen ? 'hidden' : '';
+      setOpen(!navLinks.classList.contains('open'));
     });
 
-    navLinks.querySelectorAll('.nav-link').forEach(function (link) {
-      link.addEventListener('click', function () {
-        navLinks.classList.remove('open');
-        hamburger.classList.remove('open');
-        hamburger.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
-      });
+    // Any link inside the menu (incl. the "Hire me" CTA) closes it.
+    navLinks.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () { setOpen(false); });
     });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && navLinks.classList.contains('open')) {
+        setOpen(false);
+        hamburger.focus();
+      }
+    });
+
+    // Resizing to desktop must never leave the page scroll-locked.
+    window.addEventListener('resize', function () {
+      if (window.innerWidth > 860) setOpen(false);
+    });
+    // Back button (bfcache) always starts with a closed menu.
+    window.addEventListener('pageshow', function () { setOpen(false); });
   }
 
   /* ---------------------------------------------------------------- */
@@ -689,6 +709,9 @@
           hamburger.setAttribute('aria-expanded', 'false');
         }
         document.body.style.overflow = '';
+        document.body.classList.remove('menu-open');
+        var nb = document.getElementById('navbar');
+        if (nb) nb.classList.remove('menu-open');
       }
     });
   }
